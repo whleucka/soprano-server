@@ -694,12 +694,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/libra-php/constellation.git",
-                "reference": "ad5a8c84a192e112efb8269c1955308909ab1942"
+                "reference": "263ed20daecf9154656aed9056620fea0823e2fb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/libra-php/constellation/zipball/ad5a8c84a192e112efb8269c1955308909ab1942",
-                "reference": "ad5a8c84a192e112efb8269c1955308909ab1942",
+                "url": "https://api.github.com/repos/libra-php/constellation/zipball/263ed20daecf9154656aed9056620fea0823e2fb",
+                "reference": "263ed20daecf9154656aed9056620fea0823e2fb",
                 "shasum": ""
             },
             "require": {
@@ -736,7 +736,7 @@
                 "source": "https://github.com/libra-php/constellation/tree/main",
                 "issues": "https://github.com/libra-php/constellation/issues"
             },
-            "time": "2022-06-16T13:25:04+00:00"
+            "time": "2022-06-16T20:09:30+00:00"
         },
         {
             "name": "php-di/invoker",
