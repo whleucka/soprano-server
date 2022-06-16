@@ -1,0 +1,24 @@
+{
+    "name": "libra-php/celestial",
+    "description": "A PHP framework",
+    "type": "project",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Celestial\\": "src/Celestial"
+        }
+    },
+    "authors": [
+        {
+            "name": "William Hleucka",
+            "email": "william.hleucka@gmail.com"
+        }
+    ],
+    "require": {
+        "libra-php/constellation": "dev-main"
+    },
+    "repositories": [{
+        "type": "vcs",
+        "url": "https://github.com/libra-php/constellation.git"
+    }]
+}
