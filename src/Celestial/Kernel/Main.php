@@ -25,26 +25,32 @@ class Main
     public function __construct()
     {
         $this->configureContainer()
-        ->initRouter()
-        ->initRoute()
-        ->initController()
-        ->getResponse();
+            ->initRouter()
+            ->initRoute()
+            ->initController()
+            ->getResponse();
     }
 
     private function configureContainer()
     {
-        $this->container = Container::getInstance()->build();
+        $definitions = Application::$container["definitions"];
+        $this->container = Container::getInstance()
+            ->setDefinitions($definitions)
+            ->build();
         return $this;
     }
 
     private function initRouter()
     {
         $router_config = Application::$router;
-        $this->router = new Router($router_config, new Request(
-            $_SERVER["REQUEST_URI"],
-            $_SERVER["REQUEST_METHOD"],
-            $_REQUEST
-        ));
+        $this->router = new Router(
+            $router_config,
+            new Request(
+                $_SERVER["REQUEST_URI"],
+                $_SERVER["REQUEST_METHOD"],
+                $_REQUEST
+            )
+        );
         return $this;
     }
 
@@ -56,14 +62,14 @@ class Main
             $this->route = $route;
         } else {
             $this->router->pageNotFound();
-       }
+        }
         return $this;
     }
 
     private function initController()
     {
-        $class_name = $this->route?->getClassName(); 
-        $this->controller = new $class_name();
+        $class_name = $this->route?->getClassName();
+        $this->controller = $this->container->get($class_name);
         return $this;
     }
 

@@ -7,13 +7,13 @@ use Constellation\Routing\Get;
 
 class HomeController extends BaseController
 {
-    #[Get("/", "home.index")] 
+    #[Get("/", "home.index")]
     public function index()
     {
         echo "Index";
     }
 
-    #[Get("/home", "home.index", ["auth"])] 
+    #[Get("/home", "home.index", ["auth"])]
     public function home()
     {
         echo "Home";
