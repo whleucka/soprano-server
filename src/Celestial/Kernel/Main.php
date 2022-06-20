@@ -14,7 +14,7 @@ use Constellation\Controller\Controller;
  * Responsibilities:
  *   - Initialize router
  *   - Match route to URI pattern
- *   - Evoke controller and call endpoint
+ *   - Invoke controller and call endpoint
  */
 class Main
 {
