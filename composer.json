@@ -16,8 +16,7 @@
         }
     ],
     "require": {
-        "libra-php/constellation": "dev-main",
-        "twig/twig": "^3.0"
+        "libra-php/constellation": "dev-main"
     },
     "repositories": [{
         "type": "path",

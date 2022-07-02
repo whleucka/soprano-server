@@ -2,20 +2,24 @@
 
 namespace Celestial\Kernel;
 
+use Dotenv\Dotenv;
 use Celestial\Config\Application;
 use Constellation\Container\Container;
-use Constellation\Http\Request;
 use Constellation\Routing\Route;
 use Constellation\Routing\Router;
 use Constellation\Controller\Controller;
+use Constellation\Database\DB;
 use Constellation\Http\{ApiResponse, WebResponse, IResponse as Response};
 
 /**
  * @class Main
  * Responsibilities:
+ *   - Read environment variables
+ *   - Establish DB connection
  *   - Initialize router
  *   - Match route to URI pattern
  *   - Invoke controller and call endpoint
+ *   - Server response
  */
 class Main
 {
@@ -27,6 +31,8 @@ class Main
     public function __construct()
     {
         $this->configureContainer()
+            ->initEnvironment()
+            ->initDatabase()
             ->initRouter()
             ->initRoute()
             ->initController()
@@ -34,7 +40,7 @@ class Main
             ->execute();
     }
 
-    private function configureContainer()
+    private function configureContainer(): Main
     {
         $this->container = Container::getInstance()
             ->setDefinitions(__DIR__ . "/config.php")
@@ -42,21 +48,27 @@ class Main
         return $this;
     }
 
-    private function initRouter()
+    private function initEnvironment(): Main
     {
-        $router_config = Application::$router;
-        $this->router = new Router(
-            $router_config,
-            new Request(
-                $_SERVER["REQUEST_URI"],
-                $_SERVER["REQUEST_METHOD"],
-                $_REQUEST
-            )
-        );
+        $environment_path = Application::$environment["environment_path"];
+        $dotenv = Dotenv::createImmutable($environment_path);
+        $dotenv->load();
         return $this;
     }
 
-    private function initRoute()
+    private function initDatabase(): Main
+    {
+        $this->database = $this->container->get(DB::class);
+        return $this;
+    }
+
+    private function initRouter(): Main
+    {
+        $this->router = $this->container->get(Router::class);
+        return $this;
+    }
+
+    private function initRoute(): Main
     {
         $this->router->registerRoutes();
         $route = $this->router->matchRoute()->getRoute();
@@ -68,14 +80,14 @@ class Main
         return $this;
     }
 
-    private function initController()
+    private function initController(): Main
     {
         $class_name = $this->route?->getClassName();
         $this->controller = $this->container->get($class_name);
         return $this;
     }
 
-    private function initResponse()
+    private function initResponse(): Main
     {
         $endpoint = $this->route?->getEndpoint();
         $params = $this->route?->getParams();
@@ -88,7 +100,7 @@ class Main
         return $this;
     }
 
-    public function execute()
+    public function execute(): void
     {
         $this->response->execute();
     }

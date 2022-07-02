@@ -4,6 +4,9 @@ namespace Celestial\Config;
 
 class Application
 {
+    public static $environment = [
+        "environment_path" => __DIR__ . "/../../../",
+    ];
     public static $router = [
         "controller_path" => __DIR__ . "/../../../src/Celestial/Controllers",
     ];

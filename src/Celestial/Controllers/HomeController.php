@@ -22,4 +22,10 @@ class HomeController extends BaseController
             "greeting" => "Welcome home!",
         ]);
     }
+
+    #[Get("/api/v1/answer", "home.home", ["api"])]
+    public function answer()
+    {
+        return [42];
+    }
 }
