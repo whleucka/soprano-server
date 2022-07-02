@@ -5,7 +5,8 @@
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Celestial\\": "src/Celestial"
+            "Celestial\\": "src/Celestial",
+            "Celestial\\Migrations\\": "migrations"
         }
     },
     "authors": [
@@ -15,10 +16,14 @@
         }
     ],
     "require": {
-        "libra-php/constellation": "dev-main"
+        "libra-php/constellation": "dev-main",
+        "twig/twig": "^3.0"
     },
     "repositories": [{
-        "type": "vcs",
-        "url": "https://github.com/libra-php/constellation.git"
+        "type": "path",
+        "url": "./constellation/",
+        "options": {
+            "symlink": true
+        }
     }]
 }

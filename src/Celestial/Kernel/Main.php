@@ -8,6 +8,7 @@ use Constellation\Http\Request;
 use Constellation\Routing\Route;
 use Constellation\Routing\Router;
 use Constellation\Controller\Controller;
+use Constellation\Http\{ApiResponse, WebResponse, IResponse as Response};
 
 /**
  * @class Main
@@ -21,6 +22,7 @@ class Main
     private Router $router;
     private ?Route $route;
     private Controller $controller;
+    private Response $response;
 
     public function __construct()
     {
@@ -28,14 +30,14 @@ class Main
             ->initRouter()
             ->initRoute()
             ->initController()
-            ->getResponse();
+            ->initResponse()
+            ->execute();
     }
 
     private function configureContainer()
     {
-        $definitions = Application::$container["definitions"];
         $this->container = Container::getInstance()
-            ->setDefinitions($definitions)
+            ->setDefinitions(__DIR__ . "/config.php")
             ->build();
         return $this;
     }
@@ -73,10 +75,21 @@ class Main
         return $this;
     }
 
-    private function getResponse()
+    private function initResponse()
     {
         $endpoint = $this->route?->getEndpoint();
         $params = $this->route?->getParams();
-        $this->controller->$endpoint(...$params);
+        $middleware = $this->route?->getMiddleware();
+        $data = $this->controller->$endpoint(...$params);
+        $this->response = in_array("api", $middleware)
+            ? new ApiResponse($data)
+            : new WebResponse($data);
+        $this->response->prepare();
+        return $this;
+    }
+
+    public function execute()
+    {
+        $this->response->execute();
     }
 }
