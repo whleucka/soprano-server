@@ -10,7 +10,7 @@ class HomeController extends BaseController
     #[Get("/", "home.index")]
     public function index()
     {
-        return $this->twig->render("home/index.html", [
+        return $this->render("home/index.html", [
             "greeting" => "Hello, world!",
         ]);
     }
@@ -18,7 +18,7 @@ class HomeController extends BaseController
     #[Get("/home", "home.home", ["auth"])]
     public function home()
     {
-        return $this->twig->render("home/home.html", [
+        return $this->render("home/index.html", [
             "greeting" => "Welcome home!",
         ]);
     }
