@@ -31,13 +31,13 @@ class Main
     public function __construct()
     {
         $this->configureContainer()
-            ->initEnvironment()
+            ->loadEnvironment()
             ->initDatabase()
             ->initRouter()
             ->initRoute()
             ->initController()
-            ->initResponse()
-            ->execute();
+            ->prepareResponse()
+            ->executeResponse();
     }
 
     private function configureContainer(): Main
@@ -48,7 +48,7 @@ class Main
         return $this;
     }
 
-    private function initEnvironment(): Main
+    private function loadEnvironment(): Main
     {
         $environment_path = Application::$environment["environment_path"];
         $dotenv = Dotenv::createImmutable($environment_path);
@@ -87,7 +87,7 @@ class Main
         return $this;
     }
 
-    private function initResponse(): Main
+    private function prepareResponse(): Main
     {
         $endpoint = $this->route?->getEndpoint();
         $params = $this->route?->getParams();
@@ -100,7 +100,7 @@ class Main
         return $this;
     }
 
-    public function execute(): void
+    public function executeResponse(): void
     {
         $this->response->execute();
     }
