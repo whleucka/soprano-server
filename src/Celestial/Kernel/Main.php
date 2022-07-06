@@ -69,6 +69,8 @@ class Main
 
     private function initRouter(): Main
     {
+        $model = new Model($this->db, "users", ["id"], [1]);
+        print_r($model);die;
         $this->router = $this->container->get(Router::class);
         return $this;
     }
