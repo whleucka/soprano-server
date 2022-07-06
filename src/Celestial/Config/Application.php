@@ -17,6 +17,6 @@ class Application
     ];
     public static $view = [
         "view_path" => ROOT . "views",
-        "cache_path" => ROOT . "cache",
+        "cache_path" => ROOT . "views/.cache",
     ];
 }
