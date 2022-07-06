@@ -27,6 +27,7 @@ class Main
     private ?Route $route;
     private Controller $controller;
     private Response $response;
+    private ?DB $database;
 
     public function __construct()
     {
@@ -58,7 +59,9 @@ class Main
 
     private function initDatabase(): Main
     {
-        $this->database = $this->container->get(DB::class);
+        $this->database = $_ENV['DB_TYPE'] != 'none' 
+        ? $this->container->get(DB::class) 
+        : null;
         return $this;
     }
 
