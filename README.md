@@ -5,6 +5,9 @@ A PHP framework.
 
 (Very early stages of development)
 
+### Notes
+- The views/.cache directory must be owned by www-data or equivalent
+
 
 #### License
 The MIT License (MIT)
