@@ -8,10 +8,6 @@ class User extends Model
 {
     public function __construct(?array $id = null)
     {
-        parent::__construct(
-            'users',
-            ['id'],
-            $id
-        );
+        parent::__construct("users", ["id"], $id);
     }
 }
