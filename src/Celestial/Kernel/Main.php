@@ -4,7 +4,6 @@ namespace Celestial\Kernel;
 
 use Dotenv\Dotenv;
 use Celestial\Config\Application;
-use Celestial\Models\User;
 use Constellation\Container\Container;
 use Constellation\Routing\Route;
 use Constellation\Routing\Router;

@@ -1,4 +1,16 @@
 {% extends "layouts/base.html" %}
 {% block content %}
-<p>wip: sign in</p>
+<form action="{{ fn.buildRoute('auth.sign-in-post') }}" method="POST">
+    <div>
+        <label>Email</label>
+        <input type="email" name="email" id="email" placeholder="Your email address" title="Please enter your email address" required>
+    </div>
+    <div>
+        <label>Password</label>
+        <input type="password" name="password" id="password" placeholder="Your password" title="Please enter your password" required>
+    </div>
+    <div>
+        <button type="submit" name="sign_in">Sign In</button>
+    </div>
+</form>
 {% endblock %}

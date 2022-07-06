@@ -3,7 +3,7 @@
 namespace Celestial\Controllers;
 
 use Constellation\Controller\Controller as BaseController;
-use Constellation\Routing\Get;
+use Constellation\Routing\{Get,Post};
 
 class AuthController extends BaseController
 {
@@ -43,4 +43,17 @@ class AuthController extends BaseController
     /**
      * Requests
      */
+    #[Post("/sign-in", "auth.sign-in-post")]
+    public function sign_in_post()
+    {
+        die(sprintf("<pre>%s</pre>", "wip: sign in post"));
+        return $this->sign_in();
+    }
+
+    #[Post("/register", "auth.register-post")]
+    public function register_post()
+    {
+        die(sprintf("<pre>%s</pre>", "wip: register post"));
+        return $this->register();
+    }
 }
