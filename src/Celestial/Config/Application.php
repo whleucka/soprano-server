@@ -2,19 +2,21 @@
 
 namespace Celestial\Config;
 
+define("ROOT", __DIR__ . "/../../../");
+
 class Application
 {
     public static $environment = [
-        "environment_path" => __DIR__ . "/../../../",
+        "environment_path" => ROOT
     ];
     public static $router = [
-        "controller_path" => __DIR__ . "/../../../src/Celestial/Controllers",
+        "controller_path" => ROOT . "src/Celestial/Controllers",
     ];
     public static $migrations = [
-        "migrations_path" => __DIR__ . "/../../../migrations",
+        "migrations_path" => ROOT . "migrations",
     ];
     public static $view = [
-        "view_path" => __DIR__ . "/../../../views",
-        "cache_path" => __DIR__ . "/../../../cache",
+        "view_path" => ROOT . "views",
+        "cache_path" => ROOT . "cache",
     ];
 }
