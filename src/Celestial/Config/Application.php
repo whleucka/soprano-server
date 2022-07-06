@@ -7,7 +7,7 @@ define("ROOT", __DIR__ . "/../../../");
 class Application
 {
     public static $environment = [
-        "environment_path" => ROOT
+        "environment_path" => ROOT,
     ];
     public static $router = [
         "controller_path" => ROOT . "src/Celestial/Controllers",

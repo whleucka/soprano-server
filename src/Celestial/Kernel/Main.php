@@ -10,6 +10,7 @@ use Constellation\Routing\Router;
 use Constellation\Controller\Controller;
 use Constellation\Database\DB;
 use Constellation\Http\{ApiResponse, WebResponse, IResponse as Response};
+use Constellation\Model\Model;
 
 /**
  * @class Main
@@ -27,7 +28,7 @@ class Main
     private ?Route $route;
     private Controller $controller;
     private Response $response;
-    private ?DB $database;
+    private ?DB $db;
 
     public function __construct()
     {
@@ -59,7 +60,7 @@ class Main
 
     private function initDatabase(): Main
     {
-        $this->database =
+        $this->db =
             $_ENV["DB_TYPE"] != "none"
                 ? $this->container->get(DB::class)
                 : null;
