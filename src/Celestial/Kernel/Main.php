@@ -59,9 +59,10 @@ class Main
 
     private function initDatabase(): Main
     {
-        $this->database = $_ENV['DB_TYPE'] != 'none' 
-        ? $this->container->get(DB::class) 
-        : null;
+        $this->database =
+            $_ENV["DB_TYPE"] != "none"
+                ? $this->container->get(DB::class)
+                : null;
         return $this;
     }
 
