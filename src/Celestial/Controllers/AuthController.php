@@ -2,6 +2,7 @@
 
 namespace Celestial\Controllers;
 
+use Constellation\Authentication\Auth;
 use Constellation\Controller\Controller as BaseController;
 use Constellation\Routing\{Get,Post};
 
@@ -19,7 +20,9 @@ class AuthController extends BaseController
     #[Get("/sign-out", "auth.sign-out")]
     public function sign_out()
     {
-        // Sign out code...
+        Auth::signOut();
+        header("Location: /");
+        exit;
     }
 
     #[Get("/register", "auth.register")]
@@ -46,7 +49,11 @@ class AuthController extends BaseController
     #[Post("/sign-in", "auth.sign-in-post")]
     public function sign_in_post()
     {
-        die(sprintf("<pre>%s</pre>", "wip: sign in post"));
+        $data = $this->validateRequest([
+            "email" => ["required", "string", "email"],
+            "password" => ["required", "string", "password"],
+        ]);
+        print_r($data);exit;
         return $this->sign_in();
     }
 

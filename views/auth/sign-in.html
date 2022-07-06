@@ -3,14 +3,14 @@
 <form action="{{ fn.buildRoute('auth.sign-in-post') }}" method="POST">
     <div>
         <label>Email</label>
-        <input type="email" name="email" id="email" placeholder="Your email address" title="Please enter your email address" required>
+        <input type="email" name="email" id="input-email" placeholder="Your email address" title="Please enter your email address" required>
     </div>
     <div>
         <label>Password</label>
-        <input type="password" name="password" id="password" placeholder="Your password" title="Please enter your password" required>
+        <input type="password" name="password" id="input-password" placeholder="Your password" title="Please enter your password" required>
     </div>
     <div>
-        <button type="submit" name="sign_in">Sign In</button>
+        <button type="submit" id="btn-sign-in">Sign In</button>
     </div>
 </form>
 {% endblock %}

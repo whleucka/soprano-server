@@ -18,17 +18,13 @@ return [
             "auto_reload" => true,
         ]);
     },
+    Request::class => function () {
+        return new Request($_SERVER["REQUEST_URI"], $_SERVER["REQUEST_METHOD"], $_REQUEST);
+    },
     Router::class => DI\autowire()
-        ->constructorParameter("config", Application::$router)
-        ->constructorParameter(
-            "request",
-            new Request(
-                $_SERVER["REQUEST_URI"],
-                $_SERVER["REQUEST_METHOD"],
-                $_REQUEST
-            )
-        ),
-    DB::class => DI\autowire()->constructorParameter("config", [
+        ->constructorParameter("config", Application::$router),
+    DB::class => DI\autowire()
+    ->constructorParameter("config", [
         "path" => $_ENV["DB_PATH"],
         "type" => $_ENV["DB_TYPE"],
         "host" => $_ENV["DB_HOST"],
