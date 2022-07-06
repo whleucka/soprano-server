@@ -4,13 +4,13 @@ namespace Celestial\Kernel;
 
 use Dotenv\Dotenv;
 use Celestial\Config\Application;
+use Celestial\Models\User;
 use Constellation\Container\Container;
 use Constellation\Routing\Route;
 use Constellation\Routing\Router;
 use Constellation\Controller\Controller;
 use Constellation\Database\DB;
 use Constellation\Http\{ApiResponse, WebResponse, IResponse as Response};
-use Constellation\Model\Model;
 
 /**
  * @class Main
