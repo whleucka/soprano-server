@@ -1,13 +1,27 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        {% block head %}
-            <link rel="stylesheet" href="/css/style.css"/>
-            <title>{% block title %}{% endblock %}Celestial</title>
-        {% endblock %}
-    </head>
-    <body>
-        <section id="content">{% block content %}{% endblock %}</section>
-        {% block body_scripts %}{% endblock %}
-    </body>
+<html lang="en">
+  <head>
+    {% block head %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="apple-touch-icon" sizes="180x180" href="/icon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/icon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/icon/favicon-16x16.png">
+    <link rel="manifest" href="/icon/site.webmanifest">
+    {% block meta %}
+    <meta name="description" content="Celestial: A PHP framework">
+    <meta name="keywords" content="PHP, Framework, Celestial, Constellation, Libra">
+    <meta name="author" content="Libra PHP">
+    {% endblock %}
+    <title>{% block title %}{% endblock %}Celestial</title>
+    <link rel="stylesheet" href="/css/style.css">
+    {% endblock %}
+  </head>
+  <body>
+    <section id="content">{% block content %}{% endblock %}</section>
+    {% block body_scripts %}
+    <script src="/js/index.js"></script>
+    {% endblock %}
+  </body>
 </html>
