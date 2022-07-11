@@ -27,7 +27,7 @@ class HomeController extends BaseController
     public function answer()
     {
         return [
-            "message" => "Time is an illusion.",
+            "message" => "The Answer to the Great Question... Of Life, the Universe and Everything... Is... Forty-two,' said Deep Thought, with infinite majesty and calm.",
             "payload" => 42
         ];
     }
