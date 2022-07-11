@@ -3,11 +3,13 @@
 <form action="{{ fn.buildRoute('auth.sign-in-post') }}" method="POST">
     <div>
         <label>Email</label>
-        <input type="email" name="email" id="input-email" placeholder="Your email address" title="Please enter your email address" required>
+        <input type="email" name="email" value="{{ fn.old('email') }}" id="input-email" placeholder="Your email address" title="Please enter your email address" required>
+        {% include 'validate/errors.html' with {'field': 'email'} %}
     </div>
     <div>
         <label>Password</label>
         <input type="password" name="password" id="input-password" placeholder="Your password" title="Please enter your password" required>
+        {% include 'validate/errors.html' with {'field': 'password'} %}
     </div>
     <div>
         <button type="submit" id="btn-sign-in">Sign In</button>
