@@ -26,6 +26,9 @@ class HomeController extends BaseController
     #[Get("/api/v1/answer", "home.home", ["api"])]
     public function answer()
     {
-        return [42];
+        return [
+            "message" => "Time is an illusion.",
+            "payload" => 42
+        ];
     }
 }
