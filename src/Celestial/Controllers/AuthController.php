@@ -66,7 +66,7 @@ class AuthController extends BaseController
         $data = $this->validateRequest([
             "name" => ["required", "string"],
             "email" => ["required", "string", "email"],
-            "password" => ["required", "string", "match"],
+            "password" => ["required", "string", "match", "min_length=8", "uppercase=1", "lowercase=1", "symbol=1"],
         ]);
         if ($data) {
            // IMPLEMENT ME! 

@@ -3,15 +3,18 @@
 <form action="{{ fn.buildRoute('auth.register-post') }}" method="POST">
     <div>
         <label>Name</label>
-        <input type="name" name="name" id="input-name" placeholder="Your full name" title="Please enter your full name">
+        <input type="name" name="name" value="{{ fn.old('name') }}" id="input-name" placeholder="Your full name" title="Please enter your full name">
+        {% include 'validate/errors.html' with {'field': 'name'} %}
     </div>
     <div>
         <label>Email</label>
-        <input type="email" name="email" id="input-email" placeholder="Your email address" title="Please enter your email address">
+        <input type="email" name="email" value="{{ fn.old('email') }}" id="input-email" placeholder="Your email address" title="Please enter your email address">
+        {% include 'validate/errors.html' with {'field': 'email'} %}
     </div>
     <div>
         <label>Password</label>
         <input type="password" name="password" id="input-password" placeholder="Your password" title="Please enter your password">
+        {% include 'validate/errors.html' with {'field': 'password'} %}
     </div>
     <div>
         <label>Password (again)</label>
