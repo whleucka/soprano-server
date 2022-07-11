@@ -6,6 +6,7 @@ use Celestial\Models\User;
 use Constellation\Authentication\Auth;
 use Constellation\Controller\Controller as BaseController;
 use Constellation\Routing\{Get, Post};
+use Constellation\Validation\Validate;
 
 class AuthController extends BaseController
 {
@@ -56,6 +57,7 @@ class AuthController extends BaseController
         ]);
         if ($data) {
             // IMPLEMENT ME!
+            die("wip: sign_in_post");
         }
         return $this->sign_in();
     }
