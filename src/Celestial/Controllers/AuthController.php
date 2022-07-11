@@ -2,6 +2,7 @@
 
 namespace Celestial\Controllers;
 
+use Celestial\Models\User;
 use Constellation\Authentication\Auth;
 use Constellation\Controller\Controller as BaseController;
 use Constellation\Routing\{Get, Post};
@@ -51,17 +52,28 @@ class AuthController extends BaseController
     {
         $data = $this->validateRequest([
             "email" => ["required", "string", "email"],
-            "password" => ["required", "string", "password"],
+            "password" => ["required", "string"],
         ]);
-        print_r($data);
-        exit();
+        if ($data) {
+           // IMPLEMENT ME! 
+        }
         return $this->sign_in();
     }
 
     #[Post("/register", "auth.register-post")]
     public function register_post()
     {
-        die(sprintf("<pre>%s</pre>", "wip: register post"));
+        $data = $this->validateRequest([
+            "name" => ["required", "string"],
+            "email" => ["required", "string", "email"],
+            "password" => ["required", "string", "match"],
+        ]);
+        if ($data) {
+           // IMPLEMENT ME! 
+            die("wip: register_post");
+            $user = User::findByAttribute('email', $data->email);
+            print_r($user);
+        }
         return $this->register();
     }
 }
