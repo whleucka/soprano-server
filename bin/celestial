@@ -1,0 +1,61 @@
+#!/usr/bin/env php
+<?php
+/**
+ * CELESTIAL SCRIPT
+ * @author William Hleucka <william.hleucka@gmail.com>
+ */
+
+include __DIR__ . "/console.php";
+
+$shortopts = "";
+$shortopts .= "hs";
+
+$longopts = [
+    "help",
+    "serve"
+];
+
+$options = getopt($shortopts, $longopts);
+
+foreach ($options as $key => $value) {
+    $match = match ($key) {
+        "h", "help" => help(),
+        "s", "serve" => serve(),
+        default => unknown(),
+    };
+}
+
+function cprint($string) {
+    printf($string."\n");
+}
+
+function banner() {
+    $banner = <<<BANNER
+██████╗███████╗██╗     ███████╗███████╗████████╗██╗ █████╗ ██╗     
+██╔════╝██╔════╝██║     ██╔════╝██╔════╝╚══██╔══╝██║██╔══██╗██║     
+██║     █████╗  ██║     █████╗  ███████╗   ██║   ██║███████║██║     
+██║     ██╔══╝  ██║     ██╔══╝  ╚════██║   ██║   ██║██╔══██║██║     
+╚██████╗███████╗███████╗███████╗███████║   ██║   ██║██║  ██║███████╗
+ ╚═════╝╚══════╝╚══════╝╚══════╝╚══════╝   ╚═╝   ╚═╝╚═╝  ╚═╝╚══════╝
+BANNER;
+    cprint(Console::green($banner, 'bold'));
+}
+
+function unknown() {
+    cprint(Console::red("Eh? Unknown command"));
+    help();
+}
+
+function help() {
+    banner();
+    $help = <<<HELP
+Usage: celestial [options...]
+-h, --help                      Get help for commands
+-s, --serve                     Run development server
+HELP;
+    cprint(Console::yellow($help));
+}
+
+function serve() {
+    shell_exec("php -S 0.0.0.0:8080 -t $(pwd)/public");
+}
