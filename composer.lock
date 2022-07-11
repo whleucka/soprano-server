@@ -816,7 +816,7 @@
             "dist": {
                 "type": "path",
                 "url": "./constellation",
-                "reference": "8804a99015f201a511511eeef245dc31aba0f9ec"
+                "reference": "9d9ca7ba5dbefa0e1908b53755be6252897d03e5"
             },
             "require": {
                 "composer/composer": "^2.3",
