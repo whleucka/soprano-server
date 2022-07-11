@@ -55,7 +55,7 @@ class AuthController extends BaseController
             "password" => ["required", "string"],
         ]);
         if ($data) {
-           // IMPLEMENT ME! 
+            // IMPLEMENT ME!
         }
         return $this->sign_in();
     }
@@ -66,12 +66,20 @@ class AuthController extends BaseController
         $data = $this->validateRequest([
             "name" => ["required", "string"],
             "email" => ["required", "string", "email"],
-            "password" => ["required", "string", "match", "min_length=8", "uppercase=1", "lowercase=1", "symbol=1"],
+            "password" => [
+                "required",
+                "string",
+                "match",
+                "min_length=8",
+                "uppercase=1",
+                "lowercase=1",
+                "symbol=1",
+            ],
         ]);
         if ($data) {
-           // IMPLEMENT ME! 
+            // IMPLEMENT ME!
             die("wip: register_post");
-            $user = User::findByAttribute('email', $data->email);
+            $user = User::findByAttribute("email", $data->email);
             print_r($user);
         }
         return $this->register();
