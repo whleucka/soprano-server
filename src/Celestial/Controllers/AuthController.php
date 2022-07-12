@@ -55,10 +55,23 @@ class AuthController extends BaseController
             "email" => ["required", "string", "email"],
             "password" => ["required", "string"],
         ]);
+        $fail = false;
         if ($data) {
-            // IMPLEMENT ME!
-            print_r($data);
-            die("wip: sign_in_post");
+            $user = User::findByAttribute("email", $data->email);
+            if ($user) {
+                if (Auth::checkPassword($user, $data->password)) {
+                    Auth::signIn($user);
+                    $this->redirectHome();
+                } else {
+                    $fail = true;
+                }
+            } else {
+                $fail = true;
+            }
+
+            if ($fail) {
+                Validate::$errors["password"][] = "Bad email or password";
+            }
         }
         return $this->sign_in();
     }
@@ -93,15 +106,20 @@ class AuthController extends BaseController
                 if ($registered) {
                     $user = User::findByAttribute("email", $data->email);
                     Auth::signIn($user);
-                    $route = Router::findRoute("home.home");
-                    if ($route) {
-                        $uri = $route->getUri();
-                        header("Location: $uri");
-                        exit();
-                    }
+                    $this->redirectHome();
                 }
             }
         }
         return $this->register();
+    }
+
+    private function redirectHome()
+    {
+        $route = Router::findRoute("home.home");
+        if ($route) {
+            $uri = $route->getUri();
+            header("Location: $uri");
+            exit();
+        }
     }
 }
