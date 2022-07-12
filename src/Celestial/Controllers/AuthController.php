@@ -70,7 +70,7 @@ class AuthController extends BaseController
             }
 
             if ($fail) {
-                Validate::$errors["password"][] = "Bad email or password";
+                Validate::$errors["password"][] = "bad email or password";
             }
         }
         return $this->sign_in();
