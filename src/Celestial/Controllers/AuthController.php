@@ -5,7 +5,7 @@ namespace Celestial\Controllers;
 use Celestial\Models\User;
 use Constellation\Authentication\Auth;
 use Constellation\Controller\Controller as BaseController;
-use Constellation\Routing\{Get, Post};
+use Constellation\Routing\{Get, Post, Router};
 use Constellation\Validation\Validate;
 
 class AuthController extends BaseController
@@ -57,6 +57,7 @@ class AuthController extends BaseController
         ]);
         if ($data) {
             // IMPLEMENT ME!
+            print_r($data);
             die("wip: sign_in_post");
         }
         return $this->sign_in();
@@ -79,10 +80,27 @@ class AuthController extends BaseController
             ],
         ]);
         if ($data) {
-            // IMPLEMENT ME!
-            die("wip: register_post");
             $user = User::findByAttribute("email", $data->email);
-            print_r($user);
+            if ($user) {
+                Validate::$errors["email"][] =
+                    "this email is already associated with another user";
+            } else {
+                $registered = Auth::register([
+                    "email" => $data->email,
+                    "name" => $data->name,
+                    "password" => $data->password,
+                ]);
+                if ($registered) {
+                    $user = User::findByAttribute("email", $data->email);
+                    Auth::signIn($user);
+                    $route = Router::findRoute("home.home");
+                    if ($route) {
+                        $uri = $route->getUri();
+                        header("Location: $uri");
+                        exit();
+                    }
+                }
+            }
         }
         return $this->register();
     }

@@ -23,7 +23,7 @@ class HomeController extends BaseController
         ]);
     }
 
-    #[Get("/api/v1/answer", "home.home", ["api"])]
+    #[Get("/api/v1/answer", "home.answer", ["api"])]
     public function answer()
     {
         return [
