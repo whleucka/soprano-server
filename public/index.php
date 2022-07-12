@@ -6,7 +6,7 @@
  * Created with <3 
  * Copyright (c) 2022 William Hleucka. All Rights Reserved.
  */
-
+session_start();
 require_once __DIR__ . "/../vendor/autoload.php";
 new Celestial\Kernel\Main();
 

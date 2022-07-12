@@ -4,6 +4,7 @@ namespace Celestial\Kernel;
 
 use Dotenv\Dotenv;
 use Celestial\Config\Application;
+use Celestial\Middleware\RouteMiddleware;
 use Constellation\Container\Container;
 use Constellation\Routing\Route;
 use Constellation\Routing\Router;
@@ -27,7 +28,6 @@ class Main
     private ?Route $route;
     private Controller $controller;
     private Response $response;
-    private ?DB $db;
 
     public function __construct()
     {
@@ -77,6 +77,9 @@ class Main
         $this->router->registerRoutes();
         $route = $this->router->matchRoute()->getRoute();
         if ($route) {
+            // We found a route, invoke route middleware
+            $middleware = $this->container->get(RouteMiddleware::class);
+            $middleware->process();
             $this->route = $route;
         } else {
             $this->router->pageNotFound();
