@@ -20,18 +20,17 @@ class RouteMiddleware implements MiddlewareInterface
         if ($route) {
             $middlewares = $route->getMiddleware();
             foreach ($middlewares as $middleware) {
-                match ($middleware) {
-                    "auth" => $this->routeAuth(),
-                    default => fn() => null,
-                };
                 $this->processMiddleware($middleware);
             }
         }
     }
 
-    protected function processMiddleware(array $middleware)
+    protected function processMiddleware(string $middleware)
     {
-        return null;
+        match ($middleware) {
+            "auth" => $this->routeAuth(),
+            default => fn() => null,
+        };
     }
 
     private function routeAuth()
