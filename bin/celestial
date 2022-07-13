@@ -5,32 +5,17 @@
  * @author William Hleucka <william.hleucka@gmail.com>
  */
 
+include __DIR__ . "/../vendor/autoload.php";
 include __DIR__ . "/console.php";
 
-$shortopts = "";
-$shortopts .= "hs";
-
-$longopts = [
-    "help",
-    "serve"
-];
-
-$options = getopt($shortopts, $longopts);
-
-foreach ($options as $key => $value) {
-    $match = match ($key) {
-        "h", "help" => help(),
-        "s", "serve" => serve(),
-        default => unknown(),
-    };
-}
-
-function cprint($string) {
-    printf($string."\n");
-}
+use Celestial\Kernel\Main;
+use Celestial\Config\Application;
+use Constellation\Database\{Migration,DB};
+use Composer\Autoload\ClassMapGenerator;
 
 function banner() {
     $banner = <<<BANNER
+
 ██████╗███████╗██╗     ███████╗███████╗████████╗██╗ █████╗ ██╗     
 ██╔════╝██╔════╝██║     ██╔════╝██╔════╝╚══██╔══╝██║██╔══██╗██║     
 ██║     █████╗  ██║     █████╗  ███████╗   ██║   ██║███████║██║     
@@ -41,9 +26,46 @@ BANNER;
     cprint(Console::green($banner, 'bold'));
 }
 
-function unknown() {
-    cprint(Console::red("Eh? Unknown command"));
-    help();
+
+$app = new Main(false);
+$db = $app->container->get(DB::class);
+$migrations_path = Application::$migrations["migrations_path"];
+
+$shortopts = "";
+#$shortops .= "f:"; // Required
+#$shortops .= "v::"; // Optional
+$shortopts .= "hs"; // Do not accept values
+
+$longopts = [
+    "help",
+    "serve",
+    "migration-run",
+];
+
+$options = getopt($shortopts, $longopts);
+
+foreach ($options as $key => $value) {
+    $match = match ($key) {
+        "h", "help" => help(),
+        "s", "serve" => serve(),
+        "migration-run" => migrationRun(),
+        default => cprint(Console::red("Eh? Unknown command"))
+    };
+}
+
+function cprint($string) {
+    printf($string."\n");
+}
+
+function input(string $prompt = null) {
+    echo $prompt;
+    $handle = fopen ("php://stdin","r");
+    $output = fgets ($handle);
+    return trim ($output);
+}
+
+function classMap(string $path) {
+    return ClassMapGenerator::createMap($path);
 }
 
 function help() {
@@ -52,10 +74,33 @@ function help() {
 Usage: celestial [options...]
 -h, --help                      Get help for commands
 -s, --serve                     Run development server
+
 HELP;
-    cprint(Console::yellow($help));
+    cprint($help);
 }
 
 function serve() {
     shell_exec("php -S 0.0.0.0:8080 -t $(pwd)/public");
+}
+
+function migrationRun() {
+    global $migrations_path, $db;
+    if (file_exists($migrations_path)) {
+        $files = glob($migrations_path."/*.php");
+        foreach ($files as $file) {
+            if (file_exists($file)) {
+                $class = include_once $file;
+                $up_query = $class->up();
+                $run_it = input(Console::yellow("Do you want to run the migration file $file? (y/n) "));
+                if ($run_it === 'y') {
+                    if ($db->run($up_query)) {
+                        cprint(Console::green("Success: $file"));
+                    }
+                } else {
+                    cprint("Skipping...");
+                }
+            }
+        }
+    }
+    cprint(Console::green("Done!"));
 }

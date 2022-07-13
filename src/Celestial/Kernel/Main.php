@@ -28,17 +28,20 @@ class Main
     private ?Route $route;
     private Controller $controller;
     private Response $response;
+    public Container $container;
 
-    public function __construct()
+    public function __construct($router_enabled = true)
     {
         $this->configureContainer()
             ->loadEnvironment()
-            ->initDatabase()
-            ->initRouter()
-            ->initRoute()
-            ->initController()
-            ->prepareResponse()
-            ->executeResponse();
+            ->initDatabase();
+        if ($router_enabled) {
+            $this->initRouter()
+                ->initRoute()
+                ->initController()
+                ->prepareResponse()
+                ->executeResponse();
+        }
     }
 
     private function configureContainer(): Main

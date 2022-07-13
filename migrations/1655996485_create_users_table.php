@@ -7,9 +7,9 @@ use Constellation\Database\Migration;
 use Constellation\Database\Schema;
 
 return new class extends Migration {
-    public function up(): void
+    public function up()
     {
-        Schema::create("users", function (Blueprint $table) {
+        return Schema::create("users", function (Blueprint $table) {
             $table->id();
             $table->uuid("uuid");
             $table->varchar("name");
@@ -21,7 +21,8 @@ return new class extends Migration {
         });
     }
 
-    public function down(): void
+    public function down()
     {
+        return Schema::drop("users");
     }
 };
