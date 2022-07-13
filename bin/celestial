@@ -40,15 +40,17 @@ $longopts = [
     "help",
     "serve",
     "migration-run",
+    "migration-fresh",
 ];
 
 $options = getopt($shortopts, $longopts);
 
 foreach ($options as $key => $value) {
-    $match = match ($key) {
+    match ($key) {
         "h", "help" => help(),
         "s", "serve" => serve(),
         "migration-run" => migrationRun(),
+        "migration-fresh" => migrationFresh(),
         default => cprint(Console::red("Eh? Unknown command"))
     };
 }
@@ -101,6 +103,37 @@ function migrationRun() {
                 }
             }
         }
+    }
+}
+
+function migrationRunner($up = true) {
+    global $migrations_path, $db;
+    if (file_exists($migrations_path)) {
+        $files = glob($migrations_path."/*.php");
+        foreach ($files as $file) {
+            if (file_exists($file)) {
+                $class = include $file;
+                if ($up) {
+                    $up_query = $class->up();
+                    if ($db->run($up_query)) {
+                        cprint(Console::green("Success: migration up => $file"));
+                    }
+                } else {
+                    $down_query = $class->down();
+                    if ($db->run($down_query)) {
+                        cprint(Console::green("Success: migration down => $file"));
+                    }
+                }
+            }
+        }
+    }
+}
+
+function migrationFresh() {
+    $run_it = input(Console::yellow("Are you sure you want to drop the database and run the migration files? (y/n) "));
+    if ($run_it === 'y') {
+        migrationRunner(false);
+        migrationRunner();
     }
     cprint(Console::green("Done!"));
 }
