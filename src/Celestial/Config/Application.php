@@ -19,4 +19,7 @@ class Application
         "view_path" => ROOT . "views",
         "cache_path" => ROOT . "views/.cache",
     ];
+    public static $middleware = [
+        "middleware_path" => ROOT . "src/Celestial/Middleware",
+    ];
 }

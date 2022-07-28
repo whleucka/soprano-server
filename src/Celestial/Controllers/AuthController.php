@@ -5,7 +5,8 @@ namespace Celestial\Controllers;
 use Celestial\Models\User;
 use Constellation\Authentication\Auth;
 use Constellation\Controller\Controller as BaseController;
-use Constellation\Routing\{Get, Post};
+use Constellation\Routing\{Get, Post, Router};
+use Constellation\Validation\Validate;
 
 class AuthController extends BaseController
 {
@@ -54,9 +55,23 @@ class AuthController extends BaseController
             "email" => ["required", "string", "email"],
             "password" => ["required", "string"],
         ]);
+        $fail = false;
         if ($data) {
-            // IMPLEMENT ME!
-            die("wip: sign_in_post");
+            $user = User::findByAttribute("email", $data->email);
+            if ($user) {
+                if (Auth::checkPassword($user, $data->password)) {
+                    Auth::signIn($user);
+                    $this->redirectHome();
+                } else {
+                    $fail = true;
+                }
+            } else {
+                $fail = true;
+            }
+
+            if ($fail) {
+                Validate::$errors["password"][] = "bad email or password";
+            }
         }
         return $this->sign_in();
     }
@@ -78,11 +93,33 @@ class AuthController extends BaseController
             ],
         ]);
         if ($data) {
-            // IMPLEMENT ME!
-            die("wip: register_post");
             $user = User::findByAttribute("email", $data->email);
-            print_r($user);
+            if ($user) {
+                Validate::$errors["email"][] =
+                    "this email is already associated with another user";
+            } else {
+                $registered = Auth::register([
+                    "email" => $data->email,
+                    "name" => $data->name,
+                    "password" => $data->password,
+                ]);
+                if ($registered) {
+                    $user = User::findByAttribute("email", $data->email);
+                    Auth::signIn($user);
+                    $this->redirectHome();
+                }
+            }
         }
         return $this->register();
+    }
+
+    private function redirectHome()
+    {
+        $route = Router::findRoute("home.home");
+        if ($route) {
+            $uri = $route->getUri();
+            header("Location: $uri");
+            exit();
+        }
     }
 }
