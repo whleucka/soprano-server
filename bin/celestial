@@ -10,8 +10,10 @@ include __DIR__ . "/console.php";
 
 use Celestial\Kernel\Main;
 use Celestial\Config\Application;
-use Constellation\Database\{Migration,DB};
+use Constellation\Database\DB;
 use Composer\Autoload\ClassMapGenerator;
+
+$dev_port = 8080;
 
 function banner() {
     $banner = <<<BANNER
@@ -33,12 +35,13 @@ $migrations_path = Application::$migrations["migrations_path"];
 
 $shortopts = "";
 #$shortops .= "f:"; // Required
-#$shortops .= "v::"; // Optional
+$shortopts .= "p::"; // Optional
 $shortopts .= "hs"; // Do not accept values
 
 $longopts = [
     "help",
     "serve",
+    "port::",
     "migration-run",
     "migration-fresh",
 ];
@@ -49,6 +52,7 @@ foreach ($options as $key => $value) {
     match ($key) {
         "h", "help" => help(),
         "s", "serve" => serve(),
+        "p", "port" => port($value),
         "migration-run" => migrationRun(),
         "migration-fresh" => migrationFresh(),
         default => cprint(Console::red("Eh? Unknown command"))
@@ -75,14 +79,26 @@ function help() {
     $help = <<<HELP
 Usage: celestial [options...]
 -h, --help                      Get help for commands
+-p, --port                      Set development server port
 -s, --serve                     Run development server
+migration-run                   Run migration files and calling up method
+migration-fresh                 Drop database and run migration files and call migration-run
 
 HELP;
     cprint($help);
 }
 
+function port($new_port) {
+    global $port;
+    $port = $new_port;
+}
+
 function serve() {
-    shell_exec("php -S 0.0.0.0:8080 -t $(pwd)/public");
+    global $port, $options;
+    if (key_exists('port', $options) || key_exists('p', $options)) {
+        port($options['port'] ?? $options['p']);
+    }
+    shell_exec("php -S 0.0.0.0:{$port} -t $(pwd)/public");
 }
 
 function migrationRun() {
