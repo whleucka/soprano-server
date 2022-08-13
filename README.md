@@ -7,7 +7,7 @@ A PHP web framework.
 
 #### Installation
 - Note: the composer.json file has a local repository dependency `libra-php/constellation`
-- It is currently set up like this to make development easier. This will be removed once the package is available on packagist. 
+- Composer install method will not work until v0.0.1 release.
 - For now, you can clone the repository into the working directory.
 
 Example)
