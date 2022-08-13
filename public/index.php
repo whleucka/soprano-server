@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Welcome to Celestial!
  * Official repository: https://github.com/libra-php/celestial.git

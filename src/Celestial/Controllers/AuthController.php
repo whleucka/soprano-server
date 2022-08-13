@@ -7,9 +7,11 @@ use Constellation\Authentication\Auth;
 use Constellation\Controller\Controller as BaseController;
 use Constellation\Routing\{Get, Post, Router};
 use Constellation\Validation\Validate;
+use Exception;
 
 class AuthController extends BaseController
 {
+    public $home_route = "home.home";
     /**
      * Views
      */
@@ -115,11 +117,12 @@ class AuthController extends BaseController
 
     private function redirectHome()
     {
-        $route = Router::findRoute("home.home");
+        $route = Router::findRoute($this->home_route);
         if ($route) {
             $uri = $route->getUri();
             header("Location: $uri");
             exit();
         }
+        throw new Exception("Home route not configured");
     }
 }
