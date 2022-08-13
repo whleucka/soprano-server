@@ -1,7 +1,7 @@
 # Celestial
 [![PHP Composer](https://github.com/libra-php/constellation/actions/workflows/php.yml/badge.svg?branch=main)](https://github.com/libra-php/constellation/actions/workflows/php.yml)
 
-A PHP framework.
+A PHP web framework.
 
 (Very early stages of development)
 
