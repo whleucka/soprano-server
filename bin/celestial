@@ -15,7 +15,8 @@ use Composer\Autoload\ClassMapGenerator;
 
 $dev_port = 8080;
 
-function banner() {
+function banner()
+{
     $banner = <<<BANNER
 
 ██████╗███████╗██╗     ███████╗███████╗████████╗██╗ █████╗ ██╗     
@@ -32,6 +33,7 @@ BANNER;
 $app = new Main(false);
 $db = $app->container->get(DB::class);
 $migrations_path = Application::$migrations["migrations_path"];
+$cache_path = Application::$view["cache_path"];
 
 $shortopts = "";
 #$shortops .= "f:"; // Required
@@ -42,58 +44,84 @@ $longopts = [
     "help",
     "serve",
     "port::",
+    "cache-create",
     "migration-run",
     "migration-fresh",
 ];
 
 $options = getopt($shortopts, $longopts);
 
+if ($argc == 1) help();
+if (!$options) cprint(Console::red("Eh? Unknown command"));
+
 foreach ($options as $key => $value) {
-    match ($key) {
-        "h", "help" => help(),
-        "s", "serve" => serve(),
-        "p", "port" => port($value),
-        "migration-run" => migrationRun(),
-        "migration-fresh" => migrationFresh(),
-        default => cprint(Console::red("Eh? Unknown command"))
-    };
+    switch ($key) {
+        case "h":
+        case "help":
+            help(); 
+            break;
+        case "s":
+        case "serve":
+            serve(); 
+            break;
+        case "p":
+        case "port":
+            port($value); 
+            break;
+        case "cache-create":
+            cacheCreate(); 
+            break;
+        case "migration-run":
+            migrationRun(); 
+            break;
+        case "migration-fresh":
+            migrationFresh(); 
+            break;
+    }
 }
 
-function cprint($string) {
-    printf($string."\n");
+function cprint($string)
+{
+    printf($string . "\n");
 }
 
-function input(string $prompt = null) {
+function input(string $prompt = null)
+{
     echo $prompt;
-    $handle = fopen ("php://stdin","r");
-    $output = fgets ($handle);
-    return trim ($output);
+    $handle = fopen("php://stdin", "r");
+    $output = fgets($handle);
+    return trim($output);
 }
 
-function classMap(string $path) {
+function classMap(string $path)
+{
     return ClassMapGenerator::createMap($path);
 }
 
-function help() {
+function help()
+{
     banner();
     $help = <<<HELP
 Usage: celestial [options...]
--h, --help                      Get help for commands
--p, --port                      Set development server port
--s, --serve                     Run development server
-migration-run                   Run migration files and calling up method
-migration-fresh                 Drop database and run migration files and call migration-run
+-h, --help              Get help for commands
+-p, --port              Set development server port
+-s, --serve             Run development server
+--cache-create          Create view cache directory
+--migration-run         Run migration files and calling up method
+--migration-fresh       Drop database and call migration-run
 
 HELP;
     cprint($help);
 }
 
-function port($new_port) {
+function port($new_port)
+{
     global $port;
     $port = $new_port;
 }
 
-function serve() {
+function serve()
+{
     global $port, $options;
     if (key_exists('port', $options) || key_exists('p', $options)) {
         port($options['port'] ?? $options['p']);
@@ -101,10 +129,20 @@ function serve() {
     shell_exec("php -S 0.0.0.0:{$port} -t $(pwd)/public");
 }
 
-function migrationRun() {
+function cacheCreate()
+{
+    global $cache_path;
+    if (!file_exists($cache_path)) mkdir($cache_path);
+    $result = chown($cache_path, 'www-data');
+    if ($result) cprint(Console::green("Success: view cache directory created"));
+    else cprint(Console::red("Error: view cache directory couldn't be created"));
+}
+
+function migrationRun()
+{
     global $migrations_path, $db;
     if (file_exists($migrations_path)) {
-        $files = glob($migrations_path."/*.php");
+        $files = glob($migrations_path . "/*.php");
         foreach ($files as $file) {
             if (file_exists($file)) {
                 $class = include_once $file;
@@ -122,10 +160,11 @@ function migrationRun() {
     }
 }
 
-function migrationRunner($up = true) {
+function migrationRunner($up = true)
+{
     global $migrations_path, $db;
     if (file_exists($migrations_path)) {
-        $files = glob($migrations_path."/*.php");
+        $files = glob($migrations_path . "/*.php");
         foreach ($files as $file) {
             if (file_exists($file)) {
                 $class = include $file;
@@ -145,7 +184,8 @@ function migrationRunner($up = true) {
     }
 }
 
-function migrationFresh() {
+function migrationFresh()
+{
     $run_it = input(Console::yellow("Are you sure you want to drop the database and run the migration files? (y/n) "));
     if ($run_it === 'y') {
         migrationRunner(false);
