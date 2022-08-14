@@ -21,7 +21,7 @@ comoser install
 
 Example)
 ```
-mkdir -p views/.cache && chown www-data:www-data views/.cache
+./celestial --cache-create
 ```
 
 You should now see the test message Hello, World!
@@ -38,11 +38,12 @@ ede7e27f30d2# ./celestial -h
 ╚██████╗███████╗███████╗███████╗███████║   ██║   ██║██║  ██║███████╗
  ╚═════╝╚══════╝╚══════╝╚══════╝╚══════╝   ╚═╝   ╚═╝╚═╝  ╚═╝╚══════╝
 Usage: celestial [options...]
--h, --help                      Get help for commands
--p, --port                      Set development server port
--s, --serve                     Run development server
-migration-run                   Run migration files and calling up method
-migration-fresh                 Drop database and run migration files and call migration-run
+-h, --help              Get help for commands
+-p, --port              Set development server port
+-s, --serve             Run development server
+--cache-create          Create view cache directory
+--migration-run         Run migration files and calling up method
+--migration-fresh       Drop database and call migration-run
 ```
 
 
