@@ -6,6 +6,11 @@ A PHP web framework.
 (Very early stages of development)
 
 #### Installation
+- Composer Installation
+```
+composer create-project libra-php/celestial
+```
+
 - Note: the composer.json file has a local repository dependency `libra-php/constellation`
 - Composer install method will not work until v0.0.1 release.
 - For now, you can clone the repository into the working directory.
