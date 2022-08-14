@@ -14,7 +14,7 @@ Example)
 ```
 git clone git@github.com:/libra-php/constellation.git ./constellation/
 cd constellation && composer install && cd -
-comoser install
+composer install
 ```
 
 - The views/.cache directory must created be owned by www-data or equivalent
