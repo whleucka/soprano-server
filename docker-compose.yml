@@ -1,0 +1,62 @@
+version: '3'
+
+networks:
+  celestial:
+
+services:
+  webserver:
+    image: nginx:stable-alpine
+    container_name: webserver
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    volumes:
+      - ./:/var/www/html
+      - ./docker/nginx/conf.d:/etc/nginx/conf.d
+    depends_on:
+      - php
+      - database
+    networks:
+      - celestial
+
+  database:
+    image: mysql:5.7.22
+    container_name: database
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./:/var/www/html
+      - ./docker/mysql:/var/lib/mysql
+    command: mysqld --sql_mode=""
+    environment:
+      MYSQL_ROOT_PASSWORD: libra
+      SERVICE_TAGS: dev
+      SERVICE_NAME: database
+    networks:
+      - celestial
+
+  php:
+    build:
+      context: .
+      dockerfile: ./docker/php/Dockerfile
+    container_name: php
+    restart: unless-stopped
+    volumes: 
+      - ./:/var/www/html
+    ports:
+      - "9000:9000"
+    networks:
+      - celestial
+
+  cron:
+    build:
+      context: .
+      dockerfile: ./docker/cron/Dockerfile
+    container_name: cron
+    restart: unless-stopped
+    volumes:
+      - ./:/var/www/html
+    networks:
+      - celestial
