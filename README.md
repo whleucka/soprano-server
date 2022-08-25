@@ -26,23 +26,31 @@ composer install
 sudo docker-compose up -d
 ```
 
-- Create database
+- Create database (from database container)
 You can set the password in docker-compose.yml by modifying `MYSQL_ROOT_PASSWORD`
 ```
 sudo docker-compose exec mysql sh
 sudo mysql -p
 create database celestial
 ```
+
+- Run migrations (from database container)
+```
+./celestial --migration-run
+```
+
 By default, the database user is root. You should consider setting up a different database user for your application.
 
 
-If you receive the "Fatal error: Uncaught RuntimeException: Unable to create the cache directory"message, then please create the view cache directory.
-- The views/.cache directory must created be owned by www-data or equivalent
+- If you receive this message "Fatal error: Uncaught RuntimeException: Unable to create the cache directory", then please create the view cache directory (from php container)
 ```
 sudo docker-compose exec php zsh
 ./celestial --cache-create
 ```
+The views/.cache directory must created be owned by www-data or equivalent
 
+
+- Congrats! 🥳
 You should now see the test message Hello, World!
 
 
