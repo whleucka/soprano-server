@@ -21,7 +21,7 @@ composer install
 ```
 
 #### Docker
-- Docker Setup
+- Start containers
 ```
 sudo docker-compose up -d
 ```
