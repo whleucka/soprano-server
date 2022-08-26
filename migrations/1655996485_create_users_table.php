@@ -14,7 +14,7 @@ return new class extends Migration {
             $table->uuid("uuid");
             $table->varchar("name");
             $table->varchar("email");
-            $table->binary("password", 40);
+            $table->binary("password", 100);
             $table->timestamps();
             $table->unique("email");
             $table->primaryKey("id");

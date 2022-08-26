@@ -11,7 +11,7 @@ use Exception;
 
 class AuthController extends BaseController
 {
-    public $home_route = "home.home";
+    public $home_route = "home.app";
     /**
      * Views
      */

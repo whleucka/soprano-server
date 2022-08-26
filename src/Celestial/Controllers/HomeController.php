@@ -15,12 +15,10 @@ class HomeController extends BaseController
         ]);
     }
 
-    #[Get("/home", "home.home", ["auth"])]
+    #[Get("/home", "home.app", ["auth"])]
     public function home()
     {
-        return $this->render("home/index.html", [
-            "greeting" => "Welcome home!",
-        ]);
+        return $this->render("layouts/react.html");
     }
 
     #[Get("/api/v1/answer", "home.answer", ["api"])]
@@ -28,7 +26,7 @@ class HomeController extends BaseController
     {
         return [
             "message" =>
-                "'The Answer to the Great Question... Of Life, the Universe and Everything... Is... Forty-two,' said Deep Thought, with infinite majesty and calm.",
+            "'The Answer to the Great Question... Of Life, the Universe and Everything... Is... Forty-two,' said Deep Thought, with infinite majesty and calm.",
             "payload" => 42,
         ];
     }

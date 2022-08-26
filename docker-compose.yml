@@ -29,7 +29,7 @@ services:
     volumes:
       - ./:/var/www/html
       - ./docker/mysql:/var/lib/mysql
-    command: mysqld --sql_mode=""
+    command: ['mysqld', '--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci', '--sql-mode=STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION']
     environment:
       MYSQL_ROOT_PASSWORD: libra
       SERVICE_TAGS: dev
