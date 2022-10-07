@@ -36,7 +36,7 @@ sudo docker-compose up -d
 - Create database (from database container)
 - You can set the password in docker-compose.yml by modifying `MYSQL_ROOT_PASSWORD`
 ```
-sudo docker-compose exec mysql sh
+sudo docker-compose exec database sh
 sudo mysql -p
 create database celestial
 ```
