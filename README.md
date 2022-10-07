@@ -37,7 +37,7 @@ sudo docker-compose up -d
 - You can set the password in docker-compose.yml by modifying `MYSQL_ROOT_PASSWORD`
 ```
 sudo docker-compose exec database sh
-sudo mysql -p
+mysql -p
 create database celestial
 ```
 
@@ -59,6 +59,10 @@ sudo docker-compose exec php zsh
 
 - Congrats! 🥳
 - You should now see the test message Hello, World!
+
+#### Installation FAQ
+- Why does it have to be this way?
+    - It won't be for long, no worries. I am working on a fully automated docker setup.
 
 
 ### Celestial Tool
