@@ -1,3 +1,3 @@
 #!/usr/bin/env sh
-D=$(date +%F %H:%M:%S)
+D=$(date "+%F %H:%M:%S")
 printf "%s -- Ping!\\n" $D
