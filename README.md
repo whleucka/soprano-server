@@ -2,6 +2,8 @@
 [![PHP Composer](https://github.com/libra-php/constellation/actions/workflows/php.yml/badge.svg?branch=main)](https://github.com/libra-php/constellation/actions/workflows/php.yml)
 
 A PHP web framework.
+Don't use this in production, it may never be deployable! 🤣
+100% experimental.
 
 (Very early stages of development)
 
@@ -21,6 +23,11 @@ composer install
 ```
 
 #### Docker
+- Copy example environment and fill out the secrets
+```
+cp .env.example .env
+```
+
 - Start containers
 ```
 sudo docker-compose up -d
@@ -29,8 +36,8 @@ sudo docker-compose up -d
 - Create database (from database container)
 - You can set the password in docker-compose.yml by modifying `MYSQL_ROOT_PASSWORD`
 ```
-sudo docker-compose exec mysql sh
-sudo mysql -p
+sudo docker-compose exec database sh
+mysql -p
 create database celestial
 ```
 
@@ -52,6 +59,10 @@ sudo docker-compose exec php zsh
 
 - Congrats! 🥳
 - You should now see the test message Hello, World!
+
+#### Installation FAQ
+- Why does it have to be this way?
+    - It won't be for long, no worries. I am working on a fully automated docker setup.
 
 
 ### Celestial Tool
