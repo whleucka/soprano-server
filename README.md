@@ -23,7 +23,7 @@ composer install
 ```
 
 #### Docker
-- Copy example environment and fill out the secrets
+- Copy example environment and fill in the secrets
 ```
 cp .env.example .env
 ```
