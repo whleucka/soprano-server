@@ -11,7 +11,11 @@ use Exception;
 
 class AuthController extends BaseController
 {
-    public $home_route = "home.app";
+    // React frontend
+    //public $home_route = "home.app";
+
+    // Dashboard backend
+    public $home_route = "admin.dashboard";
     /**
      * Views
      */

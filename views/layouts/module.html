@@ -14,18 +14,22 @@
     <meta name="keywords" content="PHP, Framework, Celestial, Constellation, Libra">
     <meta name="author" content="Libra PHP">
 {% endblock %}
-    <title>{% block title %}{% endblock %}Celestial</title>
+    <title>{% block title %}{% endblock %}Admin</title>
 {% block head_scripts %}
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/admin.css">
 {% endblock %}
 {% endblock %}
   </head>
   <body>
-    <section id="content">
-        {% block content %}{% endblock %}
-    </section>
+      <section id="admin">
+          <section id="sidebar">
+          </section>
+          <section id="module">
+              {% block content %}{% endblock %}
+          </section>
+      </section>
 {% block body_scripts %}
-    <script src="/js/index.js"></script>
+      <script src="/js/admin.js"></script>
 {% endblock %}
   </body>
 </html>
