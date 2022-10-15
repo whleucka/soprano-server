@@ -2,10 +2,8 @@
 [![PHP Composer](https://github.com/libra-php/constellation/actions/workflows/php.yml/badge.svg?branch=main)](https://github.com/libra-php/constellation/actions/workflows/php.yml)
 
 A PHP web framework.
-Don't use this in production, it may never be deployable! 🤣
-100% experimental.
+Don't use this in production, it is 100% experimental 🤣
 
-(Very early stages of development)
 
 #### Installation
 - Composer Installation
