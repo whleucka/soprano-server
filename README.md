@@ -54,11 +54,10 @@ create database celestial
 sudo docker-compose exec php zsh
 ./celestial --cache-create
 ```
-- The views/.cache directory must created be owned by www-data or equivalent
-
 
 - Congrats! 🥳
 - You should now see the test message Hello, World!
+
 
 #### Installation FAQ
 - Why does it have to be this way?
