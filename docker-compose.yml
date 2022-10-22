@@ -31,7 +31,7 @@ services:
       - ./docker/mysql:/var/lib/mysql
     command: ['mysqld', '--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci', '--sql-mode=STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION']
     environment:
-      MYSQL_ROOT_PASSWORD: libra
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD:?err}
       SERVICE_TAGS: dev
       SERVICE_NAME: database
     networks:
@@ -43,7 +43,7 @@ services:
       dockerfile: ./docker/php/Dockerfile
     container_name: php
     restart: unless-stopped
-    volumes: 
+    volumes:
       - ./:/var/www/html
     ports:
       - "9000:9000"
