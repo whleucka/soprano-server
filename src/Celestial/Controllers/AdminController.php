@@ -4,6 +4,7 @@ namespace Celestial\Controllers;
 
 use Constellation\Controller\Controller as BaseController;
 use Constellation\Routing\Get;
+use Constellation\View\{EditView,ListView};
 
 class AdminController extends BaseController
 {
@@ -11,5 +12,12 @@ class AdminController extends BaseController
     public function index()
     {
         return $this->render("admin/dashboard.html");
+    }
+
+    #[Get("/users", "admin.users", ["auth"])]
+    public function users()
+    {
+        $view = new ListView("Users", $this);
+        $view->render();
     }
 }

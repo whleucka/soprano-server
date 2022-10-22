@@ -1,3 +1,2 @@
 #!/usr/bin/env sh
-D=$(date -u +"%FT%T")
-printf "%s -- Ping!\\n" $D
+printf "Ping!\\n" $D
