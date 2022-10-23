@@ -35,7 +35,7 @@ class AdminController extends BaseController
         ];
         $item->list_override = [
             "name" => function ($item, $col) {
-                if ($item['uuid'] == '470b7325-1b79-4f8c-a2f4-6438166fb558')
+                if ($item[$col] == 'William Hleucka')
                     return "This is me";
                 return $item[$col];
             }
