@@ -1,20 +1,5 @@
 {% extends "layouts/module.html" %}
 {% block content %}
 <h3>{{ module_name }}</h3>
-<table id="module-table"">
-    <thead>
-        <tr>
-            {% for header in list_columns %}
-            <td class="header">{{ header }}</td>
-            {% endfor %}
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-        {% for one in data %}
-            <td>{{ one }}</td>
-        {% endfor %}
-        <tr>
-    </tbody>
-</table>
+{{ table|raw }}
 {% endblock %}
