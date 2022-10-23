@@ -36,7 +36,8 @@ sudo docker-compose up -d
 ```
 
 - Create database (from database container)
-- You can set the secret database password in .env by modifying `DB_PASSWORD`
+- You can set the secret database password in the .env file by modifying
+`DB_PASSWORD`
 ```
 sudo docker-compose exec database sh
 mysql -p
