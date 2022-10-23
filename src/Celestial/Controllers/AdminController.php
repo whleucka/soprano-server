@@ -4,7 +4,7 @@ namespace Celestial\Controllers;
 
 use Constellation\Controller\Controller as BaseController;
 use Constellation\Routing\Get;
-use Constellation\View\{EditView,ListView};
+use Constellation\View\Item;
 
 class AdminController extends BaseController
 {
@@ -17,7 +17,17 @@ class AdminController extends BaseController
     #[Get("/users", "admin.users", ["auth"])]
     public function users()
     {
-        $view = new ListView("Users", $this);
-        $view->render();
+        $item = new Item($this, "Users");
+        $item->name_col = "uuid";
+        $item->list_columns = [
+            "id" => "ID",
+            "uuid" => "UUID",
+            "name" => "Name",
+            "email" => "E-mail",
+            "created_at" => "Created At",
+            "updated_at" => "Updated At",
+        ];
+        $item->edit_columns = [];
+        $item->processRequest();
     }
 }

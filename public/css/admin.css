@@ -1,0 +1,16 @@
+#admin, #module {
+    width: 100%;
+}
+#module-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+#no-data {
+    font-style: italic;
+}
+.text-center {
+    text-align: center;
+}
+.m-10 {
+    margin: 10px;
+}
