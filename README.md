@@ -2,7 +2,9 @@
 [![PHP Composer](https://github.com/libra-php/constellation/actions/workflows/php.yml/badge.svg?branch=main)](https://github.com/libra-php/constellation/actions/workflows/php.yml)
 
 A PHP web framework.
-Don't use this in production, it is 100% experimental 🤣
+WIP! Don't use this in production.
+
+100% experimental 🤣
 
 
 #### Installation
@@ -34,7 +36,7 @@ sudo docker-compose up -d
 ```
 
 - Create database (from database container)
-- You can set the password in docker-compose.yml by modifying `MYSQL_ROOT_PASSWORD`
+- You can set the secret database password in .env by modifying `DB_PASSWORD`
 ```
 sudo docker-compose exec database sh
 mysql -p
@@ -46,7 +48,7 @@ create database celestial
 ./celestial --migration-run
 ```
 
-- By default, the database user is root. You should consider setting up a different database user for your application.
+- By default, the database user is root. You should consider setting up a different database user for your application. Set the password secret in the .env file
 
 
 - If you receive this message "Fatal error: Uncaught RuntimeException: Unable to create the cache directory", then please create the view cache directory (from php container)
