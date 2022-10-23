@@ -28,6 +28,13 @@ class AdminController extends BaseController
             "created_at" => "Created At",
             "updated_at" => "Updated At",
         ];
+        $item->list_override = [
+            "name" => function ($item, $col) {
+                if ($item['uuid'] == '470b7325-1b79-4f8c-a2f4-6438166fb558')
+                    return "This is me";
+                return $item[$col];
+            }
+        ];
         $item->edit_columns = [
             "name" => "Name",
             "email" => "E-mail",
