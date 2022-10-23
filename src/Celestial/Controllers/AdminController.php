@@ -18,6 +18,7 @@ class AdminController extends BaseController
     public function users()
     {
         $item = new Item($this, "Users");
+        $item->table_name = "users";
         $item->name_col = "uuid";
         $item->list_columns = [
             "id" => "ID",

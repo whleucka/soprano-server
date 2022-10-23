@@ -2,14 +2,23 @@
     width: 100%;
 }
 #module-table {
-    width: 100%;
     border-collapse: collapse;
+    width: 100%;
+}
+#module-table thead td {
+    font-weight: bold;
 }
 #no-data {
     font-style: italic;
 }
+.text-left {
+    text-align: left;
+}
 .text-center {
     text-align: center;
+}
+.text-right {
+    text-align: right;
 }
 .m-10 {
     margin: 10px;
