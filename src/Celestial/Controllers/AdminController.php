@@ -28,6 +28,11 @@ class AdminController extends BaseController
             "created_at" => "Created At",
             "updated_at" => "Updated At",
         ];
+        $item->list_format = [
+            "name" => function ($col, $val) {
+                return "<span style='color: red'>{$val}</span>";
+            }
+        ];
         $item->list_override = [
             "name" => function ($item, $col) {
                 if ($item['uuid'] == '470b7325-1b79-4f8c-a2f4-6438166fb558')
