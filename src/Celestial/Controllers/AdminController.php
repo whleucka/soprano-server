@@ -28,7 +28,12 @@ class AdminController extends BaseController
             "created_at" => "Created At",
             "updated_at" => "Updated At",
         ];
-        $item->edit_columns = [];
+        $item->edit_columns = [
+            "name" => "Name",
+            "email" => "E-mail",
+            "password" => "Password",
+            "password_match" => "Password (again)",
+        ];
         $item->processRequest();
     }
 }
