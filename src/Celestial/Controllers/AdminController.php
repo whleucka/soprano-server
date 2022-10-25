@@ -53,6 +53,6 @@ class AdminController extends BaseController
             "password" => "Password",
             "password_match" => "Password (again)",
         ];
-        $item->processRequest();
+        $item->init();
     }
 }
