@@ -1,32 +1,64 @@
+/**
+ * Main
+ */
 #admin, #module {
     width: 100%;
 }
-#module-table {
+
+/**
+ * Table
+ */
+.module-table {
     border-collapse: collapse;
     width: 100%;
 }
-#module-table thead td {
+.module-table thead td {
     font-weight: bold;
 }
-#module-table thead td {
+.module-table thead td {
     font-weight: bold;
 }
-#module-table thead td, #module-table tbody td {
+.module-table thead td, .module-table tbody td {
     padding: 0 5px !important;
 }
-#pagination  {
-    color: #444;
+
+/**
+ * Pagination
+ */
+.pagination {
+    cursor: pointer;
+    margin-top: 10px;
+    display: inline-block;
 }
-#pagination span.disabled {
+.pagination a, .pagination span {
+    color: #444;
+    color: black;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+    transition: background-color .3s;
+    border: 1px solid #ddd;
+}
+.pagination a.active {
+    background-color: #FFF;
+    color: white;
+    border: 1px solid #4CAF50;
+}
+.pagination a:hover:not(.active) {background-color: #EEE;}
+.pagination span.disabled {
     color: #AAA;
 }
-#pagination a, #pagination span.disabled {
-    font-size: 1.5rem;
-    margin: 0 3px;
-}
-#no-data {
+.
+/**
+ * Statuses
+ */
+.no-data {
     font-style: italic;
 }
+
+/**
+ * Utility
+ */
 .text-left {
     text-align: left;
 }

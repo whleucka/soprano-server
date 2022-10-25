@@ -26,13 +26,11 @@ class AdminController extends BaseController
             "name" => "Name",
             "email" => "E-mail",
             ".1 as pct" => "Percent",
-            "created_at" => "Created At",
-            "updated_at" => "Updated At",
+            "created_at" => "Created",
         ];
         $item->list_type = [
             "pct" => "pct",
             "created_at" => "ago",
-            "updated_at" => "ago",
         ];
         $item->list_align = [
             "pct" => "right",
