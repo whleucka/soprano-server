@@ -3,7 +3,7 @@
 namespace Celestial\Controllers;
 
 use Constellation\Controller\Controller as BaseController;
-use Constellation\Routing\{Get,Post};
+use Constellation\Routing\{Get, Post};
 use Constellation\Routing\Router;
 use Constellation\View\Item;
 
