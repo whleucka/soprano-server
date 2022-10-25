@@ -14,6 +14,16 @@
 #module-table thead td, #module-table tbody td {
     padding: 0 5px !important;
 }
+#pagination  {
+    color: #444;
+}
+#pagination span.disabled {
+    color: #AAA;
+}
+#pagination a, #pagination span.disabled {
+    font-size: 1.5rem;
+    margin: 0 3px;
+}
 #no-data {
     font-style: italic;
 }
