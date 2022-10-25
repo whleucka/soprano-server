@@ -32,6 +32,9 @@ class AdminController extends BaseController
         $item->list_type = [
             "pct" => "Percent",
         ];
+        $item->list_align = [
+            "pct" => "right",
+        ];
         $item->list_format = [
             "name" => function ($col, $val) {
                 return "<span style='color: red'>{$val}</span>";
