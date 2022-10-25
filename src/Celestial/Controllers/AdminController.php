@@ -25,8 +25,12 @@ class AdminController extends BaseController
             "uuid" => "UUID",
             "name" => "Name",
             "email" => "E-mail",
+            ".1 as pct" => "Percent",
             "created_at" => "Created At",
             "updated_at" => "Updated At",
+        ];
+        $item->list_type = [
+            "pct" => "Percent",
         ];
         $item->list_format = [
             "name" => function ($col, $val) {
