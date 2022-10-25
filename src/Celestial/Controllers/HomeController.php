@@ -26,7 +26,7 @@ class HomeController extends BaseController
     {
         return [
             "message" =>
-            "'The Answer to the Great Question... Of Life, the Universe and Everything... Is... Forty-two,' said Deep Thought, with infinite majesty and calm.",
+                "'The Answer to the Great Question... Of Life, the Universe and Everything... Is... Forty-two,' said Deep Thought, with infinite majesty and calm.",
             "payload" => 42,
         ];
     }

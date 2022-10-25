@@ -83,8 +83,8 @@ class Main
     {
         $this->db =
             $_ENV["DB_TYPE"] != "none"
-            ? $this->container->get(DB::class)
-            : null;
+                ? $this->container->get(DB::class)
+                : null;
         return $this;
     }
 

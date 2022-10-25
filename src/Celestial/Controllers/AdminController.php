@@ -39,14 +39,15 @@ class AdminController extends BaseController
         $item->list_format = [
             "name" => function ($col, $val) {
                 return "<span style='color: red'>{$val}</span>";
-            }
+            },
         ];
         $item->list_override = [
             "name" => function ($item, $col) {
-                if ($item[$col] == 'William Hleucka')
+                if ($item[$col] == "William Hleucka") {
                     return "Me";
+                }
                 return $item[$col];
-            }
+            },
         ];
         $item->edit_columns = [
             "name" => "Name",
