@@ -18,6 +18,7 @@ class AdminController extends BaseController
     public function users()
     {
         $item = new Item($this, "Users");
+        $item->rows_per_page = 5;
         $item->table_name = "users";
         $item->name_col = "uuid";
         $item->list_columns = [
@@ -43,7 +44,7 @@ class AdminController extends BaseController
         $item->list_override = [
             "name" => function ($item, $col) {
                 if ($item[$col] == 'William Hleucka')
-                    return "This is me";
+                    return "Me";
                 return $item[$col];
             }
         ];
