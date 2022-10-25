@@ -30,7 +30,9 @@ class AdminController extends BaseController
             "updated_at" => "Updated At",
         ];
         $item->list_type = [
-            "pct" => "Percent",
+            "pct" => "pct",
+            "created_at" => "ago",
+            "updated_at" => "ago",
         ];
         $item->list_align = [
             "pct" => "right",
