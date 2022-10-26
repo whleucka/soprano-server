@@ -116,6 +116,11 @@ table.module-table a:hover {
 .alerts .info strong {
     color: royalblue;
 }
+.alerts ul {
+    margin: 0;
+    padding: 0;
+    margin-left: 52px;
+}
 
 /**
  * Buttons
@@ -294,3 +299,5 @@ table.module-table {
     }
     #module {
         width: calc(100% - 10px);
+    }
+}
