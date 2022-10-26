@@ -164,6 +164,9 @@ table.module-table {
 #edit-form #edit-actions {
     margin-top: 10px;
 }
+#edit-form #edit-actions button {
+    margin-right: 10px;
+}
 
 /**
  * Pagination
