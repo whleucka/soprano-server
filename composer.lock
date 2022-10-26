@@ -888,7 +888,7 @@
             "dist": {
                 "type": "path",
                 "url": "./constellation",
-                "reference": "eb98e17ee28110d3f65748ae41e31f0c1512a7d2"
+                "reference": "1fd219901472f4c2dd00045dc444e525e1c0b68b"
             },
             "require": {
                 "composer/composer": "^2.3",
