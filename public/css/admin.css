@@ -68,8 +68,6 @@ table.module-table a:hover {
     color: royalblue;
 }
 
-
-
 /**
  * Buttons
  */
@@ -107,6 +105,9 @@ button:hover {
 }
 #sidebar ul li {
     margin-bottom: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 #sidebar li:hover {
     font-weight: bold;
@@ -133,8 +134,8 @@ table.module-table {
     text-align: left;
     padding: 0;
 }
-.module-table tbody tr td:not(:last-child) {
-}
+/* .module-table tbody tr td:not(:last-child) { */
+/* } */
 .module-table thead th, .module-table tbody td {
     padding: 2px 5px;
 }
@@ -224,6 +225,11 @@ table.module-table {
 }
 .pl-10 {
     padding-left: 10px;
+}
+.truncate {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 /**
