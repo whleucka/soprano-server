@@ -35,6 +35,7 @@ class AdminController extends BaseController
             "created_at" => "ago",
         ];
         $item->list_align = [
+            "id" => "right",
             "pct" => "right",
         ];
         $item->list_format = [

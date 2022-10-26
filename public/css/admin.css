@@ -124,6 +124,7 @@ button:hover {
 table.module-table {
     width: 100%;
     border-collapse: collapse;
+    font-size: 0.9rem;
 }
 .module-table tbody tr:hover {
     background-color: #FFFFE0;
@@ -197,13 +198,13 @@ table.module-table {
  * Utility
  */
 .text-left {
-    text-align: left;
+    text-align: left !important;
 }
 .text-center {
-    text-align: center;
+    text-align: center !important;
 }
 .text-right {
-    text-align: right;
+    text-align: right !important;
 }
 .m-10 {
     margin: 10px;
@@ -244,5 +245,3 @@ table.module-table {
     }
     #module {
         width: calc(100% - 10px);
-    }
-}
