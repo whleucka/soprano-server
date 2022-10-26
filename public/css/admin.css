@@ -90,24 +90,28 @@ table.module-table a:hover {
 
 .alerts .error {
     border-left-color: red;
+    background-color: #fff0f0;
 }
 .alerts .error strong {
     color: red;
 }
 .alerts .success {
     border-left-color: #97f7a2 !important;
+    background-color: #f0fff1;
 }
 .alerts .success strong {
     color: #0eb024;
 }
 .alerts .warning {
     border-left-color: #ffb53d !important;
+    background-color: #fffff0;
 }
 .alerts .warning strong {
     color: #ffb53d
 }
 .alerts .info {
     border-left-color: royalblue !important;
+    background-color: #f0faff;
 }
 .alerts .info strong {
     color: royalblue;
