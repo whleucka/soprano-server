@@ -15,17 +15,17 @@ class AuthController extends BaseController
     //public $home_route = "home.app";
 
     // Dashboard backend
-    public $home_route = "admin.dashboard";
+    public $home_route = "admin.index";
     /**
      * Views
      */
-    #[Get("/sign-in", "auth.sign-in")]
+    #[Get("/admin/sign-in", "auth.sign-in")]
     public function sign_in()
     {
         return $this->render("auth/sign-in.html");
     }
 
-    #[Get("/sign-out", "auth.sign-out")]
+    #[Get("/admin/sign-out", "auth.sign-out")]
     public function sign_out()
     {
         Auth::signOut();
@@ -33,19 +33,19 @@ class AuthController extends BaseController
         exit();
     }
 
-    #[Get("/register", "auth.register")]
+    #[Get("/admin/register", "auth.register")]
     public function register()
     {
         return $this->render("auth/register.html");
     }
 
-    #[Get("/forgot-password", "auth.forgot-password")]
+    #[Get("/admin/forgot-password", "auth.forgot-password")]
     public function forgot_password()
     {
         return $this->render("auth/forgot-password.html");
     }
 
-    #[Get("/reset-password", "auth.reset-password")]
+    #[Get("/admin/reset-password", "auth.reset-password")]
     public function reset_password()
     {
         return $this->render("auth/reset-password.html");
@@ -54,7 +54,7 @@ class AuthController extends BaseController
     /**
      * Requests
      */
-    #[Post("/sign-in", "auth.sign-in-post")]
+    #[Post("/admin/sign-in", "auth.sign-in-post")]
     public function sign_in_post()
     {
         $data = $this->validateRequest([
@@ -82,7 +82,7 @@ class AuthController extends BaseController
         return $this->sign_in();
     }
 
-    #[Post("/register", "auth.register-post")]
+    #[Post("/admin/register", "auth.register-post")]
     public function register_post()
     {
         $data = $this->validateRequest([

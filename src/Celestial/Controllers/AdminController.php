@@ -8,14 +8,14 @@ use Constellation\View\Item;
 
 class AdminController extends BaseController
 {
-    #[Get("/dashboard", "admin.dashboard", ["auth"])]
+    #[Get("/admin", "admin.index", ["auth"])]
     public function index()
     {
         return $this->render("admin/dashboard.html");
     }
 
-    #[Post("/users", "admin.users", ["auth"])]
-    #[Get("/users", "admin.users", ["auth"])]
+    #[Post("/admin/users", "admin.users", ["auth"])]
+    #[Get("/admin/users", "admin.users", ["auth"])]
     public function users()
     {
         $item = new Item($this, "Users");
