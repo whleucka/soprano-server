@@ -57,7 +57,7 @@ class AdminController extends BaseController
         ];
         $item->edit_type = [
             "name" => "input",
-            "email" => "input",
+            "email" => "email",
         ];
         $item->validate = [
             "name" => ["required"],
