@@ -58,6 +58,9 @@ class AdminController extends BaseController
             "name" => "input",
             "email" => "input",
         ];
+        $item->validate = [
+            "name" => ["required"],
+        ];
         $item->init();
     }
 }
