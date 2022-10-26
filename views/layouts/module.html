@@ -18,14 +18,24 @@
 {% block head_scripts %}
     <link rel="stylesheet" href="/css/admin.css">
 {% endblock %}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
 {% endblock %}
   </head>
   <body>
       <section id="admin">
-          <section id="sidebar">
-          </section>
-          <section id="module">
-              {% block content %}{% endblock %}
+          <section id="content">
+              <section id="sidebar">
+                  <ul>
+                      <a href='/dashboard'><li>Dashboard</li></a>
+                      <a href='/users'><li>Users</li></a>
+                      <a href='/sign-out'><li>Sign out</li></a>
+                  </ul>
+              </section>
+              <section id="module">
+                  {% block content %}{% endblock %}
+              </section>
           </section>
       </section>
 {% block body_scripts %}

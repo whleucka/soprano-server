@@ -4,7 +4,6 @@ namespace Celestial\Controllers;
 
 use Constellation\Controller\Controller as BaseController;
 use Constellation\Routing\{Get, Post};
-use Constellation\Routing\Router;
 use Constellation\View\Item;
 
 class AdminController extends BaseController
@@ -20,7 +19,6 @@ class AdminController extends BaseController
     public function users()
     {
         $item = new Item($this, "Users");
-        $item->route = Router::getInstance()->getRoute();
         $item->rows_per_page = 5;
         $item->table_name = "users";
         $item->name_col = "uuid";
