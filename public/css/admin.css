@@ -69,6 +69,51 @@ table.module-table a:hover {
 }
 
 /**
+ * Alerts
+ */
+.alerts {
+    margin-bottom: 20px;
+    width: 99%;
+}
+
+.flash {
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+    border-left-style: solid;
+    border-width: 5px;
+    padding: 20px;
+}
+
+.alerts strong {
+    padding-right: 10px;
+    font-size: 1.2rem;
+}
+
+.alerts .error {
+    border-left-color: red;
+}
+.alerts .error strong {
+    color: red;
+}
+.alerts .success {
+    border-left-color: #97f7a2 !important;
+}
+.alerts .success strong {
+    color: #0eb024;
+}
+.alerts .warning {
+    border-left-color: #ffb53d !important;
+}
+.alerts .warning strong {
+    color: #ffb53d
+}
+.alerts .info {
+    border-left-color: royalblue !important;
+}
+.alerts .info strong {
+    color: royalblue;
+}
+
+/**
  * Buttons
  */
 button {
