@@ -171,6 +171,9 @@ button:hover {
 /**
  * Table
  */
+#list-actions {
+    margin: 10px 0;
+}
 .table-wrapper {
     overflow-x: auto;
     width: 100%;
