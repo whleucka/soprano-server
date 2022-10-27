@@ -44,30 +44,40 @@ class AdminController extends BaseController
             },
         ];
         $item->list_override = [
-            "name" => function ($item, $col) {
-                if ($item[$col] == "William Hleucka") {
+            "name" => function ($row, $col) {
+                if ($row[$col] == "William Hleucka") {
                     return "Me";
                 }
-                return $item[$col];
+                return $row[$col];
             },
         ];
         $item->edit_columns = [
             "name" => "Name",
             "email" => "E-mail",
+            "password" => "Password",
         ];
         $item->edit_type = [
             "name" => "input",
             "email" => "email",
+            "password" => "password",
+        ];
+        $item->edit_default = [
+            "password" => "",
         ];
         $item->validate = [
             "name" => ["required"],
             "email" => ["required", "email"],
+            "password" => ["password"],
         ];
-        //$item->edit_override = [
-        //    "name" => function ($item, $col) {
-        //        return "Test";
-        //    },
-        //];
+        $item->edit_override = [
+            "password" => function ($row, $col) use ($item) {
+                //echo "<pre>";
+                //print_r($item->mode);
+                //print_r($row);
+                //echo "</pre>";
+                return "";
+            },
+        ];
         $item->init();
     }
 }
