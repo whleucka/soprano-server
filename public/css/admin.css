@@ -11,10 +11,8 @@ body {
     font-family: 'Source Sans Pro', sans-serif;
     font-size: 100%;
 }
-#admin, #module {
-    height: 100%;
-}
 #module {
+    height: 100%;
     padding-left: 10px;
     width: calc(100% - 135px);
     overflow-y: auto;
@@ -73,19 +71,22 @@ table.module-table a:hover {
  */
 .alerts {
     margin-bottom: 20px;
-    width: 99%;
+    width: 100%;
 }
 
 .flash {
+    display: flex;
+    align-items: center;
     box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
     border-left-style: solid;
     border-width: 5px;
     padding: 20px;
+    margin-right: 10px;
 }
 
 .alerts strong {
-    padding-right: 10px;
     font-size: 1.2rem;
+    margin-right: 10px;
 }
 
 .alerts .error {
@@ -197,7 +198,7 @@ table.module-table {
 .module-table .list-action-row {
     width: 100%;
     display: flex;
-    justify-content: right;
+    justify-content: left;
     align-items: center;
 }
 

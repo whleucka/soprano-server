@@ -61,6 +61,7 @@ class AdminController extends BaseController
         ];
         $item->validate = [
             "name" => ["required"],
+            "email" => ["required", "email"],
         ];
         //$item->edit_override = [
         //    "name" => function ($item, $col) {

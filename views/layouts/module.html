@@ -24,18 +24,16 @@
 {% endblock %}
   </head>
   <body>
-      <section id="admin">
-          <section id="content">
-              <section id="sidebar">
-                  <ul>
-                      <a href='/admin'><li>Dashboard</li></a>
-                      <a href='/admin/users'><li>Users</li></a>
-                      <a href='/admin/sign-out'><li>Sign out</li></a>
-                  </ul>
-              </section>
-              <section id="module">
-                  {% block content %}{% endblock %}
-              </section>
+      <section id="content">
+          <section id="sidebar">
+              <ul>
+                  <a href='/admin'><li>Dashboard</li></a>
+                  <a href='/admin/users'><li>Users</li></a>
+                  <a href='/admin/sign-out'><li>Sign out</li></a>
+              </ul>
+          </section>
+          <section id="module">
+              {% block content %}{% endblock %}
           </section>
       </section>
 {% block body_scripts %}
