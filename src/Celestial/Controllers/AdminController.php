@@ -2,9 +2,13 @@
 
 namespace Celestial\Controllers;
 
+use Celestial\Models\User;
+use Constellation\Authentication\Auth;
 use Constellation\Controller\Controller as BaseController;
 use Constellation\Routing\{Get, Post};
+use Constellation\Validation\Validate;
 use Constellation\View\Item;
+use Ramsey\Uuid\Uuid;
 
 class AdminController extends BaseController
 {
@@ -31,6 +35,10 @@ class AdminController extends BaseController
             "created_at" => "Created",
         ];
         $item->list_type = [
+            "id" => "text",
+            "uuid" => "text",
+            "name" => "text",
+            "email" => "text",
             "pct" => "pct",
             "created_at" => "ago",
         ];
@@ -54,30 +62,57 @@ class AdminController extends BaseController
         $item->edit_columns = [
             "name" => "Name",
             "email" => "E-mail",
-            "password" => "Password",
+            "'' as password" => "Password",
+            "'' as password_match" => "Password (again)",
+            // These columns are part of the dataset but are not rendered
+            "uuid" => "UUID",
+            "created_at" => "Created",
         ];
         $item->edit_type = [
             "name" => "input",
             "email" => "email",
             "password" => "password",
-        ];
-        $item->edit_default = [
-            "password" => "",
+            "password_match" => "password",
         ];
         $item->validate = [
             "name" => ["required"],
             "email" => ["required", "email"],
-            "password" => ["password"],
+            "password" => [
+                "required",
+                "match",
+                "min_length=8",
+                "uppercase=1",
+                "lowercase=1",
+                "symbol=1",
+            ],
         ];
         $item->edit_override = [
             "password" => function ($row, $col) use ($item) {
-                //echo "<pre>";
-                //print_r($item->mode);
-                //print_r($row);
-                //echo "</pre>";
+                if (in_array($item->mode, ["insert", "save"])) {
+                    return Auth::hashPassword($row[$col]);
+                }
                 return "";
             },
         ];
+        $item->edit_default["uuid"] = Uuid::uuid4()->toString();
+        $item->edit_default["created_at"] = date("Y-m-d H:i:s");
+        Validate::$custom["email"] = function ($rule, $value) use ($item) {
+            $user = User::findByAttribute("email", $value);
+            if ($item->mode == "insert") {
+                if ($user) {
+                    Validate::$errors["email"][] =
+                        "This email is already associated with another user";
+                    return false;
+                }
+            } elseif ($item->mode == "save") {
+                if ($user && $user->email != $value) {
+                    Validate::$errors["email"][] =
+                        "This email is already associated with another user";
+                    return false;
+                }
+            }
+            return true;
+        };
         $item->init();
     }
 }
