@@ -13,7 +13,7 @@ body {
 }
 #module {
     height: 100%;
-    padding-left: 10px;
+    padding: 0 10px;
     width: calc(100% - 135px);
     overflow-y: auto;
 }
@@ -132,7 +132,7 @@ button {
     cursor: pointer;
     background-color: #e7e7e7;
     color: #555;
-    padding: 8px 16px;
+    padding: 6px 12px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
@@ -172,12 +172,13 @@ button:hover {
  * Table
  */
 #list-actions {
-    margin: 10px 0;
+    margin: 20px 0;
 }
 .table-wrapper {
     overflow-x: auto;
     width: 100%;
     max-height: 1000px;
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
 }
 table.module-table {
     width: 100%;
@@ -188,25 +189,27 @@ table.module-table {
     background-color: #FFFFE0;
 }
 .module-table thead th {
+    background-color: #666;
     font-weight: bold;
-    color: #333;
+    color: #FFF;
     text-align: left;
     padding: 0;
 }
-/* .module-table tbody tr td:not(:last-child) { */
-/* } */
+.module-table tbody tr td:not(:last-child) span {
+    white-space: nowrap;
+}
 .module-table thead th, .module-table tbody td {
     padding: 2px 5px;
 }
 .module-table .list-action-row {
     width: 100%;
     display: flex;
-    justify-content: left;
+    justify-content: right;
     align-items: center;
 }
 
 .module-table .list-action-row button {
-    margin-left: 2px;
+    margin-left: 4px;
 }
 
 /**
@@ -232,7 +235,7 @@ table.module-table {
  */
 .pagination {
     cursor: pointer;
-    margin-top: 10px;
+    margin-top: 20px;
     display: inline-block;
 }
 .pagination a, .pagination span {

@@ -26,12 +26,13 @@ class AdminController extends BaseController
         $item->rows_per_page = 5;
         $item->table_name = "users";
         $item->name_col = "uuid";
+
+        // List view
         $item->list_columns = [
             "id" => "ID",
             "uuid" => "UUID",
             "name" => "Name",
             "email" => "E-mail",
-            ".1 as pct" => "Percent",
             "created_at" => "Created",
         ];
         $item->list_type = [
@@ -39,12 +40,10 @@ class AdminController extends BaseController
             "uuid" => "text",
             "name" => "text",
             "email" => "text",
-            "pct" => "pct",
             "created_at" => "ago",
         ];
         $item->list_align = [
             "id" => "right",
-            "pct" => "right",
         ];
         $item->list_format = [
             "name" => function ($col, $val) {
@@ -59,6 +58,8 @@ class AdminController extends BaseController
                 return $row[$col];
             },
         ];
+
+        // Edit view
         $item->edit_columns = [
             "name" => "Name",
             "email" => "E-mail",
@@ -74,6 +75,7 @@ class AdminController extends BaseController
             "password" => "password",
             "password_match" => "password",
         ];
+        // Edit request validation
         $item->validate = [
             "name" => ["required"],
             "email" => ["required", "email"],
@@ -94,8 +96,12 @@ class AdminController extends BaseController
                 return "";
             },
         ];
+
+        // Insert default values
         $item->edit_default["uuid"] = Uuid::uuid4()->toString();
         $item->edit_default["created_at"] = date("Y-m-d H:i:s");
+
+        // Custom validation on email
         Validate::$custom["email"] = function ($rule, $value) use ($item) {
             $user = User::findByAttribute("email", $value);
             if ($item->mode == "insert") {
@@ -113,6 +119,7 @@ class AdminController extends BaseController
             }
             return true;
         };
+
         $item->init();
     }
 }
