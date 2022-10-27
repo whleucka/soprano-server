@@ -172,7 +172,11 @@ button:hover {
  * Table
  */
 #list-actions {
+    display: flex;
     margin: 20px 0;
+}
+#list-actions button {
+    margin-right: 4px;
 }
 .table-wrapper {
     overflow-x: auto;
