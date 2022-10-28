@@ -23,7 +23,7 @@ class AdminController extends BaseController
     public function users()
     {
         $item = new Item($this, "Users");
-        $item->rows_per_page = 5;
+        $item->rows_per_page = 10;
         $item->table_name = "users";
         $item->name_col = "uuid";
 
@@ -65,7 +65,7 @@ class AdminController extends BaseController
             "email" => "E-mail",
             "'' as password" => "Password",
             "'' as password_match" => "Password (again)",
-            // These columns are part of the dataset but are not rendered
+            // These columns are part of the dataset, but are not rendered
             "uuid" => "UUID",
             "created_at" => "Created",
         ];
