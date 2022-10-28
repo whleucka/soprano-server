@@ -238,7 +238,6 @@ table.module-table {
     opacity: 1.0;
 }
 .module-table thead th {
-    height: 24px;
     border-bottom: 1px solid #eaeaea;
 }
 .module-table thead th {
@@ -253,7 +252,7 @@ table.module-table {
     white-space: nowrap;
 }
 .module-table thead th, .module-table tbody td {
-    padding: 4px 5px;
+    padding: 6px 5px;
     border-bottom: 1px solid #eaeaea;
 }
 .module-table .list-action-row {
@@ -310,6 +309,7 @@ table.module-table {
     color: #AAA;
 }
 .total-results {
+    color: #777;
     float: right;
     padding-top: 25px;
     padding-right: 15px;
