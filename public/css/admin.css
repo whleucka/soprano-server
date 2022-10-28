@@ -173,6 +173,19 @@ ul.breadcrumb li a:hover {
 }
 
 /**
+ * Inputs
+ */
+input {
+    height: 23px;
+    border-radius: 5px;
+    border: 1px solid #aeaeae;
+}
+#list-search-input {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+/**
  * Buttons
  */
 button {
@@ -185,6 +198,12 @@ button {
     text-decoration: none;
     display: inline-block;
     opacity: 0.85;
+    padding: 3px 6px;
+}
+#list-search-button {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-left: 0;
 }
 
 button.sm {
@@ -241,6 +260,9 @@ button:hover {
 }
 #list-actions button {
     margin-right: 4px;
+}
+#list-filters {
+    margin: 20px 0;
 }
 .table-wrapper {
     border-radius: 4px;
@@ -360,6 +382,21 @@ table.module-table {
 .text-right {
     text-align: right !important;
 }
+.m-5 {
+    margin: 5px;
+}
+.mr-5 {
+    margin-right: 5px;
+}
+.ml-5 {
+    margin-left: 5px;
+}
+.mt-5 {
+    margin-top: 5px;
+}
+.mb-5 {
+    margin-bottom: 5px;
+}
 .m-10 {
     margin: 10px;
 }
@@ -374,6 +411,21 @@ table.module-table {
 }
 .mb-10 {
     margin-bottom: 10px;
+}
+.p-5 {
+    padding: 5px;
+}
+.pt-5 {
+    padding-top: 5px;
+}
+.pb-5 {
+    padding-bottom: 5px;
+}
+.pr-5 {
+    padding-right: 5px;
+}
+.pl-5 {
+    padding-left: 5px;
 }
 .p-10 {
     padding: 10px;
