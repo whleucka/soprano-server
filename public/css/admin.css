@@ -70,6 +70,7 @@ table.module-table a:hover {
  * Breadcrumbs
  */
 ul.breadcrumb {
+  color: #777;
   padding: 0 0 10px 0;
   list-style: none;
   font-size: 0.8rem;
