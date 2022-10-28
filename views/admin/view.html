@@ -1,5 +1,10 @@
 {% extends "layouts/module.html" %}
 {% block content %}
+<ul class="breadcrumb">
+  {% for breadcrumb in breadcrumbs %}
+  <li>{{ breadcrumb|raw }}</li>
+  {% endfor %}
+</ul>
 <h3>{{ module_name }}</h3>
 {{ form|raw }}
 {{ table|raw }}

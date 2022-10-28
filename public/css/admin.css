@@ -67,6 +67,33 @@ table.module-table a:hover {
 }
 
 /**
+ * Breadcrumbs
+ */
+ul.breadcrumb {
+  padding: 0 0 10px 0;
+  list-style: none;
+  font-size: 0.8rem;
+}
+
+ul.breadcrumb li {
+  display: inline;
+}
+
+ul.breadcrumb li+li:before {
+  padding: 8px;
+  color: black;
+  content: "\203A";
+}
+
+ul.breadcrumb li a {
+  text-decoration: none;
+}
+
+ul.breadcrumb li a:hover {
+  text-decoration: underline;
+}
+
+/**
  * Alerts
  */
 .alerts {
@@ -130,7 +157,7 @@ button {
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    background-color: #e0e0e0;
+    background-color: #eaeaea;
     color: #555;
     text-align: center;
     text-decoration: none;
@@ -200,9 +227,9 @@ table.module-table {
     border-collapse: collapse;
     font-size: 0.9rem;
 }
-.module-table tbody tr:nth-child(odd) {
-    background-color: #f3f3f3;
-}
+/* .module-table tbody tr:nth-child(odd) { */
+/*     background-color: #f3f3f3; */
+/* } */
 .module-table tbody tr:hover {
     background-color: #FFFFE0;
 }
@@ -211,6 +238,7 @@ table.module-table {
 }
 .module-table thead th {
     height: 24px;
+    border-bottom: 1px solid #eaeaea;
 }
 .module-table thead th {
     background-color: none;
@@ -224,7 +252,8 @@ table.module-table {
     white-space: nowrap;
 }
 .module-table thead th, .module-table tbody td {
-    padding: 2px 5px;
+    padding: 4px 5px;
+    border-bottom: 1px solid #eaeaea;
 }
 .module-table .list-action-row {
     width: 100%;
@@ -279,6 +308,11 @@ table.module-table {
 .pagination span.disabled {
     color: #AAA;
 }
+.total-results {
+    float: right;
+    padding-top: 25px;
+    padding-right: 15px;
+}
 
 /**
  * Utility
@@ -331,5 +365,8 @@ table.module-table {
     }
     #module {
         width: calc(100% - 10px);
+    }
+    .total-results {
+        display: none;
     }
 }

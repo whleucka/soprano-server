@@ -23,7 +23,7 @@ class AdminController extends BaseController
     public function users()
     {
         $item = new Item($this, "Users");
-        $item->rows_per_page = 10;
+        $item->rows_per_page = 5;
         $item->table_name = "users";
         $item->name_col = "uuid";
 
