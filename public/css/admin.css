@@ -363,6 +363,17 @@ table.module-table {
 .pagination span.disabled {
     color: #AAA;
 }
+.rows-per-page {
+    float: right;
+    width: 50px;
+    padding-top: 25px;
+    padding-right: 45px;
+}
+.rows-per-page label {
+    color: #555;
+    font-size: 0.9rem;
+    padding-bottom: 2px;
+}
 .total-results {
     color: #777;
     float: right;
