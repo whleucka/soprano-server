@@ -240,11 +240,10 @@ table.module-table {
     border-bottom: 1px solid #eaeaea;
 }
 .module-table thead th {
-    background-color: none;
+    background-color: #237;
     font-weight: bold;
-    color: #555;
+    color: #fff;
     text-align: left;
-    padding: 0;
     text-decoration: underline;
 }
 .module-table tbody tr td:not(:last-child) span {
@@ -343,6 +342,12 @@ table.module-table {
 }
 .p-10 {
     padding: 10px;
+}
+.pt-10 {
+    padding-top: 10px;
+}
+.pb-10 {
+    padding-bottom: 10px;
 }
 .pr-10 {
     padding-right: 10px;
