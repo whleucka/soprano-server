@@ -374,6 +374,9 @@ table.module-table {
     font-size: 0.9rem;
     padding-bottom: 2px;
 }
+.rows-per-page select {
+    border: 1px solid #aeaeae;
+}
 .total-results {
     color: #777;
     float: right;
