@@ -33,7 +33,15 @@
               </ul>
           </section>
           <section id="module">
-              {% block content %}{% endblock %}
+              <div id="module-content">
+                  {% block content %}{% endblock %}
+              </div>
+              <footer>
+                  <div id="footer">
+                      <div id="brand-logo"></div>
+                      <small>&#169; 2022 William Hleucka</small>
+                  </div>
+              </footer>
           </section>
       </section>
 {% block body_scripts %}

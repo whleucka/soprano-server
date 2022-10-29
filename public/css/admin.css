@@ -25,6 +25,9 @@ body {
   overflow-y: auto;
   padding: 0 10px;
 }
+#module-content {
+    min-height: calc(100% - 35px);
+}
 #content {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -34,6 +37,9 @@ body {
   -ms-flex-direction: row;
   flex-direction: row;
   height: 100%;
+}
+#footer {
+    color: #888;
 }
 
 /**
