@@ -26,7 +26,7 @@ body {
   padding: 0 10px;
 }
 #module-content {
-    min-height: calc(100% - 35px);
+  min-height: calc(100% - 35px);
 }
 #content {
   display: -webkit-box;
@@ -39,7 +39,7 @@ body {
   height: 100%;
 }
 #footer {
-    color: #888;
+  color: #888;
 }
 
 /**
@@ -126,6 +126,7 @@ ul.breadcrumb li a:hover {
 }
 
 .flash {
+  font-size: 0.9rem;
   border-radius: 4px;
   display: -webkit-box;
   display: -ms-flexbox;
