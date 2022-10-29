@@ -45,9 +45,7 @@ class AdminController extends BaseController
         $item->list_align = [
             "id" => "right",
         ];
-        $item->list_filters = [
-            "name" , "email"
-        ];
+        $item->list_filters = ["name", "email"];
         $item->list_format = [
             "name" => function ($col, $val) {
                 return "<span style='color: red'>{$val}</span>";
