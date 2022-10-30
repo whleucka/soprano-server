@@ -321,6 +321,7 @@ table.module-table {
 }
 .module-table span.header-active {
   color: peachpuff;
+  white-space: nowrap;
 }
 .module-table tbody tr td:not(:last-child) span {
   white-space: nowrap;
