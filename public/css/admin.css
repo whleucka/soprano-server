@@ -60,13 +60,16 @@ a:hover {
 a:active {
   color: #444;
 }
-table.module-table a {
+table.module-table tbody a {
   position: relative;
   display: inline-block;
   -webkit-transition: 0.3s;
   -o-transition: 0.3s;
   transition: 0.3s;
   text-decoration: none;
+}
+table.module-table thead a:hover {
+  color: #fff;
 }
 table.module-table a::after {
   position: absolute;
@@ -308,6 +311,9 @@ table.module-table {
 }
 .module-table thead th {
   border-bottom: 1px solid #eaeaea;
+}
+.module-table thead th a {
+  color: #fff;
 }
 .module-table thead tr {
   font-weight: bold;
