@@ -316,10 +316,11 @@ table.module-table {
   color: #fff;
 }
 .module-table thead tr {
-  font-weight: bold;
   color: #fff;
   text-align: left;
-  text-decoration: underline;
+}
+.module-table span.header-active {
+  color: peachpuff;
 }
 .module-table tbody tr td:not(:last-child) span {
   white-space: nowrap;
