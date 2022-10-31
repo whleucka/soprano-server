@@ -1,4 +1,7 @@
 {% extends "layouts/module.html" %}
+{% block title %}
+{{ module_title }}
+{% endblock %}
 {% block content %}
 <ul class="breadcrumb">
   {% for breadcrumb in breadcrumbs %}
