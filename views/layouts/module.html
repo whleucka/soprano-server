@@ -26,10 +26,11 @@
   <body>
       <section id="content">
           <section id="sidebar">
+              <input tabIndex="0" id="sidebar-search" type="search" />
               <ul>
-                  <a href='/admin'><li>Dashboard</li></a>
-                  <a href='/admin/users'><li>Users</li></a>
-                  <a href='/admin/sign-out'><li>Sign out</li></a>
+                  <a tabIndex="-1" class="sidebar-link" data-title="dashboard" href='/admin'><li>Dashboard</li></a>
+                  <a tabIndex="-1" class="sidebar-link" data-title="users" href='/admin/users'><li>Users</li></a>
+                  <a tabIndex="-1" class="sidebar-link" data-title="sign out" href='/admin/sign-out'><li>Sign out</li></a>
               </ul>
           </section>
           <section id="module">
