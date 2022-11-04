@@ -2,9 +2,7 @@
 [![PHP Composer](https://github.com/libra-php/constellation/actions/workflows/php.yml/badge.svg?branch=main)](https://github.com/libra-php/constellation/actions/workflows/php.yml)
 
 A PHP web framework.
-WIP! Don't use this in production.
-
-100% experimental 🤣
+A work in progress. 100% experimental 🤣
 
 
 #### Installation
@@ -63,8 +61,7 @@ sudo docker-compose exec php zsh
 
 
 #### Installation FAQ
-- Why does it have to be this way?
-    - It won't be for long, no worries. I am working on a fully automated docker setup.
+- WIP
 
 
 ### Celestial Tool
