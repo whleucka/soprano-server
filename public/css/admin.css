@@ -97,6 +97,7 @@ table.module-table a:hover {
  */
 ul.breadcrumb {
   color: #777;
+  padding: 0;
   list-style: none;
   font-size: 0.8rem;
 }
