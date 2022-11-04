@@ -261,12 +261,12 @@ button:hover {
   width: 100%;
 }
 #sidebar-search {
-    border-radius: 0;
-    border-top: 0;
-    border-left: 0;
-    border-right: 0;
-    border-bottom-color: #ddd;
-    border-bottom-width: 2px;
+  border-radius: 0;
+  border-top: 0;
+  border-left: 0;
+  border-right: 0;
+  border-bottom-color: #ddd;
+  border-bottom-width: 2px;
 }
 #sidebar ul {
   list-style-type: none;

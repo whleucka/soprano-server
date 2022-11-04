@@ -20,7 +20,7 @@ searchInput.addEventListener("input", function (e) {
 });
 // Focus on keypress binding
 addEventListener("keydown", function (e) {
-    if (e.code == searchHotKey[1]) {
-        return document.getElementById("sidebar-filter").focus();
-    }
+  if (e.code == searchHotKey[1]) {
+    return document.getElementById("sidebar-filter").focus();
+  }
 });
