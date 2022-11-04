@@ -207,14 +207,6 @@ input:focus {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
 }
-#sidebar-search {
-  border-radius: 0;
-  border-top: 0;
-  border-left: 0;
-  border-right: 0;
-  border-bottom-color: #ddd;
-  border-bottom-width: 2px;
-}
 
 /**
  * Buttons
@@ -262,11 +254,19 @@ button:hover {
   height: 100%;
   background-color: #fbfbfb;
   font-size: 0.9rem;
-  max-width: 125px;
+  max-width: 110px;
   border-right: 2px solid #ddd;
 }
 #sidebar input {
   width: 100%;
+}
+#sidebar-search {
+    border-radius: 0;
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
+    border-bottom-color: #ddd;
+    border-bottom-width: 2px;
 }
 #sidebar ul {
   list-style-type: none;
