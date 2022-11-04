@@ -34,6 +34,7 @@ class AdminController extends BaseController
             "name" => "Name",
             "email" => "E-mail",
             "created_at" => "Created",
+            "updated_at" => "Last Update",
         ];
         $item->list_type = [
             "id" => "text",
@@ -41,6 +42,7 @@ class AdminController extends BaseController
             "name" => "text",
             "email" => "text",
             "created_at" => "ago",
+            "updated_at" => "ago",
         ];
         $item->list_align = [
             "id" => "right",

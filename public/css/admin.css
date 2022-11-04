@@ -254,7 +254,7 @@ button:hover {
   height: 100%;
   background-color: #fbfbfb;
   font-size: 0.9rem;
-  width: 125px;
+  max-width: 150px;
   border-right: 2px solid #ddd;
 }
 #sidebar ul {
