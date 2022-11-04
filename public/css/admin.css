@@ -208,12 +208,12 @@ input:focus {
   border-bottom-right-radius: 0;
 }
 #sidebar-search {
-    border-radius: 0;
-    border-top: 0;
-    border-left: 0;
-    border-right: 0;
-    border-bottom-color: #ddd;
-    border-bottom-width: 2px;
+  border-radius: 0;
+  border-top: 0;
+  border-left: 0;
+  border-right: 0;
+  border-bottom-color: #ddd;
+  border-bottom-width: 2px;
 }
 
 /**
@@ -266,7 +266,7 @@ button:hover {
   border-right: 2px solid #ddd;
 }
 #sidebar input {
-    width: 100%;
+  width: 100%;
 }
 #sidebar ul {
   list-style-type: none;
