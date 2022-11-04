@@ -19,10 +19,10 @@ function banner()
 {
     $banner = <<<BANNER
 
-██████╗███████╗██╗     ███████╗███████╗████████╗██╗ █████╗ ██╗     
-██╔════╝██╔════╝██║     ██╔════╝██╔════╝╚══██╔══╝██║██╔══██╗██║     
-██║     █████╗  ██║     █████╗  ███████╗   ██║   ██║███████║██║     
-██║     ██╔══╝  ██║     ██╔══╝  ╚════██║   ██║   ██║██╔══██║██║     
+██████╗███████╗██╗     ███████╗███████╗████████╗██╗ █████╗ ██╗
+██╔════╝██╔════╝██║     ██╔════╝██╔════╝╚══██╔══╝██║██╔══██╗██║
+██║     █████╗  ██║     █████╗  ███████╗   ██║   ██║███████║██║
+██║     ██╔══╝  ██║     ██╔══╝  ╚════██║   ██║   ██║██╔══██║██║
 ╚██████╗███████╗███████╗███████╗███████║   ██║   ██║██║  ██║███████╗
  ╚═════╝╚══════╝╚══════╝╚══════╝╚══════╝   ╚═╝   ╚═╝╚═╝  ╚═╝╚══════╝
 BANNER;
@@ -58,24 +58,24 @@ foreach ($options as $key => $value) {
     switch ($key) {
         case "h":
         case "help":
-            help(); 
+            help();
             break;
         case "s":
         case "serve":
-            serve(); 
+            serve();
             break;
         case "p":
         case "port":
-            port($value); 
+            port($value);
             break;
         case "cache-create":
-            cacheCreate(); 
+            cacheCreate();
             break;
         case "migration-run":
-            migrationRun(); 
+            migrationRun();
             break;
         case "migration-fresh":
-            migrationFresh(); 
+            migrationFresh();
             break;
     }
 }
@@ -107,7 +107,7 @@ Usage: celestial [options...]
 -p, --port              Set development server port
 -s, --serve             Run development server
 --cache-create          Create view cache directory
---migration-run         Run migration files and calling up method
+--migration-run         Run migration files and call up method
 --migration-fresh       Drop database and call migration-run
 
 HELP;

@@ -79,7 +79,7 @@ Usage: celestial [options...]
 -p, --port              Set development server port
 -s, --serve             Run development server
 --cache-create          Create view cache directory
---migration-run         Run migration files and calling up method
+--migration-run         Run migration files and call up method
 --migration-fresh       Drop database and call migration-run
 ```
 
