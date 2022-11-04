@@ -18,8 +18,8 @@ class AdminController extends BaseController
         return $this->render("admin/dashboard.html");
     }
 
-    #[Post("/admin/users", "admin.users", ["auth"])]
-    #[Get("/admin/users", "admin.users", ["auth"])]
+    #[Post("/admin/users", "admin.post", ["auth"])]
+    #[Get("/admin/users", "admin.get", ["auth"])]
     public function users()
     {
         $item = new Item($this, "Users");
