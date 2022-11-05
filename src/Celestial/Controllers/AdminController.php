@@ -3,6 +3,7 @@
 namespace Celestial\Controllers;
 
 use Celestial\Models\User;
+use Constellation\Alerts\Flash;
 use Constellation\Authentication\Auth;
 use Constellation\Controller\Controller as BaseController;
 use Constellation\Routing\{Get, Post};
@@ -50,7 +51,7 @@ class AdminController extends BaseController
         $item->list_filters = ["name", "email"];
         $item->list_format = [
             "name" => function ($col, $val) {
-                return "<span style='color: red'>{$val}</span>";
+                return "<span style='color: royalblue;'>{$val}</span>";
             },
         ];
         $item->list_override = [
@@ -61,6 +62,23 @@ class AdminController extends BaseController
                 return $row[$col];
             },
         ];
+        // Example of list action
+        //$item->list_actions[] = [
+        //    "method" => "POST",
+        //    "name" => "boss",
+        //    "class" => "test",
+        //    "value" => "it is me",
+        //    "title" => "A mouseover title",
+        //    "label" => "Boss",
+        //    "onSubmit" => "alert(`Ding dong`);",
+        //    "confirm" => "Are you a boss?",
+        //    "processRequest" => function($request) {
+        //       Flash::addFlash("success", "You're a boss");
+        //       echo "<pre>";
+        //       print_r($request);
+        //       echo "</pre>";
+        //    },
+        //];
 
         // Edit view
         $item->edit_columns = [
