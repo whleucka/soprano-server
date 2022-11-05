@@ -299,6 +299,14 @@ button:hover {
 #list-filters {
   margin: 20px 0;
 }
+#filter-links button {
+  margin-right: 10px;
+}
+#filter-links button.active {
+   background-color: #AAA;
+   color: white;
+   font-weight: bold;
+}
 .table-wrapper {
   border-radius: 4px;
   overflow-x: auto;

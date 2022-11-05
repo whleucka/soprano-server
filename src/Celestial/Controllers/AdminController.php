@@ -3,7 +3,7 @@
 namespace Celestial\Controllers;
 
 use Celestial\Models\User;
-use Constellation\Alerts\Flash;
+//use Constellation\Alerts\Flash;
 use Constellation\Authentication\Auth;
 use Constellation\Controller\Controller as BaseController;
 use Constellation\Routing\{Get, Post};
@@ -62,6 +62,15 @@ class AdminController extends BaseController
                 return $row[$col];
             },
         ];
+
+        // TODO maybe the controller should always have a user?
+        $user = Auth::user();
+
+        $item->filter_links = [
+            "Me" => "name='{$user->name}'",
+            "Others" => "name!='{$user->name}'",
+        ];
+
         // Example of list action
         //$item->list_actions[] = [
         //    "method" => "POST",
