@@ -303,9 +303,9 @@ button:hover {
   margin-right: 10px;
 }
 #filter-links button.active {
-   background-color: #AAA;
-   color: white;
-   font-weight: bold;
+  background-color: #aaa;
+  color: white;
+  font-weight: bold;
 }
 .table-wrapper {
   border-radius: 4px;
