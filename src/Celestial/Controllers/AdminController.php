@@ -66,10 +66,10 @@ class AdminController extends BaseController
         // TODO maybe the controller should always have a user?
         $user = Auth::user();
 
-        $item->filter_links = [
-            "Me" => "name='{$user->name}'",
-            "Others" => "name!='{$user->name}'",
-        ];
+        //$item->filter_links = [
+        //    "Me" => "name='{$user->name}'",
+        //    "Others" => "name!='{$user->name}'",
+        //];
 
         // Example of list action
         //$item->list_actions[] = [
