@@ -303,10 +303,8 @@ button:hover {
   margin-right: 4px;
 }
 #filter-links button.active {
-  background-color: crimson;
-  border-color: red;
-  color: white;
   font-weight: bold;
+  text-decoration: underline;
 }
 .table-wrapper {
   border-radius: 4px;
