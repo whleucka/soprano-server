@@ -244,7 +244,7 @@ button.lg {
 button:hover {
   color: #111;
   opacity: 1;
- background-color: #efefef;
+  background-color: #efefef;
 }
 
 /**
@@ -303,14 +303,14 @@ button:hover {
   margin-right: 7px;
 }
 #filter-links button {
-    color: #777;
+  color: #777;
 }
 #filter-links button.active {
   font-weight: bold;
   color: #444;
 }
 .filter-link {
-    position: relative;
+  position: relative;
 }
 .table-wrapper {
   border-radius: 4px;

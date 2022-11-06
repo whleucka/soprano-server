@@ -43,10 +43,10 @@ addEventListener("keyup", (e) => {
 // Filter counts
 const filter_links = document.getElementsByClassName("filter-link-count");
 for (let link of filter_links) {
-    const title = link.dataset.title;
-    fetch(`?a=filter_count&filter_count=${title}`)
-    .then(res => res.json())
-    .then(res => {
-        link.innerHTML = res.total;
+  const title = link.dataset.title;
+  fetch(`?a=filter_count&filter_count=${title}`)
+    .then((res) => res.json())
+    .then((res) => {
+      link.innerHTML = res.total;
     });
 }
