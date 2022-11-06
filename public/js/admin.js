@@ -6,9 +6,9 @@
 const searchHotKey = "Slash";
 const searchInput = document.getElementById("sidebar-filter");
 const sidebarFilter = (term) => {
-  const links = document.getElementsByClassName("sidebar-link");
+  const s_links = document.getElementsByClassName("sidebar-link");
   let sidebar_links = [];
-  for (let link of links) {
+  for (let link of s_links) {
     const title = link.dataset.title;
     const match = title.match(term.trim().toLowerCase());
     link.style.display = match ? "block" : "none";
@@ -39,3 +39,14 @@ addEventListener("keyup", (e) => {
     return document.getElementById("sidebar-filter").focus();
   }
 });
+
+// Filter counts
+const filter_links = document.getElementsByClassName("filter-link-count");
+for (let link of filter_links) {
+    const title = link.dataset.title;
+    fetch(`?a=filter_count&filter_count=${title}`)
+    .then(res => res.json())
+    .then(res => {
+        link.innerHTML = res.total;
+    });
+}

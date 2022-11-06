@@ -299,12 +299,18 @@ button:hover {
 #list-filters {
   margin: 20px 4px;
 }
+#filter-links > span {
+  margin-right: 7px;
+}
 #filter-links button {
-  margin-right: 4px;
+    color: #777;
 }
 #filter-links button.active {
   font-weight: bold;
-  text-decoration: underline;
+  color: #444;
+}
+.filter-link {
+    position: relative;
 }
 .table-wrapper {
   border-radius: 4px;
