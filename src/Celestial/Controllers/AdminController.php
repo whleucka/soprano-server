@@ -73,20 +73,20 @@ class AdminController extends BaseController
 
         // Example of list action
         $item->list_actions[] = [
-            "method" => "POST",
             "name" => "boss",
+            "method" => "POST",
             "class" => "test",
-            "value" => "it is me",
             "title" => "A mouseover title",
             "label" => "Test",
             "onSubmit" => "alert(`Ding dong`);",
             "confirm" => "Are you a boss?",
             "processRequest" => function ($request) {
                 Flash::addFlash("success", "You're a boss");
-                echo "<pre>";
-                print_r($request);
-                echo "</pre>";
             },
+            //"validate" => function($request) {
+            //    Flash::addFlash("error", "Not today, bro");
+            //    return false;
+            //},
         ];
 
         // Edit view
