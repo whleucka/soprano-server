@@ -1,4 +1,4 @@
-/*
+/*admin.css
 * Prefixed by https://autoprefixer.github.io
 * PostCSS: v8.4.14,
 * Autoprefixer: v10.4.7
@@ -244,7 +244,7 @@ button.lg {
 button:hover {
   color: #111;
   opacity: 1;
-  background-color: #f0f0f0;
+ background-color: #efefef;
 }
 
 /**
@@ -297,13 +297,14 @@ button:hover {
   margin-right: 4px;
 }
 #list-filters {
-  margin: 20px 0;
+  margin: 20px 4px;
 }
 #filter-links button {
-  margin-right: 10px;
+  margin-right: 4px;
 }
 #filter-links button.active {
-  background-color: darkblue;
+  background-color: crimson;
+  border-color: red;
   color: white;
   font-weight: bold;
 }
