@@ -75,12 +75,14 @@ ede7e27f30d2# ./celestial -h
 ╚██████╗███████╗███████╗███████╗███████║   ██║   ██║██║  ██║███████╗
  ╚═════╝╚══════╝╚══════╝╚══════╝╚══════╝   ╚═╝   ╚═╝╚═╝  ╚═╝╚══════╝
 Usage: celestial [options...]
--h, --help              Get help for commands
--p, --port              Set development server port
--s, --serve             Run development server
---cache-create          Create view cache directory
---migration-run         Run migration files and call up method
---migration-fresh       Drop database and call migration-run
+-h, --help                  Get help for commands
+-p, --port                  Set development server port
+-s, --serve                 Run development server
+--cache-create              Create view cache directory
+--migration-run             Run migration files and call up method
+--migration-fresh           Drop database and call migration-run
+--migration-up=file         Call up method from migration file
+--migration-down=file       Call down method from migration file
 ```
 
 

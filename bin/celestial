@@ -111,14 +111,14 @@ function help()
     banner();
     $help = <<<HELP
 Usage: celestial [options...]
--h, --help              Get help for commands
--p, --port              Set development server port
--s, --serve             Run development server
---cache-create          Create view cache directory
---migration-run         Run migration files and call up method
---migration-fresh       Drop database and call migration-run
---migration-up          Call up method from migration file
---migration-down        Call down method from migration file
+-h, --help                  Get help for commands
+-p, --port                  Set development server port
+-s, --serve                 Run development server
+--cache-create              Create view cache directory
+--migration-run             Run migration files and call up method
+--migration-fresh           Drop database and call migration-run
+--migration-up=file         Call up method from migration file
+--migration-down=file       Call down method from migration file
 
 HELP;
     cprint($help);
