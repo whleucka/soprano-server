@@ -26,9 +26,8 @@ function banner()
 ╚██████╗███████╗███████╗███████╗███████║   ██║   ██║██║  ██║███████╗
  ╚═════╝╚══════╝╚══════╝╚══════╝╚══════╝   ╚═╝   ╚═╝╚═╝  ╚═╝╚══════╝
 BANNER;
-    cprint(Console::green($banner, 'bold'));
+    cprint(Console::green($banner, "bold"));
 }
-
 
 $app = new Main(false);
 $db = $app->container->get(DB::class);
@@ -53,8 +52,12 @@ $longopts = [
 
 $options = getopt($shortopts, $longopts);
 
-if ($argc == 1) help();
-if (!$options) cprint(Console::red("Eh? Unknown command"));
+if ($argc == 1) {
+    help();
+}
+if (!$options) {
+    cprint(Console::red("Eh? Unknown command"));
+}
 
 foreach ($options as $key => $value) {
     switch ($key) {
@@ -80,10 +83,21 @@ foreach ($options as $key => $value) {
             migrationFresh();
             break;
         case "migration-up":
-            migrationUp($value);
+            if (!migrationExists($value)) {
+                migrationUp($value);
+            } else {
+                cprint(Console::yellow("Skipping: migration file already run"));
+            }
+
             break;
         case "migration-down":
-            migrationDown($value);
+            if (migrationExists($value)) {
+                migrationDown($value);
+            } else {
+                cprint(
+                    Console::yellow("Skipping: migration file hasn't been run")
+                );
+            }
             break;
     }
 }
@@ -133,8 +147,8 @@ function port($new_port)
 function serve()
 {
     global $port, $options;
-    if (key_exists('port', $options) || key_exists('p', $options)) {
-        port($options['port'] ?? $options['p']);
+    if (key_exists("port", $options) || key_exists("p", $options)) {
+        port($options["port"] ?? $options["p"]);
     }
     shell_exec("php -S 0.0.0.0:{$port} -t $(pwd)/public");
 }
@@ -142,10 +156,15 @@ function serve()
 function cacheCreate()
 {
     global $cache_path;
-    if (!file_exists($cache_path)) mkdir($cache_path);
-    $result = chown($cache_path, 'www-data');
-    if ($result) cprint(Console::green("Success: view cache directory created"));
-    else cprint(Console::red("Error: view cache directory couldn't be created"));
+    if (!file_exists($cache_path)) {
+        mkdir($cache_path);
+    }
+    $result = chown($cache_path, "www-data");
+    if ($result) {
+        cprint(Console::green("Success: view cache directory created"));
+    } else {
+        cprint(Console::red("Error: view cache directory couldn't be created"));
+    }
 }
 
 function migrationRun()
@@ -160,8 +179,12 @@ function migrationRun()
                     // Do not run migrations that have already been run
                     continue;
                 }
-                $run_it = input(Console::yellow("Do you want to run the migration file $file? (y/n) "));
-                if ($run_it === 'y') {
+                $run_it = input(
+                    Console::yellow(
+                        "Do you want to run the migration file $file? (y/n) "
+                    )
+                );
+                if ($run_it === "y") {
                     migrationUp($file);
                 } else {
                     cprint("Skipping...");
@@ -175,7 +198,10 @@ function migrationRun()
 function migrationRow($md_5)
 {
     global $db;
-    return $db->selectOne("SELECT * FROM migrations WHERE migration_hash = ?", $md_5);
+    return $db->selectOne(
+        "SELECT * FROM migrations WHERE migration_hash = ?",
+        $md_5
+    );
 }
 
 function migrationInsert($file)
@@ -205,34 +231,29 @@ function migrationRunner($up = true)
     if (file_exists($migrations_path)) {
         $files = glob($migrations_path . "/*.php");
         // reverse the order of migrationRunner on drop
-        if (!$up) rsort($files);
+        if (!$up) {
+            rsort($files);
+        }
         foreach ($files as $file) {
             if (file_exists($file)) {
                 if ($up) {
-                    migrationUp($file, false);
+                    migrationUp($file);
                 } else {
-                    migrationDown($file, false);
+                    migrationDown($file);
                 }
             }
         }
     }
 }
 
-function migrationUp($file, $check_exists = true)
+function migrationUp($file)
 {
     global $db;
     if (file_exists($file)) {
-        $exists = migrationExists($file);
-        if ($check_exists) {
-            if ($exists) {
-                cprint(Console::yellow("Skipping: migration file already run => $file"));
-                return;
-            }
-        }
         $class = include $file;
         $up_query = $class->up();
         if ($db->run($up_query)) {
-            if (!$exists) {
+            if (!migrationExists($file)) {
                 migrationInsert($file);
             }
             cprint(Console::green("Success: migration up => $file"));
@@ -244,22 +265,14 @@ function migrationUp($file, $check_exists = true)
     }
 }
 
-function migrationDown($file, $check_exists = true)
+function migrationDown($file)
 {
     global $db;
     if (file_exists($file)) {
-        if ($check_exists) {
-            $exists = migrationExists($file);
-            if ($exists) {
-                cprint(Console::yellow("Skipping: migration file already run => $file"));
-                return;
-            }
-        }
         $class = include $file;
         $down_query = $class->down();
         if ($db->run($down_query)) {
-            $exists = migrationExists($file);
-            if ($exists) {
+            if (migrationExists($file)) {
                 migrationDelete($file);
             }
             cprint(Console::green("Success: migration down => $file"));
@@ -273,10 +286,15 @@ function migrationDown($file, $check_exists = true)
 
 function migrationFresh()
 {
-    $run_it = input(Console::yellow("Are you sure you want to drop the database and run the migration files? (y/n) "));
-    if ($run_it === 'y') {
+    $run_it = input(
+        Console::yellow(
+            "Are you sure you want to drop the database and run the migration files? (y/n) "
+        )
+    );
+    if ($run_it === "y") {
         migrationRunner(false);
         migrationRunner();
     }
     cprint(Console::green("Done!"));
 }
+
