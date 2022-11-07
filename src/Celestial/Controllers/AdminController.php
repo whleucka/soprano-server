@@ -4,16 +4,15 @@ namespace Celestial\Controllers;
 
 use Constellation\Controller\Controller as BaseController;
 use Constellation\Routing\{Get, Post};
-use Celestial\Admin\Module\Users;
-use Constellation\View\Item;
+use Celestial\Admin\Module\{Dashboard, Users};
 
 class AdminController extends BaseController
 {
     #[Get("/admin", "Dashboard", ["auth", "module"])]
     public function index()
     {
-        $item = new Item($this, "Dashboard");
-        $item->init();
+        $users = new Dashboard($this);
+        $users->init();
     }
 
     #[Post("/admin/users", null, ["auth"])]
