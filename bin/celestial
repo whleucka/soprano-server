@@ -165,6 +165,8 @@ function migrationRunner($up = true)
     global $migrations_path, $db;
     if (file_exists($migrations_path)) {
         $files = glob($migrations_path . "/*.php");
+        // reverse the order of migrationRunner on drop
+        if (!$up) rsort($files);
         foreach ($files as $file) {
             if (file_exists($file)) {
                 $class = include $file;
