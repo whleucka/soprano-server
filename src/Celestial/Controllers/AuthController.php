@@ -15,7 +15,7 @@ class AuthController extends BaseController
     //public $home_route = "home.app";
 
     // Dashboard backend
-    public $home_route = "admin.index";
+    public $home_route = "Dashboard";
     /**
      * Views
      */

@@ -28,8 +28,9 @@
           <section id="sidebar">
               <input tabIndex="0" placeholder="Filter" id="sidebar-filter" type="search" />
               <ul>
-                  <a tabIndex="-1" class="sidebar-link" data-title="dashboard" href='/admin'><li>Dashboard</li></a>
-                  <a tabIndex="-1" class="sidebar-link" data-title="users" href='/admin/users'><li>Users</li></a>
+                  {% for link in sidebar_links %}
+                  <a tabIndex="-1" class="sidebar-link" data-title="{{ link.data_title }}" href="{{ link.uri }}"><li>{{ link.label }}</li></a>
+                  {% endfor %}
                   <a tabIndex="-1" class="sidebar-link" data-title="sign out" href='/admin/sign-out'><li>Sign out</li></a>
               </ul>
           </section>
