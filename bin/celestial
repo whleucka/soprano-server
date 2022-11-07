@@ -47,6 +47,8 @@ $longopts = [
     "cache-create",
     "migration-run",
     "migration-fresh",
+    "migration-up::",
+    "migration-down::",
 ];
 
 $options = getopt($shortopts, $longopts);
@@ -76,6 +78,12 @@ foreach ($options as $key => $value) {
             break;
         case "migration-fresh":
             migrationFresh();
+            break;
+        case "migration-up":
+            migrationUp($value);
+            break;
+        case "migration-down":
+            migrationDown($value);
             break;
     }
 }
@@ -109,6 +117,8 @@ Usage: celestial [options...]
 --cache-create          Create view cache directory
 --migration-run         Run migration files and call up method
 --migration-fresh       Drop database and call migration-run
+--migration-up          Call up method from migration file
+--migration-down        Call down method from migration file
 
 HELP;
     cprint($help);
@@ -140,49 +150,124 @@ function cacheCreate()
 
 function migrationRun()
 {
-    global $migrations_path, $db;
+    global $migrations_path;
     if (file_exists($migrations_path)) {
         $files = glob($migrations_path . "/*.php");
         foreach ($files as $file) {
             if (file_exists($file)) {
-                $class = include_once $file;
-                $up_query = $class->up();
+                $exists = migrationExists($file);
+                if ($exists) {
+                    // Do not run migrations that have already been run
+                    continue;
+                }
                 $run_it = input(Console::yellow("Do you want to run the migration file $file? (y/n) "));
                 if ($run_it === 'y') {
-                    if ($db->run($up_query)) {
-                        cprint(Console::green("Success: $file"));
-                    }
+                    migrationUp($file);
                 } else {
                     cprint("Skipping...");
                 }
             }
         }
     }
+    cprint(Console::green("Done!"));
+}
+
+function migrationRow($md_5)
+{
+    global $db;
+    return $db->selectOne("SELECT * FROM migrations WHERE migration_hash = ?", $md_5);
+}
+
+function migrationInsert($file)
+{
+    global $db;
+    $md_5 = md5(basename($file));
+    return $db->query("INSERT INTO migrations SET migration_hash = ?", $md_5);
+}
+
+function migrationDelete($file)
+{
+    global $db;
+    $md_5 = md5(basename($file));
+    return $db->query("DELETE FROM migrations WHERE migration_hash = ?", $md_5);
+}
+
+function migrationExists($file): bool
+{
+    $md_5 = md5(basename($file));
+    $exists = migrationRow($md_5);
+    return $exists ? true : false;
 }
 
 function migrationRunner($up = true)
 {
-    global $migrations_path, $db;
+    global $migrations_path;
     if (file_exists($migrations_path)) {
         $files = glob($migrations_path . "/*.php");
         // reverse the order of migrationRunner on drop
         if (!$up) rsort($files);
         foreach ($files as $file) {
             if (file_exists($file)) {
-                $class = include $file;
                 if ($up) {
-                    $up_query = $class->up();
-                    if ($db->run($up_query)) {
-                        cprint(Console::green("Success: migration up => $file"));
-                    }
+                    migrationUp($file, false);
                 } else {
-                    $down_query = $class->down();
-                    if ($db->run($down_query)) {
-                        cprint(Console::green("Success: migration down => $file"));
-                    }
+                    migrationDown($file, false);
                 }
             }
         }
+    }
+}
+
+function migrationUp($file, $check_exists = true)
+{
+    global $db;
+    if (file_exists($file)) {
+        $exists = migrationExists($file);
+        if ($check_exists) {
+            if ($exists) {
+                cprint(Console::yellow("Skipping: migration file already run => $file"));
+                return;
+            }
+        }
+        $class = include $file;
+        $up_query = $class->up();
+        if ($db->run($up_query)) {
+            if (!$exists) {
+                migrationInsert($file);
+            }
+            cprint(Console::green("Success: migration up => $file"));
+        } else {
+            cprint(Console::yellow("Error: migration up failed! => $file"));
+        }
+    } else {
+        cprint(Console::red("Error: migration file doesn't exist: {$file}"));
+    }
+}
+
+function migrationDown($file, $check_exists = true)
+{
+    global $db;
+    if (file_exists($file)) {
+        if ($check_exists) {
+            $exists = migrationExists($file);
+            if ($exists) {
+                cprint(Console::yellow("Skipping: migration file already run => $file"));
+                return;
+            }
+        }
+        $class = include $file;
+        $down_query = $class->down();
+        if ($db->run($down_query)) {
+            $exists = migrationExists($file);
+            if ($exists) {
+                migrationDelete($file);
+            }
+            cprint(Console::green("Success: migration down => $file"));
+        } else {
+            cprint(Console::yellow("Error: migration down failed! => $file"));
+        }
+    } else {
+        cprint(Console::red("Error: migration file doesn't exist: {$file}"));
     }
 }
 
