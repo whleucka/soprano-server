@@ -35,7 +35,10 @@ class RouteMiddleware implements MiddlewareInterface
 
     private function routeAuth()
     {
-        if (!Auth::isSignedIn()) {
+        $user = Auth::user();
+        // If the user session isn't set or the user session is set
+        // but the user is null, then sign the user out
+        if (!Auth::isSignedIn() || (Auth::isSignedIn() && !$user)) {
             $route = Router::findRoute("auth.sign-in");
             if ($route) {
                 $uri = $route->getUri();
