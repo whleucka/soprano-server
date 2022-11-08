@@ -11,6 +11,7 @@ class Sessions extends Item
     {
         $this->table_name = "sessions";
         $this->key_col = "sessions.id";
+        $this->default_sort = "id";
         $this->list_add = $this->list_delete = $this->list_edit = false;
         $this->list_columns = [
             "sessions.id as id" => "ID",

@@ -24,7 +24,6 @@ class Users extends Item
             "name" => "Name",
             "email" => "E-mail",
             "created_at" => "Created",
-            "updated_at" => "Last Update",
         ];
         $this->list_type = [
             "id" => "text",
@@ -32,7 +31,6 @@ class Users extends Item
             "name" => "text",
             "email" => "text",
             "created_at" => "ago",
-            "updated_at" => "ago",
         ];
         $this->list_align = [
             "id" => "right",
