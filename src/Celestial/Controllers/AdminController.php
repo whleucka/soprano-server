@@ -4,7 +4,7 @@ namespace Celestial\Controllers;
 
 use Constellation\Controller\Controller as BaseController;
 use Constellation\Routing\{Get, Post};
-use Celestial\Admin\Module\{Dashboard, Sessions, Users};
+use Celestial\Admin\Module\{Audit, Dashboard, Sessions, Users};
 
 class AdminController extends BaseController
 {
@@ -27,6 +27,13 @@ class AdminController extends BaseController
     public function sessions()
     {
         $users = new Sessions($this);
+        $users->init();
+    }
+
+    #[Get("/admin/audit", "Audit", ["auth", "module"])]
+    public function audit()
+    {
+        $users = new Audit($this);
         $users->init();
     }
 }
