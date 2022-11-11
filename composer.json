@@ -16,7 +16,7 @@
         }
     ],
     "require": {
-        "libra-php/constellation": "dev-main"
+        "libra-php/constellation": "v0.0.1.x-dev"
     },
     "repositories": [{
         "type": "path",
