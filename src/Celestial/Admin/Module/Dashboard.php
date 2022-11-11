@@ -9,6 +9,7 @@ class Dashboard extends Item
 {
     public function __construct(Controller $controller)
     {
+        $this->output_table = false;
         $this->controller = $controller;
         parent::__construct($controller, "Dashboard");
     }
