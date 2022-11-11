@@ -317,6 +317,7 @@ button:hover {
   width: 100%;
   -webkit-box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
   box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+  overflow: auto;
 }
 table.module-table {
   width: 100%;
