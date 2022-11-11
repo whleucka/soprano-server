@@ -13,15 +13,6 @@ npm install
 npm run build
 ```
 
-- Note: the composer.json file has a local repository dependency `libra-php/constellation`
-- Composer install method will not work until v0.0.1 release.
-- For now, you can clone the repository into the working directory.
-```
-git clone git@github.com:/libra-php/constellation.git ./constellation/
-cd constellation && composer install && cd -
-composer install
-```
-
 #### Docker
 - Copy example environment and fill in the secrets
 ```
