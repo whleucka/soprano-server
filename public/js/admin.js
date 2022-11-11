@@ -1,23 +1,19 @@
-/**
- * Sidebar filter
- */
-
 // Vim type search binding
 const searchHotKey = "Slash";
 const searchInput = document.getElementById("sidebar-filter");
 const sidebarFilter = (term) => {
-  const s_links = document.getElementsByClassName("sidebar-link");
-  let sidebar_links = [];
-  for (let link of s_links) {
+  const sidebarLinks = document.getElementsByClassName("sidebar-link");
+  let links = [];
+  for (let link of sidebarLinks) {
     const title = link.dataset.title;
     const match = title.match(term.trim().toLowerCase());
     link.style.display = match ? "block" : "none";
     link.tabIndex = match ? 0 : -1;
     if (match) {
-      sidebar_links.push(link);
+      links.push(link);
     }
   }
-  return sidebar_links;
+  return links;
 };
 searchInput.addEventListener("input", (e) => {
   const value = e.target.value;
@@ -41,12 +37,52 @@ addEventListener("keyup", (e) => {
 });
 
 // Filter counts
-const filter_links = document.getElementsByClassName("filter-link-count");
-for (let link of filter_links) {
+const filterLinks = document.getElementsByClassName("filter-link-count");
+for (let link of filterLinks) {
   const title = link.dataset.title;
   fetch(`?a=filter_count&filter_count=${title}`)
     .then((res) => res.json())
     .then((res) => {
       link.innerHTML = res.total;
+    });
+}
+
+// Utility
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+
+// Fancy confirmation dialogs
+const listDeleteConfirm = (form) => {
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: 'royalblue',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            Swal.fire(
+                'Deleted!',
+                'Your file has been deleted.',
+                'success'
+            ).then((ok) => {
+                form.submit();
+            });
+        }
+    });
+}
+const editSaveConfirm = (form) => {
+    Swal.fire({
+        title: 'Do you want to save the changes?',
+        icon: 'info',
+        showCancelButton: true,
+        confirmButtonText: 'Save',
+        confirmButtonColor: 'royalblue',
+        cancelButtonColor: '#d33',
+    }).then((result) => {
+        if (result.isConfirmed) {
+            form.submit();
+        }
     });
 }
