@@ -14,8 +14,8 @@ return new class extends Migration {
             $table->varchar("table_name");
             $table->varchar("table_id");
             $table->varchar("field");
-            $table->text("old_value");
-            $table->text("new_value");
+            $table->text("old_value")->nullable();
+            $table->text("new_value")->nullable();
             $table->text("message");
             $table->timestamp("created_at");
             $table->primaryKey("id");
