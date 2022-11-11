@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "536879c61b74c6fbb2cd631388439e06",
+    "content-hash": "1f582b27882443d66fea056a1f014134",
     "packages": [
         {
             "name": "brick/math",
@@ -884,11 +884,17 @@
         },
         {
             "name": "libra-php/constellation",
-            "version": "0.0.1.x-dev",
+            "version": "v0.0.1.x-dev",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/libra-php/constellation.git",
+                "reference": "9d0eb47ee863162452f0fe98e3b3ed1bdd2abe0c"
+            },
             "dist": {
-                "type": "path",
-                "url": "./constellation",
-                "reference": "edac597a47cdda35fecfad20b22c05500d1effc5"
+                "type": "zip",
+                "url": "https://api.github.com/repos/libra-php/constellation/zipball/9d0eb47ee863162452f0fe98e3b3ed1bdd2abe0c",
+                "reference": "9d0eb47ee863162452f0fe98e3b3ed1bdd2abe0c",
+                "shasum": ""
             },
             "require": {
                 "composer/composer": "^2.3",
@@ -907,11 +913,7 @@
                     "Constellation\\": "src/Constellation"
                 }
             },
-            "autoload-dev": {
-                "psr-4": {
-                    "Constellation\\Tests\\": "tests/"
-                }
-            },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -922,10 +924,11 @@
                 }
             ],
             "description": "Celestial PHP framework library",
-            "transport-options": {
-                "symlink": true,
-                "relative": true
-            }
+            "support": {
+                "issues": "https://github.com/libra-php/constellation/issues",
+                "source": "https://github.com/libra-php/constellation/tree/v0.0.1"
+            },
+            "time": "2022-11-11T23:03:45+00:00"
         },
         {
             "name": "nesbot/carbon",

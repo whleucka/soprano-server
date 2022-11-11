@@ -17,12 +17,5 @@
     ],
     "require": {
         "libra-php/constellation": "v0.0.1.x-dev"
-    },
-    "repositories": [{
-        "type": "path",
-        "url": "./constellation/",
-        "options": {
-            "symlink": true
-        }
-    }]
+    }
 }
