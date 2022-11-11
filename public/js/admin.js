@@ -48,41 +48,35 @@ for (let link of filterLinks) {
 }
 
 // Utility
-const sleep = ms => new Promise(r => setTimeout(r, ms));
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 // Fancy confirmation dialogs
 const listDeleteConfirm = (form) => {
-    Swal.fire({
-        title: 'Are you sure?',
-        text: "You won't be able to revert this!",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: 'royalblue',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!'
-    }).then((result) => {
-        if (result.isConfirmed) {
-            Swal.fire(
-                'Deleted!',
-                'Your file has been deleted.',
-                'success'
-            ).then((ok) => {
-                form.submit();
-            });
-        }
-    });
-}
+  Swal.fire({
+    title: "Are you sure?",
+    text: "You won't be able to revert this!",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "royalblue",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Yes, delete it!",
+  }).then((result) => {
+    if (result.isConfirmed) {
+      form.submit();
+    }
+  });
+};
 const editSaveConfirm = (form) => {
-    Swal.fire({
-        title: 'Do you want to save the changes?',
-        icon: 'info',
-        showCancelButton: true,
-        confirmButtonText: 'Save',
-        confirmButtonColor: 'royalblue',
-        cancelButtonColor: '#d33',
-    }).then((result) => {
-        if (result.isConfirmed) {
-            form.submit();
-        }
-    });
-}
+  Swal.fire({
+    title: "Do you want to save the changes?",
+    icon: "info",
+    showCancelButton: true,
+    confirmButtonText: "Save",
+    confirmButtonColor: "royalblue",
+    cancelButtonColor: "#d33",
+  }).then((result) => {
+    if (result.isConfirmed) {
+      form.submit();
+    }
+  });
+};
