@@ -35,11 +35,7 @@ class Audit extends Item
             "message" => "text",
             "created_at" => "ago",
         ];
-        $this->list_filters = [
-            "table_name",
-            "field",
-            "message",
-        ];
+        $this->list_filters = ["table_name", "field", "message"];
         $this->filter_links = [
             "All" => "1=1",
             "Register" => "message='REGISTER'",

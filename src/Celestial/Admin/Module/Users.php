@@ -89,13 +89,8 @@ class Users extends Item
             "password_match" => "password",
         ];
         $this->validate = [
-            "name" => [
-                "required"
-            ],
-            "email" => [
-                "required",
-                "email"
-            ],
+            "name" => ["required"],
+            "email" => ["required", "email"],
             "password" => [
                 "required",
                 "match",

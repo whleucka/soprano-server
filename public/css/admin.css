@@ -209,11 +209,11 @@ input:focus {
   border-bottom-right-radius: 0;
 }
 #list-search-clear {
-    height: 25px;
+  height: 25px;
 }
 #list-date-filter td:first-child {
-    text-align: right;
-    padding-right: 4px;
+  text-align: right;
+  padding-right: 4px;
 }
 #list-date-filter td {
   color: #555;
@@ -224,7 +224,7 @@ input:focus {
   width: 203px;
 }
 #list-date-filter button {
-    margin-left: 5px;
+  margin-left: 5px;
 }
 
 /**
@@ -546,15 +546,12 @@ table.module-table {
   background: -o-linear-gradient(left, #2b32b2, #1488cc);
   background: -webkit-gradient(
     linear,
-    left top, right top,
+    left top,
+    right top,
     from(#2b32b2),
     to(#1488cc)
   );
-  background: -o-linear-gradient(
-    left,
-    #2b32b2,
-    #1488cc
-  );
+  background: -o-linear-gradient(left, #2b32b2, #1488cc);
   background: linear-gradient(
     to right,
     #2b32b2,

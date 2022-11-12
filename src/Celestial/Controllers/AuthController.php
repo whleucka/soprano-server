@@ -113,10 +113,42 @@ class AuthController extends BaseController
                 if ($registered) {
                     $user = User::findByAttribute("email", $data->email);
                     // Audit register
-                    Item::audit($user->id, 'users', $user->id, 'name', null, $user->name, 'REGISTER');
-                    Item::audit($user->id, 'users', $user->id, 'email', null, $user->email, 'REGISTER');
-                    Item::audit($user->id, 'users', $user->id, 'uuid', null, $user->uuid, 'REGISTER');
-                    Item::audit($user->id, 'users', $user->id, 'created_at', null, $user->created_at, 'REGISTER');
+                    Item::audit(
+                        $user->id,
+                        "users",
+                        $user->id,
+                        "name",
+                        null,
+                        $user->name,
+                        "REGISTER"
+                    );
+                    Item::audit(
+                        $user->id,
+                        "users",
+                        $user->id,
+                        "email",
+                        null,
+                        $user->email,
+                        "REGISTER"
+                    );
+                    Item::audit(
+                        $user->id,
+                        "users",
+                        $user->id,
+                        "uuid",
+                        null,
+                        $user->uuid,
+                        "REGISTER"
+                    );
+                    Item::audit(
+                        $user->id,
+                        "users",
+                        $user->id,
+                        "created_at",
+                        null,
+                        $user->created_at,
+                        "REGISTER"
+                    );
                     Auth::signIn($user);
                     $this->redirectHome();
                 }

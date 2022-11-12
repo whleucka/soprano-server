@@ -17,7 +17,7 @@ class Dashboard extends Item
     protected function listView(): void
     {
         $this->render([
-                "output" => $this->output(),
+            "output" => $this->output(),
         ]);
     }
 
