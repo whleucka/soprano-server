@@ -22,7 +22,7 @@ class Audit extends Item
             "ifnull(audit.old_value, 'NULL') as old_value" => "Old Value",
             "ifnull(audit.new_value, 'NULL') as new_value" => "New Value",
             "audit.message as message" => "Message",
-            "audit.created_at as created_at" => "Created",
+            "audit.created_at as created_at" => "Created At",
         ];
         $this->list_type = [
             "id" => "text",
@@ -33,7 +33,7 @@ class Audit extends Item
             "old_value" => "text",
             "new_value" => "text",
             "message" => "text",
-            "created_at" => "ago",
+            "created_at" => "text",
         ];
         $this->list_filters = ["table_name", "field", "message"];
         $this->filter_links = [

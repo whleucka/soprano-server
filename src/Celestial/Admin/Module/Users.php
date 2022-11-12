@@ -22,56 +22,25 @@ class Users extends Item
             "uuid" => "UUID",
             "name" => "Name",
             "email" => "E-mail",
-            "created_at" => "Created",
+            "created_at" => "Created At",
         ];
         $this->list_type = [
             "id" => "text",
             "uuid" => "text",
             "name" => "text",
             "email" => "text",
-            "created_at" => "ago",
+            "created_at" => "text",
         ];
         $this->list_align = [
             "id" => "right",
         ];
         $this->list_filters = ["name", "email"];
-        //$this->list_format = [
-        //    "name" => function ($col, $val) {
-        //        return "<span style='color: royalblue;'>{$val}</span>";
-        //    },
-        //];
-        //$this->list_override = [
-        //    "name" => function ($row, $col) {
-        //        if ($row[$col] == "William Hleucka") {
-        //            return "Me";
-        //        }
-        //        return $row[$col];
-        //    },
-        //];
 
         $this->filter_links = [
             "Me" => "name='{$controller->user->name}'",
             "Others" => "name!='{$controller->user->name}'",
         ];
-
-        // Example of list action
-        //$this->list_actions[] = [
-        //    "name" => "boss",
-        //    "method" => "POST",
-        //    "class" => "test",
-        //    "title" => "A mouseover title",
-        //    "label" => "Test",
-        //    "onSubmit" => "alert(`Ding dong`);",
-        //    "confirm" => "Are you a boss?",
-        //    "processRequest" => function ($request) {
-        //        Flash::addFlash("success", "You're a boss");
-        //    },
-        //    //"validate" => function($request) {
-        //    //    Flash::addFlash("error", "Not today, bro");
-        //    //    return false;
-        //    //},
-        //];
-        $this->date_filter = "audit.created_at";
+        $this->date_filter = "users.created_at";
 
         $this->edit_columns = [
             "name" => "Name",
@@ -131,6 +100,37 @@ class Users extends Item
             }
             return true;
         };
+
+        // Example of list action
+        //$this->list_actions[] = [
+        //    "name" => "boss",
+        //    "method" => "POST",
+        //    "class" => "test",
+        //    "title" => "A mouseover title",
+        //    "label" => "Test",
+        //    "onSubmit" => "alert(`Ding dong`);",
+        //    "confirm" => "Are you a boss?",
+        //    "processRequest" => function ($request) {
+        //        Flash::addFlash("success", "You're a boss");
+        //    },
+        //    //"validate" => function($request) {
+        //    //    Flash::addFlash("error", "Not today, bro");
+        //    //    return false;
+        //    //},
+        //];
+        //$this->list_format = [
+        //    "name" => function ($col, $val) {
+        //        return "<span style='color: royalblue;'>{$val}</span>";
+        //    },
+        //];
+        //$this->list_override = [
+        //    "name" => function ($row, $col) {
+        //        if ($row[$col] == "William Hleucka") {
+        //            return "Me";
+        //        }
+        //        return $row[$col];
+        //    },
+        //];
         parent::__construct($controller, "Users");
     }
 }

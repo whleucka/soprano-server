@@ -18,14 +18,14 @@ class Sessions extends Item
             "users.name as name" => "User",
             "sessions.ip as ip" => "IP",
             "sessions.url as url" => "URL",
-            "sessions.created_at as created_at" => "Created",
+            "sessions.created_at as created_at" => "Created At",
         ];
         $this->list_type = [
             "id" => "text",
             "name" => "text",
             "ip" => "text",
             "url" => "text",
-            "created_at" => "ago",
+            "created_at" => "text",
         ];
         $this->date_filter = "sessions.created_at";
         $this->list_filters = ["users.name", "sessions.ip"];
