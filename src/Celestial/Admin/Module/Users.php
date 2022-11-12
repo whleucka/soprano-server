@@ -133,4 +133,12 @@ class Users extends Item
         //];
         parent::__construct($controller, "Users");
     }
+
+    protected function hasDeletePermission(?string $id): bool
+    {
+        if ($id == $this->controller->user->id) {
+            return false;
+        }
+        return parent::hasDeletePermission($id);
+    }
 }
