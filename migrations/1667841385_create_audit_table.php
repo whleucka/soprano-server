@@ -10,16 +10,18 @@ return new class extends Migration {
     {
         return Schema::create("audit", function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger("user_id");
+            $table->unsignedBigInteger("user_id")->nullable();
             $table->varchar("table_name");
             $table->varchar("table_id");
             $table->varchar("field");
             $table->text("old_value")->nullable();
             $table->text("new_value")->nullable();
             $table->text("message");
-            $table->timestamp("created_at");
+            $table->datetime("created_at");
             $table->primaryKey("id");
-            $table->foreignKey("user_id")->references("users", "id");
+            $table->foreignKey("user_id")
+              ->references("users", "id")
+              ->onDelete("SET NULL");
         });
     }
 

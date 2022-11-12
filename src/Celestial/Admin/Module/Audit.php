@@ -42,10 +42,12 @@ class Audit extends Item
         ];
         $this->filter_links = [
             "All" => "1=1",
+            "Register" => "message='REGISTER'",
             "Update" => "message='UPDATE'",
             "Insert" => "message='INSERT'",
             "Delete" => "message='DELETE'",
         ];
+        $this->date_filter = "audit.created_at";
         $this->extra_tables = "INNER JOIN users ON users.id = audit.user_id";
         $this->default_order = "DESC";
         parent::__construct($controller, "Audit");

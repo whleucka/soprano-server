@@ -1,4 +1,7 @@
 {% extends "layouts/base.html" %}
+{% block head_scripts %}
+    <link rel="stylesheet" href="/css/admin.css">
+{% endblock %}
 {% block content %}
 <form action="{{ fn.buildRoute('auth.sign-in-post') }}" method="POST">
     <div>

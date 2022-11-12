@@ -13,9 +13,11 @@ return new class extends Migration {
             $table->unsignedBigInteger("user_id");
             $table->varchar("ip");
             $table->varchar("url");
-            $table->timestamp("created_at");
+            $table->datetime("created_at");
             $table->primaryKey("id");
-            $table->foreignKey("user_id")->references("users", "id");
+            $table->foreignKey("user_id")
+              ->references("users", "id")
+              ->onDelete("CASCADE");
         });
     }
 

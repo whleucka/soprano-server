@@ -5,7 +5,6 @@ namespace Celestial\Admin\Module;
 use Constellation\Controller\Controller;
 use Constellation\View\Item;
 use Celestial\Models\User;
-use Constellation\Alerts\Flash;
 use Constellation\Authentication\Auth;
 use Constellation\Validation\Validate;
 use Ramsey\Uuid\Uuid;
@@ -36,19 +35,19 @@ class Users extends Item
             "id" => "right",
         ];
         $this->list_filters = ["name", "email"];
-        $this->list_format = [
-            "name" => function ($col, $val) {
-                return "<span style='color: royalblue;'>{$val}</span>";
-            },
-        ];
-        $this->list_override = [
-            "name" => function ($row, $col) {
-                if ($row[$col] == "William Hleucka") {
-                    return "Me";
-                }
-                return $row[$col];
-            },
-        ];
+        //$this->list_format = [
+        //    "name" => function ($col, $val) {
+        //        return "<span style='color: royalblue;'>{$val}</span>";
+        //    },
+        //];
+        //$this->list_override = [
+        //    "name" => function ($row, $col) {
+        //        if ($row[$col] == "William Hleucka") {
+        //            return "Me";
+        //        }
+        //        return $row[$col];
+        //    },
+        //];
 
         $this->filter_links = [
             "Me" => "name='{$controller->user->name}'",
@@ -56,22 +55,23 @@ class Users extends Item
         ];
 
         // Example of list action
-        $this->list_actions[] = [
-            "name" => "boss",
-            "method" => "POST",
-            "class" => "test",
-            "title" => "A mouseover title",
-            "label" => "Test",
-            "onSubmit" => "alert(`Ding dong`);",
-            "confirm" => "Are you a boss?",
-            "processRequest" => function ($request) {
-                Flash::addFlash("success", "You're a boss");
-            },
-            //"validate" => function($request) {
-            //    Flash::addFlash("error", "Not today, bro");
-            //    return false;
-            //},
-        ];
+        //$this->list_actions[] = [
+        //    "name" => "boss",
+        //    "method" => "POST",
+        //    "class" => "test",
+        //    "title" => "A mouseover title",
+        //    "label" => "Test",
+        //    "onSubmit" => "alert(`Ding dong`);",
+        //    "confirm" => "Are you a boss?",
+        //    "processRequest" => function ($request) {
+        //        Flash::addFlash("success", "You're a boss");
+        //    },
+        //    //"validate" => function($request) {
+        //    //    Flash::addFlash("error", "Not today, bro");
+        //    //    return false;
+        //    //},
+        //];
+        $this->date_filter = "audit.created_at";
 
         $this->edit_columns = [
             "name" => "Name",
@@ -89,8 +89,13 @@ class Users extends Item
             "password_match" => "password",
         ];
         $this->validate = [
-            "name" => ["required"],
-            "email" => ["required", "email"],
+            "name" => [
+                "required"
+            ],
+            "email" => [
+                "required",
+                "email"
+            ],
             "password" => [
                 "required",
                 "match",

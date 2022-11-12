@@ -7,22 +7,23 @@ use Constellation\Authentication\Auth;
 use Constellation\Controller\Controller as BaseController;
 use Constellation\Routing\{Get, Post, Router};
 use Constellation\Validation\Validate;
+use Constellation\View\Item;
 use Exception;
 
 class AuthController extends BaseController
 {
     // React frontend
-    //public $home_route = "home.app";
+    //public $dashboard_route = "home.app";
 
     // Dashboard backend
-    public $home_route = "Dashboard";
+    public $dashboard_route = "Dashboard";
     /**
      * Views
      */
     #[Get("/admin/sign-in", "auth.sign-in")]
     public function sign_in()
     {
-        return $this->render("auth/sign-in.html");
+        return $this->render("admin/auth/sign-in.html");
     }
 
     #[Get("/admin/sign-out", "auth.sign-out")]
@@ -36,19 +37,19 @@ class AuthController extends BaseController
     #[Get("/admin/register", "auth.register")]
     public function register()
     {
-        return $this->render("auth/register.html");
+        return $this->render("admin/auth/register.html");
     }
 
     #[Get("/admin/forgot-password", "auth.forgot-password")]
     public function forgot_password()
     {
-        return $this->render("auth/forgot-password.html");
+        return $this->render("admin/auth/forgot-password.html");
     }
 
     #[Get("/admin/reset-password", "auth.reset-password")]
     public function reset_password()
     {
-        return $this->render("auth/reset-password.html");
+        return $this->render("admin/auth/reset-password.html");
     }
 
     /**
@@ -111,6 +112,11 @@ class AuthController extends BaseController
                 ]);
                 if ($registered) {
                     $user = User::findByAttribute("email", $data->email);
+                    // Audit register
+                    Item::audit($user->id, 'users', $user->id, 'name', null, $user->name, 'REGISTER');
+                    Item::audit($user->id, 'users', $user->id, 'email', null, $user->email, 'REGISTER');
+                    Item::audit($user->id, 'users', $user->id, 'uuid', null, $user->uuid, 'REGISTER');
+                    Item::audit($user->id, 'users', $user->id, 'created_at', null, $user->created_at, 'REGISTER');
                     Auth::signIn($user);
                     $this->redirectHome();
                 }
@@ -121,7 +127,7 @@ class AuthController extends BaseController
 
     private function redirectHome()
     {
-        $route = Router::findRoute($this->home_route);
+        $route = Router::findRoute($this->dashboard_route);
         if ($route) {
             $uri = $route->getUri();
             header("Location: $uri");

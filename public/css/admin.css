@@ -208,6 +208,9 @@ input:focus {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
 }
+#list-search-clear {
+    height: 25px;
+}
 #list-date-filter td:first-child {
     text-align: right;
     padding-right: 4px;
@@ -221,7 +224,7 @@ input:focus {
   width: 203px;
 }
 #list-date-filter button {
-    margin-left: 4px;
+    margin-left: 5px;
 }
 
 /**
