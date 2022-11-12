@@ -14,7 +14,14 @@ class Dashboard extends Item
         parent::__construct($controller, "Dashboard");
     }
 
-    public function output(): string
+    protected function listView(): void
+    {
+        $this->render([
+                "output" => $this->output(),
+        ]);
+    }
+
+    private function output(): string
     {
         return "<p>Hello, {$this->controller->user->name}</p>";
     }
