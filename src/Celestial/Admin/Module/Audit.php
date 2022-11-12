@@ -37,11 +37,8 @@ class Audit extends Item
         ];
         $this->list_filters = ["table_name", "field", "message"];
         $this->filter_links = [
-            "All" => "1=1",
-            "Register" => "message='REGISTER'",
-            "Update" => "message='UPDATE'",
-            "Insert" => "message='INSERT'",
-            "Delete" => "message='DELETE'",
+            "Me" => "audit.user_id = {$controller->user->id}",
+            "Others" => "audit.user_id != {$controller->user->id}",
         ];
         $this->date_filter = "audit.created_at";
         $this->extra_tables = "INNER JOIN users ON users.id = audit.user_id";

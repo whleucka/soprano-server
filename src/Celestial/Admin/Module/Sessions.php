@@ -27,6 +27,10 @@ class Sessions extends Item
             "url" => "text",
             "created_at" => "text",
         ];
+        $this->filter_links = [
+            "Me" => "sessions.user_id = {$controller->user->id}",
+            "Others" => "sessions.user_id != {$controller->user->id}",
+        ];
         $this->date_filter = "sessions.created_at";
         $this->list_filters = ["users.name", "sessions.ip"];
         $this->extra_tables = "INNER JOIN users ON users.id = sessions.user_id";
