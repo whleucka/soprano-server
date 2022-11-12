@@ -27,6 +27,7 @@ class Sessions extends Item
             "url" => "text",
             "created_at" => "ago",
         ];
+        $this->date_filter = "sessions.created_at";
         $this->list_filters = ["users.name", "sessions.ip"];
         $this->extra_tables = "INNER JOIN users ON users.id = sessions.user_id";
         $this->default_order = "DESC";

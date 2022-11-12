@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1f582b27882443d66fea056a1f014134",
+    "content-hash": "536879c61b74c6fbb2cd631388439e06",
     "packages": [
         {
             "name": "brick/math",
@@ -884,17 +884,11 @@
         },
         {
             "name": "libra-php/constellation",
-            "version": "v0.0.1.x-dev",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/libra-php/constellation.git",
-                "reference": "231aa3341c646e56c8c3dccd4b07753939bc121d"
-            },
+            "version": "0.0.1.x-dev",
             "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/libra-php/constellation/zipball/231aa3341c646e56c8c3dccd4b07753939bc121d",
-                "reference": "231aa3341c646e56c8c3dccd4b07753939bc121d",
-                "shasum": ""
+                "type": "path",
+                "url": "./constellation",
+                "reference": "8c8ccc2aa2b73c49994f8177894c817e537e90d1"
             },
             "require": {
                 "composer/composer": "^2.3",
@@ -913,7 +907,11 @@
                     "Constellation\\": "src/Constellation"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "autoload-dev": {
+                "psr-4": {
+                    "Constellation\\Tests\\": "tests/"
+                }
+            },
             "license": [
                 "MIT"
             ],
@@ -924,11 +922,10 @@
                 }
             ],
             "description": "Celestial PHP framework library",
-            "support": {
-                "issues": "https://github.com/libra-php/constellation/issues",
-                "source": "https://github.com/libra-php/constellation/tree/v0.0.1"
-            },
-            "time": "2022-11-12T01:14:32+00:00"
+            "transport-options": {
+                "symlink": true,
+                "relative": true
+            }
         },
         {
             "name": "nesbot/carbon",

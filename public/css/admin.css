@@ -1,4 +1,4 @@
-/*admin.css
+/*
 * Prefixed by https://autoprefixer.github.io
 * PostCSS: v8.4.14,
 * Autoprefixer: v10.4.7
@@ -187,7 +187,7 @@ ul.breadcrumb li a:hover {
  * Inputs
  */
 input {
-  height: 23px;
+  height: 25px;
   border-radius: 4px;
   border: 1px solid #aeaeae;
 }
@@ -206,6 +206,18 @@ input:focus {
 #list-search-input {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
+}
+#list-date-filter td:first-child {
+    text-align: right;
+    padding-right: 4px;
+}
+#list-date-filter td {
+  color: #555;
+  vertical-align: middle;
+  font-size: 0.7rem;
+}
+#list-date-filter button {
+    margin-left: 4px;
 }
 
 /**
@@ -227,6 +239,7 @@ button {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
   border-left: 0;
+  height: 25px;
 }
 
 button.sm {
@@ -523,14 +536,18 @@ table.module-table {
 }
 .blue-gradient {
   background: #1488cc; /* fallback for old browsers */ /* Chrome 10-25, Safari 5.1-6 */
+  background: -o-linear-gradient(left, #2b32b2, #1488cc);
   background: -webkit-gradient(
     linear,
-    left top,
-    right top,
+    left top, right top,
     from(#2b32b2),
     to(#1488cc)
   );
-  background: -o-linear-gradient(left, #2b32b2, #1488cc);
+  background: -o-linear-gradient(
+    left,
+    #2b32b2,
+    #1488cc
+  );
   background: linear-gradient(
     to right,
     #2b32b2,
