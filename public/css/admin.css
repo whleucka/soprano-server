@@ -204,6 +204,7 @@ input:focus {
   background-color: #ebffe8;
 }
 #list-search-input {
+  width: 180px;
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
 }
@@ -215,6 +216,9 @@ input:focus {
   color: #555;
   vertical-align: middle;
   font-size: 0.7rem;
+}
+#list-date-filter input {
+  width: 203px;
 }
 #list-date-filter button {
     margin-left: 4px;
