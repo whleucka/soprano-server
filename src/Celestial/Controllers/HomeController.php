@@ -15,12 +15,6 @@ class HomeController extends BaseController
         ]);
     }
 
-    #[Get("/home", "home.app", ["auth"])]
-    public function home()
-    {
-        return $this->render("layouts/react.html");
-    }
-
     #[Get("/api/v1/answer", "home.answer", ["api"])]
     public function answer()
     {
