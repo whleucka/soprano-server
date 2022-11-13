@@ -6,6 +6,5 @@ use Celestial\Controllers\Admin\Module;
 
 class Dashboard extends Module
 {
-    public $name = 'dashboard';
+    public $name = "dashboard";
 }
-

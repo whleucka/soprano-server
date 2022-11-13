@@ -6,5 +6,5 @@ use Celestial\Controllers\Admin\Module;
 
 class Users extends Module
 {
-    public $name = 'users';
+    public $name = "users";
 }

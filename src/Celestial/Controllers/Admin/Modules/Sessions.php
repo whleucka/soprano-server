@@ -6,5 +6,5 @@ use Celestial\Controllers\Admin\Module;
 
 class Sessions extends Module
 {
-    public $name = 'sessions';
+    public $name = "sessions";
 }
