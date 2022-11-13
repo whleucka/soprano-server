@@ -33,7 +33,7 @@ class Audit extends Item
             "old_value" => "text",
             "new_value" => "text",
             "message" => "text",
-            "created_at" => "text",
+            "created_at" => "datetime_local",
         ];
         $this->list_filters = ["table_name", "field", "message"];
         $this->filter_links = [

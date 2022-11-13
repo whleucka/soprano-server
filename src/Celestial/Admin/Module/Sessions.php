@@ -25,7 +25,7 @@ class Sessions extends Item
             "name" => "text",
             "ip" => "text",
             "url" => "text",
-            "created_at" => "text",
+            "created_at" => "datetime_local",
         ];
         $this->filter_links = [
             "Me" => "sessions.user_id = {$controller->user->id}",

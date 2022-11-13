@@ -29,7 +29,7 @@ class Users extends Item
             "uuid" => "text",
             "name" => "text",
             "email" => "text",
-            "created_at" => "text",
+            "created_at" => "datetime_local",
         ];
         $this->list_align = [
             "id" => "right",
