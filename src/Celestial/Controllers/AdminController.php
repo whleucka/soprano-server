@@ -10,7 +10,6 @@ class AdminController extends Controller
     #[Get("/admin/{module}", "module.index")]
     public function index()
     {
-        return "Hi!";
     }
 
     #[Get("/admin/{module}/create", "module.create")]
@@ -20,11 +19,6 @@ class AdminController extends Controller
 
     #[Post("/admin/{module}", "module.store")]
     public function store()
-    {
-    }
-
-    #[Get("/admin/{module}/{item}", "module.show")]
-    public function show()
     {
     }
 
