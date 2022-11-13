@@ -2,6 +2,7 @@
 
 namespace Celestial\Kernel;
 
+use ArgumentCountError;
 use Dotenv\Dotenv;
 use Celestial\Config\Application;
 use Celestial\Middleware\RouteMiddleware;
@@ -137,7 +138,12 @@ class Main
         $endpoint = $this->route?->getEndpoint();
         $params = $this->route?->getParams();
         $middleware = $this->route?->getMiddleware();
-        $data = $this->controller->$endpoint(...$params);
+        try {
+            $data = $this->controller->$endpoint(...$params);
+        } catch (ArgumentCountError $ex) {
+            // If the params don't match then 404
+            $this->router->pageNotFound();
+        }
         $this->response = in_array("api", $middleware)
             ? new ApiResponse($data)
             : new WebResponse($data);
