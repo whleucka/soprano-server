@@ -60,9 +60,16 @@ body {
     color: darkred;
     font-size: 0.85rem;
     margin-bottom: 3px;
+    text-align: end;
 }
-#sign-in-form td {
-    max-width: 185px;
+#sign-in-form td:first-child, #register-form td:first-child {
+    width: 1%;
+}
+#sign-in-form td, #register-form td {
+    width: 240px;
+}
+#sign-in-form input, #register-form input {
+    width: 100%;
 }
 #edit-form label, #sign-in-form label, #register-form label {
   font-size: 0.8rem;
