@@ -60,7 +60,6 @@ body {
     color: darkred;
     font-size: 0.85rem;
     margin-bottom: 3px;
-    text-align: end;
 }
 #sign-in-form td:first-child, #register-form td:first-child {
     width: 1%;
