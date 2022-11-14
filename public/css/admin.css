@@ -26,7 +26,7 @@ body {
   padding: 0 10px;
 }
 #module-content {
-  min-height: calc(100% - 35px);
+  min-height: calc(100% - 20px);
 }
 #content {
   display: -webkit-box;
@@ -39,14 +39,47 @@ body {
   height: 100%;
 }
 #footer {
+  font-size: 0.7rem;
   color: #888;
 }
 
 /**
- * Sign in
+ * Forms
  */
-#sign-in-form label, #register-form label {
-  font-size: 0.9rem;
+#edit-form .edit-title {
+  padding-right: 10px;
+  text-align: right;
+}
+#edit-form #edit-actions {
+  margin-top: 10px;
+}
+#edit-form #edit-actions button {
+  margin-right: 10px;
+}
+.form-error {
+    color: darkred;
+    font-size: 0.85rem;
+    margin-bottom: 3px;
+}
+#sign-in-form td {
+    max-width: 185px;
+}
+#edit-form label, #sign-in-form label, #register-form label {
+  font-size: 0.8rem;
+  color: #888;
+  padding-right: 3px;
+}
+#ssl-caption {
+    margin-top: 15px;
+  padding: 5px;
+  font-size: 0.6rem;
+  color: #888;
+}
+#ssl-caption img {
+    height: 10px;
+}
+#copyright-caption {
+  font-size: 0.6rem;
   color: #888;
 }
 
@@ -399,24 +432,6 @@ table.module-table {
 
 .module-table .list-action-row button {
   margin-left: 4px;
-}
-
-/**
- * Form
- */
-#edit-form .edit-title {
-  padding-right: 10px;
-  text-align: right;
-}
-#edit-form label {
-  font-size: 0.9rem;
-  color: #888;
-}
-#edit-form #edit-actions {
-  margin-top: 10px;
-}
-#edit-form #edit-actions button {
-  margin-right: 10px;
 }
 
 /**

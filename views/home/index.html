@@ -1,5 +1,10 @@
 {% extends "layouts/base.html" %}
 {% block content %}
-{{ greeting }}
-<p><a href='/admin' title='Admin Dashboard'>Click here</a> to view Admin Dashboard</p>
+<section id="home" class="flex justify-content-center align-items-center w-100">
+    <div>
+        <p>{{ greeting }}</p>
+        <p><a href='/admin' title='Admin Dashboard'>Click here</a> to view Admin Dashboard</p>
+    </div>
+</section>
 {% endblock %}
+
