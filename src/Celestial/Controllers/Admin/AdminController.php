@@ -62,7 +62,7 @@ class AdminController extends Controller
     public function edit($module_name, $item)
     {
         $module = $this->getModule($module_name);
-        $module->edit($this,$item);
+        $module->edit($this, $item);
     }
 
     /**

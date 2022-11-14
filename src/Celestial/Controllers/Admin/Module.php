@@ -12,12 +12,11 @@ class Module
     protected Request $request;
     protected mixed $data = null;
 
-
     public function __construct(public ?string $name = null)
     {
         // Get database instance
         $this->db = DB::getInstance();
-         // Get request
+        // Get request
         $this->request = Request::getInstance();
     }
 
