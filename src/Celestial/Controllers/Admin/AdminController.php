@@ -10,7 +10,7 @@ class AdminController extends Controller
 {
     private array $modules = [];
 
-    public function __construct()
+    private function getModule($name)
     {
         // Map the modules by name & class
         $module_map = ClassMapGenerator::createMap(__DIR__ . "/Modules");
@@ -20,10 +20,6 @@ class AdminController extends Controller
                 $this->modules[$module->name] = $class;
             }
         }
-    }
-
-    private function getModule($name)
-    {
         if (key_exists($name, $this->modules)) {
             return new ($this->modules[$name])();
         }
@@ -33,40 +29,46 @@ class AdminController extends Controller
         die();
     }
 
+    #[Get("/admin", "admin.index", ["auth"])]
+    public function admin()
+    {
+        return $this->render("layouts/module.html");
+    }
+
     /**
      * Show all module items (view)
      */
-    #[Get("/admin/{module}", "module.index")]
+    #[Get("/admin/module/{module}", "module.index", ["auth"])]
     public function index($module_name)
     {
         $module = $this->getModule($module_name);
-        $module->index();
+        $module->index($this);
     }
 
     /**
      * Create a new module item (view)
      */
-    #[Get("/admin/{module}/create", "module.create")]
+    #[Get("/admin/module/{module}/create", "module.create", ["auth"])]
     public function create($module_name)
     {
         $module = $this->getModule($module_name);
-        $module->create();
+        $module->create($this);
     }
 
     /**
      * Edit and existing module item (view)
      */
-    #[Get("/admin/{module}/{item}/edit", "module.edit")]
+    #[Get("/admin/module/{module}/{item}/edit", "module.edit", ["auth"])]
     public function edit($module_name, $item)
     {
         $module = $this->getModule($module_name);
-        $module->edit($item);
+        $module->edit($this,$item);
     }
 
     /**
      * Store a new module item in the database
      */
-    #[Post("/admin/{module}", "module.store")]
+    #[Post("/admin/module/{module}", "module.store", ["auth"])]
     public function store()
     {
     }
@@ -74,7 +76,7 @@ class AdminController extends Controller
     /**
      * Update an existing module item in the database
      */
-    #[Patch("/admin/{module}/{item}", "module.update")]
+    #[Patch("/admin/module/{module}/{item}", "module.update", ["auth"])]
     public function update()
     {
     }
@@ -82,7 +84,7 @@ class AdminController extends Controller
     /**
      * Destroy an existing module item in the database
      */
-    #[Delete("/admin/{module}/{item}", "module.destroy")]
+    #[Delete("/admin/module/{module}/{item}", "module.destroy", ["auth"])]
     public function destroy()
     {
     }

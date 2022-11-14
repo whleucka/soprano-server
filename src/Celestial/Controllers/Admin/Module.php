@@ -2,24 +2,38 @@
 
 namespace Celestial\Controllers\Admin;
 
+use Constellation\Controller\Controller;
+use Constellation\Database\DB;
+use Constellation\Http\Request;
+
 class Module
 {
-    public function index()
+    protected DB $db;
+    protected Request $request;
+    protected mixed $data = null;
+
+
+    public function __construct(public ?string $name = null)
     {
-        echo $this->name . PHP_EOL;
-        echo "index()";
+        // Get database instance
+        $this->db = DB::getInstance();
+         // Get request
+        $this->request = Request::getInstance();
     }
 
-    public function create()
+    public function index(Controller $controller)
     {
-        echo $this->name . PHP_EOL;
-        echo "create()";
+        echo $controller->render("layouts/module.html");
     }
 
-    public function edit($id)
+    public function create(Controller $controller)
     {
-        echo $this->name . " " . $id . PHP_EOL;
-        echo "edit()";
+        echo $controller->render("layouts/module.html");
+    }
+
+    public function edit(Controller $controller, $id)
+    {
+        echo $controller->render("layouts/module.html");
     }
 
     public function store()
