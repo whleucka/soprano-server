@@ -43,6 +43,14 @@ body {
 }
 
 /**
+ * Sign in
+ */
+#sign-in-form label, #register-form label {
+  font-size: 0.9rem;
+  color: #888;
+}
+
+/**
  * Links
  */
 a {
@@ -592,6 +600,9 @@ table.module-table {
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
+}
+.w-100 {
+    width: 100%;
 }
 
 /**

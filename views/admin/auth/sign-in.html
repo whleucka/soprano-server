@@ -3,19 +3,39 @@
     <link rel="stylesheet" href="/css/admin.css">
 {% endblock %}
 {% block content %}
-<form action="{{ fn.buildRoute('auth.sign-in-post') }}" method="POST">
-    <div>
-        <label>Email</label>
-        <input type="email" name="email" value="{{ fn.old('email') }}" id="input-email" placeholder="Your email address" title="Please enter your email address">
-        {% include 'validate/errors.html' with {'field': 'email'} %}
-    </div>
-    <div>
-        <label>Password</label>
-        <input type="password" name="password" id="input-password" placeholder="Your password" title="Please enter your password">
-        {% include 'validate/errors.html' with {'field': 'password'} %}
-    </div>
-    <div>
-        <button type="submit" id="btn-sign-in">Sign In</button>
-    </div>
-</form>
+<section id="sign-in-form" class="flex justify-content-center align-items-center w-100">
+    <form action="{{ fn.buildRoute('auth.sign-in-post') }}" method="POST">
+        <table>
+            <tbody>
+                <tr>
+                    <td class="text-right"><label>Email</label></td>
+                    <td>
+                        <input type="email" name="email" value="{{ fn.old('email') }}" id="input-email" placeholder="Your email address" title="Please enter your email address">
+
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>{% include 'validate/errors.html' with {'field': 'email'} %}</td>
+                </tr>
+                <tr>
+                    <td class="text-right"><label>Password</label></td>
+                    <td>
+                        <input type="password" name="password" id="input-password" placeholder="Your password" title="Please enter your password">
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>{% include 'validate/errors.html' with {'field': 'password'} %}</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td class="text-right">
+                        <button type="submit" id="btn-sign-in">Sign In</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+</section>
 {% endblock %}
