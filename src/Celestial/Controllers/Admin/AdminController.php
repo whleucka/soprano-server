@@ -10,23 +10,15 @@ class AdminController extends Controller
 {
     private array $modules = [];
     public array $sidebar_links = [];
+    private array $module_map = [];
 
     private function getModule($name)
     {
-        // Map the modules by name & class
-        $module_map = ClassMapGenerator::createMap(__DIR__ . "/Modules");
-        foreach ($module_map as $class => $path) {
+        if (!$this->module_map) $this->module_map = ClassMapGenerator::createMap(__DIR__ . "/Modules");
+        foreach ($this->module_map as $class => $path) {
             $module = new $class();
             $this->modules[$module->module] = $class;
-            $this->sidebar_links[] = [
-                "data_title" => $module->module,
-                "label" => $module->title,
-                "uri" => "/admin/module/{$module->module}"
-            ];
         }
-        usort($this->sidebar_links, function ($one, $two) {
-            return $one["label"] <=> $two["label"];
-        });
         if (key_exists($name, $this->modules)) {
             return new ($this->modules[$name])();
         }
@@ -36,10 +28,29 @@ class AdminController extends Controller
         die();
     }
 
+    private function getSidebarLinks()
+    {
+        if (!$this->module_map) $this->module_map = ClassMapGenerator::createMap(__DIR__ . "/Modules");
+        foreach ($this->module_map as $class => $path) {
+            $module = new $class();
+            $this->sidebar_links[] = [
+                "data_title" => $module->module,
+                "label" => $module->title,
+                "uri" => "/admin/module/{$module->module}"
+            ];
+        }
+        usort($this->sidebar_links, function ($one, $two) {
+            return $one["label"] <=> $two["label"];
+        });
+    }
+
     #[Get("/admin", "admin.index", ["auth"])]
     public function admin()
     {
-        return $this->render("layouts/module.html");
+        $this->getSidebarLinks();
+        return $this->render("layouts/module.html",[
+            "sidebar_links" => $this->sidebar_links
+        ]);
     }
 
     /**
@@ -49,6 +60,7 @@ class AdminController extends Controller
     public function index($module)
     {
         $module = $this->getModule($module);
+        $this->getSidebarLinks();
         $module->index($this);
     }
 
@@ -59,6 +71,7 @@ class AdminController extends Controller
     public function create($module)
     {
         $module = $this->getModule($module);
+        $this->getSidebarLinks();
         $module->create($this);
     }
 
@@ -69,6 +82,7 @@ class AdminController extends Controller
     public function edit($module, $id)
     {
         $module = $this->getModule($module);
+        $this->getSidebarLinks();
         $module->edit($this, $id);
     }
 
