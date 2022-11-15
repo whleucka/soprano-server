@@ -18,8 +18,7 @@
                 <th class="header">
                     <?= $title ?>
                 </th>
-            <?php endforeach;
-            ?>
+            <?php endforeach; ?>
             <?php if ($this->show_table_actions): ?>
                 <th class="header"></th>
             <?php endif; ?>
@@ -103,11 +102,7 @@
                 <?php endif; ?>
             <?php endfor; ?>
             <a href="?page=<?= $i ?>"><strong><?= $this->page ?></strong></a>
-            <?php for (
-                $i = $this->page + 1;
-                $i < $this->page + $offset + 1;
-                $i++
-            ): ?>
+            <?php for ($i = $this->page + 1; $i < $this->page + $offset + 1; $i++): ?>
                 <?php if ($i < $this->total_pages + 1): ?>
                     <a href="?page=<?= $i ?>"><?= $i ?></a>
                 <?php endif; ?>
