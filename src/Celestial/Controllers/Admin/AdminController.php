@@ -34,13 +34,13 @@ class AdminController extends Controller
         foreach ($this->module_map as $class => $path) {
             $module = new $class();
             $this->sidebar_links[] = [
-                "data_title" => $module->module,
-                "label" => $module->title,
+                "module" => $module->module,
+                "title" => $module->title ?? $module->module,
                 "uri" => "/admin/module/{$module->module}"
             ];
         }
         usort($this->sidebar_links, function ($one, $two) {
-            return $one["label"] <=> $two["label"];
+            return $one["title"] <=> $two["title"];
         });
     }
 

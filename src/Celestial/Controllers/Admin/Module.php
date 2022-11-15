@@ -29,7 +29,7 @@ class Module
     // The request
     protected Request $request;
     // Module h3 title
-    public string $title = "";
+    public ?string $title = null;
     // Module table (SQL)
     protected string $table = "";
     // Extra module tables

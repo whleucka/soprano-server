@@ -5,8 +5,8 @@ const sidebarFilter = (term) => {
   const sidebarLinks = document.getElementsByClassName("sidebar-link");
   let links = [];
   for (let link of sidebarLinks) {
-    const title = link.dataset.title;
-    const match = title.match(term.trim().toLowerCase());
+    const module_name = link.dataset.module;
+    const match = module_name.match(term.trim().toLowerCase());
     link.style.display = match ? "block" : "none";
     link.tabIndex = match ? 0 : -1;
     if (match) {
