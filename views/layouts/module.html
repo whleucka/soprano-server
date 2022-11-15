@@ -28,6 +28,7 @@
           <section id="sidebar">
               <input tabIndex="0" placeholder="Filter" id="sidebar-filter" type="search" />
               <ul>
+                  <a tabIndex="-1" class="sidebar-link" data-module="dashboard" href='/admin'><li>Dashboard</li></a>
                   {% for link in sidebar_links %}
                   <a tabIndex="-1" class="sidebar-link" data-module="{{ link.module }}" href="{{ link.uri }}"><li>{{ link.title }}</li></a>
                   {% endfor %}
@@ -41,7 +42,7 @@
               <footer>
                   <div id="footer">
                       <div id="brand-logo"></div>
-                      <small>&#169; 2022 William Hleucka - All rights reserved</small>
+                      <small>&#169; 2022 Libra PHP - All rights reserved</small>
                   </div>
               </footer>
           </section>
