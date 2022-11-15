@@ -11,7 +11,6 @@ class Users extends Module
         $this->title = "Users";
         $this->table = "users";
         $this->name_col = "uuid";
-        $this->limit_clause = 1;
         $this->table_columns = [
             "id as id" => "ID",
             "uuid" => "UUID",
