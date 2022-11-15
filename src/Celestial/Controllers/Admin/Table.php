@@ -34,7 +34,7 @@
         </tr>
         </thead>
         <tbody>
-        <?php if (!is_null($this->dataset)): ?>
+        <?php if (!is_null($this->dataset) && !empty($this->dataset)): ?>
             <?php foreach ($this->dataset as $key => $datum): ?>
                 <tr>
                     <?php foreach ($datum as $column => $data):
@@ -81,6 +81,12 @@
                     <?php endif; ?>
                 </tr>
             <?php endforeach; ?>
+        <?php else:
+        $col_span = count($this->table_columns);
+        if ($this->show_table_actions) $col_span++; ?>
+            <tr>
+                <td class="text-center" colspan="<?=$col_span?>"><i>No data found</i></td>
+            </tr>
         <?php endif; ?>
         </tbody>
         </table>
