@@ -9,8 +9,9 @@ body {
   font-family: "Source Sans Pro", sans-serif;
   font-size: 100%;
 }
-#content, #home {
-    height: 100%;
+#content,
+#home {
+  height: 100%;
 }
 .flex {
   display: -webkit-box;
@@ -28,5 +29,5 @@ body {
   align-items: center;
 }
 .w-100 {
-    width: 100%;
+  width: 100%;
 }

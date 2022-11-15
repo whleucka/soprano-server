@@ -26,7 +26,7 @@ body {
   padding: 0 10px;
 }
 #module-content {
-  min-height: calc(100% - 20px);
+  min-height: calc(100% - 40px);
 }
 #content {
   display: -webkit-box;
@@ -57,32 +57,37 @@ body {
   margin-right: 10px;
 }
 .form-error {
-    color: darkred;
-    font-size: 0.85rem;
-    margin-bottom: 3px;
+  color: darkred;
+  font-size: 0.85rem;
+  margin-bottom: 3px;
 }
-#sign-in-form td:first-child, #register-form td:first-child {
-    width: 1%;
+#sign-in-form td:first-child,
+#register-form td:first-child {
+  width: 1%;
 }
-#sign-in-form td, #register-form td {
-    width: 240px;
+#sign-in-form td,
+#register-form td {
+  width: 240px;
 }
-#sign-in-form input, #register-form input {
-    width: 100%;
+#sign-in-form input,
+#register-form input {
+  width: 100%;
 }
-#edit-form label, #sign-in-form label, #register-form label {
+#edit-form label,
+#sign-in-form label,
+#register-form label {
   font-size: 0.8rem;
   color: #888;
   padding-right: 3px;
 }
 #ssl-caption {
-    margin-top: 15px;
+  margin-top: 15px;
   padding: 5px;
   font-size: 0.6rem;
   color: #888;
 }
 #ssl-caption img {
-    height: 10px;
+  height: 10px;
 }
 #copyright-caption {
   font-size: 0.6rem;
@@ -107,36 +112,8 @@ a:hover {
 a:active {
   color: #444;
 }
-table.module-table tbody a {
-  position: relative;
-  display: inline-block;
-  -webkit-transition: 0.3s;
-  -o-transition: 0.3s;
-  transition: 0.3s;
-  text-decoration: none;
-}
-table.module-table thead a:hover {
-  color: #fff;
-}
-table.module-table a::after {
-  position: absolute;
-  bottom: 0.3em;
-  left: 0;
-  content: "";
-  width: 100%;
-  height: 1px;
-  background-color: royalblue;
-  opacity: 0;
-  -webkit-transition: 0.3s;
-  -o-transition: 0.3s;
-  transition: 0.3s;
-}
-table.module-table a:hover::after {
-  bottom: 0;
-  opacity: 1;
-}
-table.module-table a:hover {
-  color: royalblue;
+a.name-link {
+  font-weight: bold;
 }
 
 /**
@@ -623,7 +600,7 @@ table.module-table {
   align-items: center;
 }
 .w-100 {
-    width: 100%;
+  width: 100%;
 }
 
 /**
