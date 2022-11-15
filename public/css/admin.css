@@ -250,27 +250,27 @@ input:focus {
   /* background-color: #feffe8; */
   background-color: #ebffe8;
 }
-#list-search-input {
+#search-input {
   width: 180px;
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
 }
-#list-search-clear {
+#search-clear {
   height: 25px;
 }
-#list-date-filter td:first-child {
+#date-filter td:first-child {
   text-align: right;
   padding-right: 4px;
 }
-#list-date-filter td {
+#date-filter td {
   color: #555;
   vertical-align: middle;
   font-size: 0.7rem;
 }
-#list-date-filter input {
+#date-filter input {
   width: 203px;
 }
-#list-date-filter button {
+#date-filter button {
   margin-left: 5px;
 }
 
@@ -289,7 +289,7 @@ button {
   opacity: 0.85;
   padding: 3px 6px;
 }
-#list-search-button {
+#search-button {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
   border-left: 0;
@@ -354,16 +354,16 @@ button:hover {
 /**
  * Table
  */
-#list-actions {
+#actions {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   margin: 20px 0;
 }
-#list-actions button {
+#actions button {
   margin-right: 8px;
 }
-#list-filters {
+#filters {
   margin: 20px 4px;
 }
 #filter-links > span {
@@ -423,7 +423,7 @@ table.module-table {
   padding: 6px 5px;
   border-bottom: 1px solid #eaeaea;
 }
-.module-table .list-action-row {
+.module-table .action-row {
   width: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -436,7 +436,7 @@ table.module-table {
   align-items: center;
 }
 
-.module-table .list-action-row button {
+.module-table .action-row button {
   margin-left: 4px;
 }
 

@@ -16,9 +16,7 @@ class AdminController extends Controller
         $module_map = ClassMapGenerator::createMap(__DIR__ . "/Modules");
         foreach ($module_map as $class => $path) {
             $module = new $class();
-            if (property_exists($module, "name")) {
-                $this->modules[$module->name] = $class;
-            }
+            $this->modules[$module->module] = $class;
         }
         if (key_exists($name, $this->modules)) {
             return new ($this->modules[$name])();
@@ -39,9 +37,9 @@ class AdminController extends Controller
      * Show all module items (view)
      */
     #[Get("/admin/module/{module}", "module.index", ["auth"])]
-    public function index($module_name)
+    public function index($module)
     {
-        $module = $this->getModule($module_name);
+        $module = $this->getModule($module);
         $module->index($this);
     }
 
@@ -49,43 +47,43 @@ class AdminController extends Controller
      * Create a new module item (view)
      */
     #[Get("/admin/module/{module}/create", "module.create", ["auth"])]
-    public function create($module_name)
+    public function create($module)
     {
-        $module = $this->getModule($module_name);
+        $module = $this->getModule($module);
         $module->create($this);
     }
 
     /**
      * Edit and existing module item (view)
      */
-    #[Get("/admin/module/{module}/{item}/edit", "module.edit", ["auth"])]
-    public function edit($module_name, $item)
+    #[Get("/admin/module/{module}/{id}/edit", "module.edit", ["auth"])]
+    public function edit($module, $id)
     {
-        $module = $this->getModule($module_name);
-        $module->edit($this, $item);
+        $module = $this->getModule($module);
+        $module->edit($this, $id);
     }
 
     /**
      * Store a new module item in the database
      */
     #[Post("/admin/module/{module}", "module.store", ["auth"])]
-    public function store()
+    public function store($module)
     {
     }
 
     /**
      * Update an existing module item in the database
      */
-    #[Patch("/admin/module/{module}/{item}", "module.update", ["auth"])]
-    public function update()
+    #[Patch("/admin/module/{module}/{id}", "module.update", ["auth"])]
+    public function update($module, $id)
     {
     }
 
     /**
      * Destroy an existing module item in the database
      */
-    #[Delete("/admin/module/{module}/{item}", "module.destroy", ["auth"])]
-    public function destroy()
+    #[Delete("/admin/module/{module}/{id}", "module.destroy", ["auth"])]
+    public function destroy($module, $id)
     {
     }
 }

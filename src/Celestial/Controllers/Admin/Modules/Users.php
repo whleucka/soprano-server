@@ -8,6 +8,7 @@ class Users extends Module
 {
     public function __construct()
     {
+        $this->title = "Users";
         parent::__construct("users");
     }
 }
