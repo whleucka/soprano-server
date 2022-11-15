@@ -191,6 +191,7 @@ class Module
      */
     protected function getTableData()
     {
+        if (!$this->table) return;
         // Process actions requests, etc
         $this->processRequest();
         // Get the table query
