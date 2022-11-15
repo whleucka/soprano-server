@@ -9,6 +9,7 @@ use Composer\Autoload\ClassMapGenerator;
 class AdminController extends Controller
 {
     private array $modules = [];
+    public array $sidebar_links = [];
 
     private function getModule($name)
     {
@@ -17,7 +18,15 @@ class AdminController extends Controller
         foreach ($module_map as $class => $path) {
             $module = new $class();
             $this->modules[$module->module] = $class;
+            $this->sidebar_links[] = [
+                "data_title" => $module->module,
+                "label" => $module->title,
+                "uri" => "/admin/module/{$module->module}"
+            ];
         }
+        usort($this->sidebar_links, function ($one, $two) {
+            return $one["label"] <=> $two["label"];
+        });
         if (key_exists($name, $this->modules)) {
             return new ($this->modules[$name])();
         }
@@ -66,24 +75,32 @@ class AdminController extends Controller
     /**
      * Store a new module item in the database
      */
-    #[Post("/admin/module/{module}", "module.store", ["auth"])]
+    #[Post("/admin/module/{module}/store", "module.store", ["auth"])]
     public function store($module)
     {
+        $module = $this->getModule($module);
+        $module->store($this);
     }
 
     /**
      * Update an existing module item in the database
      */
-    #[Patch("/admin/module/{module}/{id}", "module.update", ["auth"])]
+    #[Post("/admin/module/{module}/{id}/update", "module.update", ["auth"])]
+    #[Patch("/admin/module/{module}/{id}/save", "module.save", ["auth"])]
     public function update($module, $id)
     {
+        $module = $this->getModule($module);
+        $module->update($this, $id);
     }
 
     /**
      * Destroy an existing module item in the database
      */
-    #[Delete("/admin/module/{module}/{id}", "module.destroy", ["auth"])]
+    #[Post("/admin/module/{module}/{id}/destroy", "module.destroy", ["auth"])]
+    #[Delete("/admin/module/{module}/{id}/delete", "module.delete", ["auth"])]
     public function destroy($module, $id)
     {
+        $module = $this->getModule($module);
+        $module->destroy($this, $id);
     }
 }

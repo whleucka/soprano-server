@@ -36,7 +36,7 @@
                             $this->module,
                             $id
                         );
-                        $delete_link = Router::buildRoute(
+                        $delete_action = Router::buildRoute(
                             "module.destroy",
                             $this->module,
                             $id
@@ -63,9 +63,9 @@
                                 </a>
                             <?php endif; ?>
                             <?php if ($this->table_delete): ?>
-                                <a href="<?= $delete_link ?>">
-                                    <button class="sm" type="button" title="Delete">Delete</button>
-                                </a>
+                                <form method="POST" action="<?=$delete_action?>">
+                                    <button class="sm" type="submit" title="Delete">Delete</button>
+                                </form>
                             <?php endif; ?>
                         </div>
                     </td>

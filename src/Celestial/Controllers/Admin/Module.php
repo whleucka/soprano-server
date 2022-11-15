@@ -29,7 +29,7 @@ class Module
     // The request
     protected Request $request;
     // Module h3 title
-    protected string $title = "";
+    public string $title = "";
     // Module table (SQL)
     protected string $table = "";
     // Extra module tables
@@ -60,9 +60,9 @@ class Module
     protected bool $show_table_actions = true;
     // Table actions
     private array $table_actions = [];
-    // Show table edit link
+    // Show table edit button
     protected bool $table_edit = true;
-    // Show table delete link
+    // Show table delete button
     protected bool $table_delete = true;
 
     public function __construct(public ?string $module = null)
@@ -307,6 +307,7 @@ class Module
         $table = $this->getTable();
         echo $controller->render("admin/table.html", [
             "table" => $table,
+            "sidebar_links" => $controller->sidebar_links
         ]);
     }
 
@@ -319,6 +320,7 @@ class Module
         $form = $this->getForm();
         echo $controller->render("admin/form.html", [
             "form" => $form,
+            "sidebar_links" => $controller->sidebar_links
         ]);
     }
 
@@ -331,30 +333,31 @@ class Module
         $form = $this->getForm();
         echo $controller->render("admin/form.html", [
             "form" => $form,
+            "sidebar_links" => $controller->sidebar_links
         ]);
     }
 
     /**
      * Module store route
      */
-    public function store()
+    public function store(Controller $controller)
     {
-        echo "store()";
+        echo "store() WIP";
     }
 
     /**
      * Module update route
      */
-    public function update()
+    public function update(Controller $controller, $id)
     {
-        echo "update()";
+        echo "update() WIP";
     }
 
     /**
      * Module destroy route
      */
-    public function destroy()
+    public function destroy(Controller $controller, $id)
     {
-        echo "destroy()";
+        echo "destroy() WIP";
     }
 }
