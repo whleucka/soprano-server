@@ -3,6 +3,15 @@
     <div class="alerts">
     </div>
     <div id="filters">
+        <?php if ($this->table_filters):
+            $search_term = $_SESSION[$this->module]["search"] ?? ''; ?>
+            <form method="GET">
+                <input id="search-input" placeholder="..." name="search" type="search" value="<?=$search_term?>"><button id="search-button" type="submit">Search</button>
+                <?php if ($search_term): ?>
+                    <button type="submit" name="clear_search" id="search-clear">Clear</button>
+                <?php endif ?>
+            </form>
+        <?php endif ?>
     </div>
     <div id="actions">
     </div>

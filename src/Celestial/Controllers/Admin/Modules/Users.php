@@ -28,6 +28,7 @@ class Users extends Module
             "uuid" => "UUID",
             "created_at" => "Created",
         ];
+        $this->table_filters = ["name", "email"];
         parent::__construct("users");
     }
 }

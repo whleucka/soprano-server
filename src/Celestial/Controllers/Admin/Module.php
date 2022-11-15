@@ -64,6 +64,8 @@ class Module
     protected bool $table_edit = true;
     // Show table delete button
     protected bool $table_delete = true;
+    // Table filters (search, date, etc)
+    protected array $table_filters = [];
 
     public function __construct(public ?string $module = null)
     {
@@ -81,6 +83,13 @@ class Module
         $this->compileWhereClause();
     }
 
+    protected function refreshTable()
+    {
+        $get_params = "?page={$this->page}";
+        header("Location: {$get_params}");
+        exit();
+    }
+
     /**
      * Handle page number, sort, rows per page, etc
      */
@@ -94,6 +103,31 @@ class Module
      */
     protected function handleFilters()
     {
+        $search = null;
+        if (isset($this->request->data["clear_search"])) {
+            $this->page = 1;
+            unset($_SESSION[$this->module]["search"]);
+            $this->refreshTable();
+        } elseif (isset($this->request->data["search"])) {
+            $this->page = 1;
+            $search = trim($this->request->data["search"]);
+            $_SESSION[$this->module]["search"] = $search;
+        } else if (isset($_SESSION[$this->module]["search"])) {
+            $search = $_SESSION[$this->module]["search"];
+        }
+        if ($search) {
+            $clause = [];
+            foreach ($this->table_filters as $filter) {
+                $clause[] = "{$filter} LIKE ?";
+            }
+            $where_clause = implode(" OR ", $clause);
+            $params = array_fill(
+                0,
+                count($this->table_filters),
+                "%" . $search . "%"
+            );
+            $this->addWhereClause($where_clause, $params);
+        }
     }
 
     /**
