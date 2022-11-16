@@ -2,6 +2,7 @@
 
 namespace Celestial\Controllers\Admin;
 
+use Constellation\Alerts\Flash;
 use PDO;
 use Constellation\Controller\Controller;
 use Constellation\Database\DB;
@@ -13,6 +14,12 @@ class Module
 {
     // The database wrapper
     protected DB $db;
+    // Show table new button
+    protected bool $allow_insert = true;
+    // Show table edit button
+    protected bool $allow_edit = true;
+    // Show table delete button
+    protected bool $allow_delete = true;
     // The dataset
     protected ?array $dataset = null;
     // The query (SQL)
@@ -59,16 +66,12 @@ class Module
     protected array $form_columns = [];
     // Show table actions cell
     protected bool $show_table_actions = true;
-    // Table actions
-    private array $table_actions = [];
-    // Show table edit button
-    protected bool $table_edit = true;
-    // Show table delete button
-    protected bool $table_delete = true;
     // Table filters (search, date, etc)
     protected array $table_filters = [];
-    // Table format type
+    // Table formatting
     protected array $table_format = [];
+    // Table actions
+    private array $table_actions = [];
 
     public function __construct(public ?string $module = null)
     {
@@ -252,6 +255,30 @@ class Module
     }
 
     /**
+     * Does the user have permission to insert?
+     */
+    protected function hasInsertPermission()
+    {
+        return $this->allow_insert;
+    }
+
+    /**
+     * Does the user have permission to edit?
+     */
+    protected function hasEditPermission($id)
+    {
+        return $this->allow_edit;
+    }
+
+    /**
+     * Does the user have permission to delete?
+     */
+    protected function hasDeletePermission($id)
+    {
+        return $this->allow_delete;
+    }
+
+    /**
      * Override the table row values
      */
     protected function override(&$datum)
@@ -281,13 +308,10 @@ class Module
     }
 
     /**
-     * Set the results meta and dataset for form output
+     * Set the dataset for form output
      */
-    protected function getFormData($type)
+    protected function getFormData($id)
     {
-        if ($type == "create") {
-        } elseif ($type == "edit") {
-        }
     }
 
     /**
@@ -297,8 +321,8 @@ class Module
     {
         return match ($type) {
             "index" => $this->getTableData(),
-            "create" => $this->getFormData("create"),
-            "edit" => $this->getFormData("edit", $id),
+            "create" => $this->getFormData($id),
+            "edit" => $this->getFormData($id),
             "default" => throw new Exception("Unknown data type"),
         };
     }
@@ -315,7 +339,7 @@ class Module
     /**
      * Strip table columns to alias name for table output
      */
-    protected function formatColumns()
+    protected function fixColumns()
     {
         // Fix up the table_columns array by stripping [0] to alias
         foreach ($this->table_columns as $column => $title) {
@@ -330,7 +354,7 @@ class Module
      */
     protected function getTable()
     {
-        $this->formatColumns();
+        $this->fixColumns();
         if (!$this->name_col) {
             $this->name_col = $this->key_col;
         }
@@ -351,6 +375,13 @@ class Module
         return $form;
     }
 
+    protected function permissionDenied()
+    {
+        Flash::addFlash("warning", "Permission denied");
+        header("Location: /admin/module/{$this->module}");
+        exit();
+    }
+
     /**
      * Module index route
      */
@@ -369,12 +400,16 @@ class Module
      */
     public function create(Controller $controller)
     {
-        $this->getData("create");
-        $form = $this->getForm();
-        echo $controller->render("admin/form.html", [
-            "form" => $form,
-            "sidebar_links" => $controller->sidebar_links,
-        ]);
+        if ($this->hasInsertPermission()) {
+            $this->getData("create");
+            $form = $this->getForm();
+            echo $controller->render("admin/form.html", [
+                "form" => $form,
+                "sidebar_links" => $controller->sidebar_links,
+            ]);
+        } else {
+            $this->permissionDenied();
+        }
     }
 
     /**
@@ -382,12 +417,16 @@ class Module
      */
     public function edit(Controller $controller, $id)
     {
-        $this->getData("edit", $id);
-        $form = $this->getForm();
-        echo $controller->render("admin/form.html", [
-            "form" => $form,
-            "sidebar_links" => $controller->sidebar_links,
-        ]);
+        if ($this->hasEditPermission($id)) {
+            $this->getData("edit", $id);
+            $form = $this->getForm();
+            echo $controller->render("admin/form.html", [
+                "form" => $form,
+                "sidebar_links" => $controller->sidebar_links,
+            ]);
+        } else {
+            $this->permissionDenied();
+        }
     }
 
     /**
@@ -395,7 +434,11 @@ class Module
      */
     public function store(Controller $controller)
     {
-        echo "store() WIP";
+        if ($this->hasInsertPermission()) {
+            echo "store() WIP";
+        } else {
+            $this->permissionDenied();
+        }
     }
 
     /**
@@ -403,7 +446,11 @@ class Module
      */
     public function update(Controller $controller, $id)
     {
-        echo "update() WIP";
+        if ($this->hasEditPermission($id)) {
+            echo "update() WIP";
+        } else {
+            $this->permissionDenied();
+        }
     }
 
     /**
@@ -411,6 +458,10 @@ class Module
      */
     public function destroy(Controller $controller, $id)
     {
-        echo "destroy() WIP";
+        if ($this->hasDeletePermission($id)) {
+            echo "destroy() WIP";
+        } else {
+            $this->permissionDenied();
+        }
     }
 }

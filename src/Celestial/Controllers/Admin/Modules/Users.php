@@ -10,7 +10,6 @@ class Users extends Module
     public function __construct()
     {
         $this->title = "Users";
-        $this->key_col = "id";
         $this->name_col = "uuid";
         $this->table = "users";
         $this->table_columns = [

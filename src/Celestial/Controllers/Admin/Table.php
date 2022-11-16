@@ -1,6 +1,11 @@
+<?php
+use Constellation\Routing\Router;
+use Constellation\Alerts\Flash;
+?>
 <section id="module-table">
     <h3><?= $this->title ?></h3>
     <div class="alerts">
+    <?= Flash::getSessionFlash() ?>
     </div>
     <div id="filters">
         <?php if ($this->table_filters):
@@ -22,14 +27,11 @@
         <table class="module-table">
         <thead>
         <tr class="blue-gradient">
-            <?php
-            use Constellation\Routing\Router;
-            foreach ($this->table_columns as $column => $title): ?>
+            <?php foreach ($this->table_columns as $column => $title): ?>
                 <th class="header">
                     <?= $title ?>
                 </th>
-            <?php endforeach;
-            ?>
+            <?php endforeach; ?>
             <?php if ($this->show_table_actions): ?>
                 <th class="header"></th>
             <?php endif; ?>
@@ -55,7 +57,10 @@
                         $data = $this->override($data);
                         $value = $this->format($column, $data);
                         ?>
-                        <?php if ($column == $this->name_col): ?>
+                        <?php if (
+                            $column == $this->name_col &&
+                            $this->hasEditPermission($id)
+                        ): ?>
                             <td><a class="name-link" href="<?= $edit_link ?>" title="Edit"><?= $value ?></a></td>
                         <?php else: ?>
                             <td><?= $value ?></td>
@@ -68,12 +73,12 @@
                             <?php foreach ($this->table_actions as $action): ?>
 
                             <?php endforeach; ?>
-                            <?php if ($this->table_edit): ?>
+                            <?php if ($this->hasEditPermission($id)): ?>
                                 <a href="<?= $edit_link ?>">
                                     <button class="sm" type="button" title="Edit">Edit</button>
                                 </a>
                             <?php endif; ?>
-                            <?php if ($this->table_delete): ?>
+                            <?php if ($this->hasDeletePermission($id)): ?>
                                 <form method="POST" action="<?= $delete_action ?>">
                                     <button class="sm" type="submit" title="Delete">Delete</button>
                                 </form>
