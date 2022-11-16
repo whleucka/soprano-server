@@ -58,6 +58,7 @@ class AdminController extends Controller
         $this->getSidebarLinks();
         return $this->render("layouts/module.html", [
             "sidebar_links" => $this->sidebar_links,
+            "content" => "<p>Hello, {$this->user?->name}</p>",
         ]);
     }
 

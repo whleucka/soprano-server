@@ -70,6 +70,8 @@ class Module
     protected array $table_filters = [];
     // Table formatting
     protected array $table_format = [];
+    // Table filter links
+    protected array $filter_links = [];
     // Table actions
     private array $table_actions = [];
 
@@ -96,6 +98,10 @@ class Module
         exit();
     }
 
+    protected function refreshForm()
+    {
+    }
+
     /**
      * Handle page number, sort, limit clause, etc
      */
@@ -108,6 +114,12 @@ class Module
      * Handle search, filter links, etc
      */
     protected function handleFilters()
+    {
+        $this->handleSearchFilter();
+        $this->handleFilterLinks();
+    }
+
+    protected function handleSearchFilter()
     {
         $search = null;
         if (isset($this->request->data["clear_search"])) {
@@ -136,11 +148,55 @@ class Module
         }
     }
 
+    protected function handleFilterLinks()
+    {
+        $filter_link = null;
+        if (isset($this->request->data["filter_link"])) {
+            // There is a filter link request
+            $filter_link = $this->request->data["filter_link"];
+            // Set the session for persistence
+            $_SESSION[$this->module]["filter_link"] = $filter_link;
+        } elseif (isset($_SESSION[$this->module]["filter_link"])) {
+            // The filter is available in the session
+            $filter_link = $_SESSION[$this->module]["filter_link"];
+        }
+        if ($filter_link) {
+            // We can apply the filter link from the request
+            $this->addWhereClause($this->filter_links[$filter_link]);
+        } else {
+            // If the filter_links array is not empty, then set session
+            // such that the filter button is active
+            $key = array_key_first($this->filter_links);
+            $_SESSION[$this->module]["filter_link"] = $key;
+            // Add the where clause for the filter link
+            $this->addWhereClause($this->filter_links[$key]);
+        }
+    }
+
     /**
      * Handle page actions
      */
     protected function handleActions()
     {
+        if (isset($this->request->data["a"])) {
+            $this->action($this->request->data["a"]);
+        }
+    }
+
+    protected function action($action)
+    {
+        switch ($action) {
+            case "cancel":
+                Flash::addFlash("info", "Action cancelled");
+                $this->refreshTable();
+                break;
+            case "filter_count":
+                $this->filterCount();
+                break;
+            default:
+                Flash::addFlash("error", "Unknown action");
+                $this->refreshTable();
+        }
     }
 
     /**
@@ -463,5 +519,48 @@ class Module
         } else {
             $this->permissionDenied();
         }
+    }
+
+    /**
+     * Get the filter count
+     */
+    protected function filterCount()
+    {
+        // Reset the where and params arrays
+        $this->where = $this->params = [];
+        $filter = $this->request->data["filter_count"];
+        $clause = $this->filter_links[$filter] ?? null;
+        if ($clause) {
+            $this->addWhereClause($clause);
+            $this->handleSearchFilter();
+            $this->compileWhereClause();
+            $total = $this->getTotalCount();
+            header("Content-Type: application/json; charset=utf-8");
+            echo json_encode(["total" => $total]);
+            exit();
+        }
+    }
+
+    protected function getTotalCount()
+    {
+        $total = 0;
+        // Determine count, up to 1000
+        $limit = 1000;
+        $this->limit_clause = $limit;
+        $this->offset_clause = 0;
+        $query = $this->getTableQuery();
+        $stmt = $this->db->run($query, $this->params);
+        $total = $stmt->rowCount();
+        // Look for one more
+        $this->limit_clause = 1;
+        $this->offset_clause = $limit;
+        $query = $this->getTableQuery();
+        $stmt = $this->db->run($query, $this->params);
+        $count = $stmt->rowCount();
+        // Add a + sign if there is more than 1000 records
+        if ($count) {
+            $total .= "+";
+        }
+        return $total;
     }
 }

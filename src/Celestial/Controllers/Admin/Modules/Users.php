@@ -9,6 +9,7 @@ class Users extends Module
 {
     public function __construct()
     {
+        $this->user = Auth::user();
         $this->title = "Users";
         $this->name_col = "uuid";
         $this->table = "users";
@@ -21,11 +22,15 @@ class Users extends Module
         ];
         $this->table_format = [
             "name" => function ($column, $value) {
-                $user = Auth::user();
-                if ($user->name == $value) {
+                if ($this->user->name == $value) {
                     return "<span style='color: royalblue;'>Me</span>";
                 }
             },
+        ];
+        $this->table_filters = ["name", "email"];
+        $this->filter_links = [
+            "Me" => "id = " . $this->user?->id,
+            "Others" => "id != " . $this->user?->id,
         ];
         $this->form_columns = [
             "name" => "Name",
@@ -36,7 +41,6 @@ class Users extends Module
             "uuid" => "UUID",
             "created_at" => "Created",
         ];
-        $this->table_filters = ["name", "email"];
         parent::__construct("users");
     }
 }

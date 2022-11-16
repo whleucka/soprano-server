@@ -5,24 +5,45 @@ use Constellation\Alerts\Flash;
 <section id="module-table">
     <h3><?= $this->title ?></h3>
     <div class="alerts">
-    <?= Flash::getSessionFlash() ?>
+        <?= Flash::getSessionFlash() ?>
     </div>
-    <div id="filters">
-        <?php if ($this->table_filters):
-            $search_term = $_SESSION[$this->module]["search"] ?? ""; ?>
-            <form method="GET">
-                <input id="search-input" placeholder="..." name="search" type="search" value="<?= $search_term ?>"><button id="search-button" type="submit">Search</button>
-                <?php if ($search_term): ?>
-                    <button type="submit" name="clear_search" id="search-clear">Clear</button>
-                <?php endif; ?>
-            </form>
+    <?php if (!empty($this->table_filters)): ?>
+        <div id="filters">
+            <?php if ($this->table_filters):
+                $search_term = $_SESSION[$this->module]["search"] ?? ""; ?>
+                <form method="GET">
+                    <input id="search-input" placeholder="..." name="search" type="search" value="<?= $search_term ?>"><button id="search-button" type="submit">Search</button>
+                    <?php if ($search_term): ?>
+                        <button type="submit" name="clear_search" id="search-clear">Clear</button>
+                    <?php endif; ?>
+                </form>
+            <?php
+            endif; ?>
+        </div>
+    <?php endif; ?>
+    <?php if (!empty($this->table_actions)): ?>
+        <div id="actions">
+        </div>
+    <?php endif; ?>
+    <?php if (!empty($this->filter_links)): ?>
+        <div id="filter-links" class="pt-10 pb-10">
         <?php
-        endif; ?>
-    </div>
-    <div id="actions">
-    </div>
-    <div id="links">
-    </div>
+        $keys = array_keys($this->filter_links);
+        $keys = array_map(function ($title) {
+            $title_encode = urlencode($title);
+            $class =
+                isset($_SESSION[$this->module]["filter_link"]) &&
+                $_SESSION[$this->module]["filter_link"] == $title
+                    ? "active"
+                    : "";
+            echo "<span class='filter-link'>
+            <a title='Filter on {$title}' href='?filter_link={$title_encode}'><button class='{$class}'>{$title} (<span class='filter-link-count' data-title='{$title_encode}'>...</span>)</button></a>
+                </span>";
+        }, $keys);
+        echo implode(" ", $keys);
+        ?>
+        </div>
+    <?php endif; ?>
     <div class="table-wrapper">
         <table class="module-table">
         <thead>
@@ -95,7 +116,7 @@ use Constellation\Alerts\Flash;
             }
             ?>
             <tr>
-                <td class="text-center" colspan="<?= $col_span ?>"><i>No data found</i></td>
+                <td class="text-center" colspan="<?= $col_span ?>"><i>No data</i></td>
             </tr>
         <?php endif; ?>
         </tbody>
