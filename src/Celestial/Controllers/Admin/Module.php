@@ -6,6 +6,7 @@ use PDO;
 use Constellation\Controller\Controller;
 use Constellation\Database\DB;
 use Constellation\Http\Request;
+use Constellation\View\Format;
 use Exception;
 
 class Module
@@ -66,6 +67,8 @@ class Module
     protected bool $table_delete = true;
     // Table filters (search, date, etc)
     protected array $table_filters = [];
+    // Table format type
+    protected array $table_format = [];
 
     public function __construct(public ?string $module = null)
     {
@@ -91,7 +94,7 @@ class Module
     }
 
     /**
-     * Handle page number, sort, rows per page, etc
+     * Handle page number, sort, limit clause, etc
      */
     protected function handleSettings()
     {
@@ -112,7 +115,7 @@ class Module
             $this->page = 1;
             $search = trim($this->request->data["search"]);
             $_SESSION[$this->module]["search"] = $search;
-        } else if (isset($_SESSION[$this->module]["search"])) {
+        } elseif (isset($_SESSION[$this->module]["search"])) {
             $search = $_SESSION[$this->module]["search"];
         }
         if ($search) {
@@ -225,7 +228,9 @@ class Module
      */
     protected function getTableData()
     {
-        if (!$this->table) return;
+        if (!$this->table) {
+            return;
+        }
         // Process actions requests, etc
         $this->processRequest();
         // Get the table query
@@ -247,19 +252,32 @@ class Module
     }
 
     /**
-     * Override the column value
+     * Override the table row values
      */
-    protected function override(&$data)
+    protected function override(&$datum)
     {
-        return $data;
+        return $datum;
     }
 
     /**
-     * Format the column value
+     * Format the table column value
      */
     protected function format($column, $value)
     {
-        return $value;
+        $formatted = null;
+        if (isset($this->table_format[$column])) {
+            $format_type = $this->table_format[$column];
+            if (is_callable($format_type)) {
+                $formatted = $format_type($column, $value);
+            } else {
+                $formatted = match ($format_type) {
+                    "text" => Format::default($column, $value),
+                    "pct" => Format::pct($column, $value),
+                    "ago" => Format::ago($column, $value),
+                };
+            }
+        }
+        return $formatted ?? $value;
     }
 
     /**
@@ -342,7 +360,7 @@ class Module
         $table = $this->getTable();
         echo $controller->render("admin/table.html", [
             "table" => $table,
-            "sidebar_links" => $controller->sidebar_links
+            "sidebar_links" => $controller->sidebar_links,
         ]);
     }
 
@@ -355,7 +373,7 @@ class Module
         $form = $this->getForm();
         echo $controller->render("admin/form.html", [
             "form" => $form,
-            "sidebar_links" => $controller->sidebar_links
+            "sidebar_links" => $controller->sidebar_links,
         ]);
     }
 
@@ -368,7 +386,7 @@ class Module
         $form = $this->getForm();
         echo $controller->render("admin/form.html", [
             "form" => $form,
-            "sidebar_links" => $controller->sidebar_links
+            "sidebar_links" => $controller->sidebar_links,
         ]);
     }
 

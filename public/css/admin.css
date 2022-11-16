@@ -50,10 +50,10 @@ body {
  */
 #sign-in-form form,
 #register-form form {
-    border: 1px solid #eee;
-    border-radius: 6px;
-    padding: 20px;
-    background-color: #fff;
+  border: 1px solid #eee;
+  border-radius: 6px;
+  padding: 20px;
+  background-color: #fff;
 }
 #edit-form .edit-title {
   padding-right: 10px;

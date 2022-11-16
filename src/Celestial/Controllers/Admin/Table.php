@@ -4,14 +4,15 @@
     </div>
     <div id="filters">
         <?php if ($this->table_filters):
-            $search_term = $_SESSION[$this->module]["search"] ?? ''; ?>
+            $search_term = $_SESSION[$this->module]["search"] ?? ""; ?>
             <form method="GET">
-                <input id="search-input" placeholder="..." name="search" type="search" value="<?=$search_term?>"><button id="search-button" type="submit">Search</button>
+                <input id="search-input" placeholder="..." name="search" type="search" value="<?= $search_term ?>"><button id="search-button" type="submit">Search</button>
                 <?php if ($search_term): ?>
                     <button type="submit" name="clear_search" id="search-clear">Clear</button>
-                <?php endif ?>
+                <?php endif; ?>
             </form>
-        <?php endif ?>
+        <?php
+        endif; ?>
     </div>
     <div id="actions">
     </div>
@@ -27,7 +28,8 @@
                 <th class="header">
                     <?= $title ?>
                 </th>
-            <?php endforeach; ?>
+            <?php endforeach;
+            ?>
             <?php if ($this->show_table_actions): ?>
                 <th class="header"></th>
             <?php endif; ?>
@@ -72,7 +74,7 @@
                                 </a>
                             <?php endif; ?>
                             <?php if ($this->table_delete): ?>
-                                <form method="POST" action="<?=$delete_action?>">
+                                <form method="POST" action="<?= $delete_action ?>">
                                     <button class="sm" type="submit" title="Delete">Delete</button>
                                 </form>
                             <?php endif; ?>
@@ -82,10 +84,13 @@
                 </tr>
             <?php endforeach; ?>
         <?php else:
-        $col_span = count($this->table_columns);
-        if ($this->show_table_actions) $col_span++; ?>
+            $col_span = count($this->table_columns);
+            if ($this->show_table_actions) {
+                $col_span++;
+            }
+            ?>
             <tr>
-                <td class="text-center" colspan="<?=$col_span?>"><i>No data found</i></td>
+                <td class="text-center" colspan="<?= $col_span ?>"><i>No data found</i></td>
             </tr>
         <?php endif; ?>
         </tbody>
@@ -117,7 +122,11 @@
                 <?php endif; ?>
             <?php endfor; ?>
             <a href="?page=<?= $i ?>"><strong><?= $this->page ?></strong></a>
-            <?php for ($i = $this->page + 1; $i < $this->page + $offset + 1; $i++): ?>
+            <?php for (
+                $i = $this->page + 1;
+                $i < $this->page + $offset + 1;
+                $i++
+            ): ?>
                 <?php if ($i < $this->total_pages + 1): ?>
                     <a href="?page=<?= $i ?>"><?= $i ?></a>
                 <?php endif; ?>

@@ -3,20 +3,30 @@
 namespace Celestial\Controllers\Admin\Modules;
 
 use Celestial\Controllers\Admin\Module;
+use Constellation\Authentication\Auth;
 
 class Users extends Module
 {
     public function __construct()
     {
         $this->title = "Users";
-        $this->table = "users";
+        $this->key_col = "id";
         $this->name_col = "uuid";
+        $this->table = "users";
         $this->table_columns = [
             "id as id" => "ID",
             "uuid" => "UUID",
             "name" => "Name",
             "email" => "E-mail",
             "created_at" => "Created",
+        ];
+        $this->table_format = [
+            "name" => function ($column, $value) {
+                $user = Auth::user();
+                if ($user->name == $value) {
+                    return "<span style='color: royalblue;'>Me</span>";
+                }
+            },
         ];
         $this->form_columns = [
             "name" => "Name",
