@@ -3,6 +3,7 @@
 namespace Celestial\Controllers\Admin;
 
 use Constellation\Alerts\Flash;
+use Constellation\Authentication\Auth;
 use PDO;
 use Constellation\Controller\Controller;
 use Constellation\Database\DB;
@@ -55,11 +56,11 @@ class Module
     // Order by clause (SQL)
     protected ?string $order_by_clause = null;
     // Sort direction clause (SQL)
-    protected string $sort_clause = "";
+    protected string $sort_clause = "ASC";
     // Offset clause (SQL)
     protected ?int $offset_clause = null;
     // Limit clause (SQL)
-    protected int $limit_clause = 25;
+    protected int $limit_clause = 15;
     // Table columns
     protected array $table_columns = [];
     // Form columns
@@ -77,10 +78,33 @@ class Module
 
     public function __construct(public ?string $module = null)
     {
+        // Current user
+        $this->user = Auth::user();
         // Get database instance
         $this->db = DB::getInstance();
         // Get request
         $this->request = Request::getInstance();
+    }
+
+    protected function getCurrentUrl()
+    {
+        return (isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] === "on"
+            ? "https"
+            : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+    }
+
+    protected function logSession()
+    {
+        // Log session
+        $this->db
+            ->query("INSERT INTO sessions SET
+                user_id = ?,
+                ip = ?,
+                url = ?,
+                created_at = NOW()",
+                $this->user->id,
+                $_SERVER["REMOTE_ADDR"],
+                $this->getCurrentUrl());
     }
 
     protected function processRequest()
@@ -167,9 +191,11 @@ class Module
             // If the filter_links array is not empty, then set session
             // such that the filter button is active
             $key = array_key_first($this->filter_links);
-            $_SESSION[$this->module]["filter_link"] = $key;
-            // Add the where clause for the filter link
-            $this->addWhereClause($this->filter_links[$key]);
+            if (isset($this->filter_links[$key])) {
+                $_SESSION[$this->module]["filter_link"] = $key;
+                // Add the where clause for the filter link
+                $this->addWhereClause($this->filter_links[$key]);
+            }
         }
     }
 
@@ -238,6 +264,16 @@ class Module
     {
         if ($column_type == "table") {
             $columns = $this->table_columns;
+            if (!$columns) {
+                // Auto-fill columns and show them all
+                // if table_columns is not defined
+                $table_data = $this->db->selectMany("SHOW columns
+                FROM {$this->table}");
+                foreach ($table_data as $info) {
+                    $this->table_columns[$info->Field] = $info->Field;
+                }
+                $columns = $this->table_columns;
+            }
         } elseif ($column_type == "form") {
             $columns = $this->form_columns;
         } else {
@@ -260,7 +296,7 @@ class Module
      */
     protected function getTableQuery()
     {
-        $columns = $this->getColumns("table") ?? "*";
+        $columns = $this->getColumns("table");
         $query = "SELECT {$columns} ";
         $extra_tables = implode(" ", $this->extra_tables);
         $query .= "FROM {$this->table} {$extra_tables}";
@@ -414,6 +450,9 @@ class Module
         if (!$this->name_col) {
             $this->name_col = $this->key_col;
         }
+        if (!$this->order_by_clause) {
+            $this->order_by_clause = $this->key_col;
+        }
         ob_start();
         include __DIR__ . "/Table.php";
         $table = ob_get_clean();
@@ -443,6 +482,7 @@ class Module
      */
     public function index(Controller $controller)
     {
+        $this->logSession();
         $this->getData("index");
         $table = $this->getTable();
         echo $controller->render("admin/table.html", [
@@ -456,6 +496,7 @@ class Module
      */
     public function create(Controller $controller)
     {
+        $this->logSession();
         if ($this->hasInsertPermission()) {
             $this->getData("create");
             $form = $this->getForm();
@@ -473,6 +514,7 @@ class Module
      */
     public function edit(Controller $controller, $id)
     {
+        $this->logSession();
         if ($this->hasEditPermission($id)) {
             $this->getData("edit", $id);
             $form = $this->getForm();
@@ -490,6 +532,7 @@ class Module
      */
     public function store(Controller $controller)
     {
+        $this->logSession();
         if ($this->hasInsertPermission()) {
             echo "store() WIP";
         } else {
@@ -502,6 +545,7 @@ class Module
      */
     public function update(Controller $controller, $id)
     {
+        $this->logSession();
         if ($this->hasEditPermission($id)) {
             echo "update() WIP";
         } else {
@@ -514,6 +558,7 @@ class Module
      */
     public function destroy(Controller $controller, $id)
     {
+        $this->logSession();
         if ($this->hasDeletePermission($id)) {
             echo "destroy() WIP";
         } else {
