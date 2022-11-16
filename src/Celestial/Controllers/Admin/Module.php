@@ -96,15 +96,16 @@ class Module
     protected function logSession()
     {
         // Log session
-        $this->db
-            ->query("INSERT INTO sessions SET
+        $this->db->query(
+            "INSERT INTO sessions SET
                 user_id = ?,
                 ip = ?,
                 url = ?,
                 created_at = NOW()",
-                $this->user->id,
-                $_SERVER["REMOTE_ADDR"],
-                $this->getCurrentUrl());
+            $this->user->id,
+            $_SERVER["REMOTE_ADDR"],
+            $this->getCurrentUrl()
+        );
     }
 
     protected function processRequest()

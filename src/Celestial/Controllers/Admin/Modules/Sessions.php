@@ -20,7 +20,7 @@ class Sessions extends Module
             "created_at" => "Created",
         ];
         $this->table_format = [
-             "created_at" => "ago",
+            "created_at" => "ago",
         ];
         $this->table_filters = ["ip"];
         $this->order_by_clause = "created_at";
