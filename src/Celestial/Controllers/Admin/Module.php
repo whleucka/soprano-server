@@ -60,7 +60,7 @@ class Module
     // Offset clause (SQL)
     protected ?int $offset_clause = null;
     // Limit clause (SQL)
-    protected int $limit_clause = 15;
+    protected int $limit_clause = 10;
     // Table columns
     protected array $table_columns = [];
     // Form columns
@@ -133,6 +133,7 @@ class Module
     protected function handleSettings()
     {
         $this->setPage();
+        $this->setLimit();
     }
 
     /**
@@ -236,6 +237,22 @@ class Module
             $_SESSION[$this->module]["page"] = $this->page;
         } elseif (isset($_SESSION[$this->module]["page"])) {
             $this->page = $_SESSION[$this->module]["page"];
+        }
+    }
+
+    /**
+     * Set the limit (rows per page)
+     */
+    protected function setLimit()
+    {
+        if (isset($this->request->data["limit"])) {
+            $this->limit_clause = (int) $this->request->data["limit"];
+            $_SESSION[$this->module]["limit"] =
+                $this->limit_clause;
+            $this->page = 1;
+        } elseif (isset($_SESSION[$this->module]["limit"])) {
+            $this->limit_clause =
+                $_SESSION[$this->module]["limit"];
         }
     }
 

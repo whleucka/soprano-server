@@ -138,7 +138,8 @@ use Constellation\Alerts\Flash;
                     $this->total_pages .
                     '" title="Last page">&raquo;</a>'
                 : '<span class="disabled">&rsaquo;</span> <span class="disabled">&raquo;</span>';
-        $offset = 2;
+        // How many pages before and after current page selector
+        $offset = 1;
         ?>
         <div class="pagination">
             <?= $prev ?>
@@ -158,6 +159,26 @@ use Constellation\Alerts\Flash;
                 <?php endif; ?>
             <?php endfor; ?>
             <?= $next ?>
+        </div>
+        <div class="limit-select">
+            <form method="GET">
+                <div class="flex justify-content-center align-items-center">
+                    <label>Per Page</label>
+                    <select class="ml-10" onChange="this.form.submit()" name="limit">
+                        <?php
+                        $options = [5, 10, 25, 50, 100, 500];
+                        if (!in_array($this->limit_clause, $options)) {
+                            $options[] = $this->limit_clause;
+                            sort($options);
+                        }
+                        foreach ($options as $val) {
+                            $selected = $val == $this->limit_clause ? " selected" : "";
+                            echo "<option value='{$val}'{$selected}>{$val}</option>";
+                        }
+                        ?>
+                    </select>
+                </div>
+            </form>
         </div>
     <?php
     endif; ?>

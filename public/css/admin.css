@@ -453,19 +453,23 @@ table.module-table {
 .pagination span.disabled {
   color: #aaa;
 }
-.rows-per-page {
+.limit-select {
   float: right;
   width: 50px;
-  padding-top: 25px;
-  padding-right: 45px;
+  padding-top: 20px;
+  padding-right: 28px;
 }
-.rows-per-page label {
+.limit-select label {
   color: #555;
   font-size: 0.9rem;
   padding-bottom: 2px;
+  white-space: nowrap;
 }
-.rows-per-page select {
+.limit-select select {
+  background: #fff;
   border: 1px solid #aeaeae;
+  height: 32px;
+  border-radius: 4px;
 }
 .total-results {
   color: #777;
@@ -557,20 +561,20 @@ table.module-table {
   box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
 }
 .blue-gradient {
-  background: #1488cc; /* fallback for old browsers */ /* Chrome 10-25, Safari 5.1-6 */
-  background: -o-linear-gradient(left, #2b32b2, #1488cc);
+  background: #21214c; /* fallback for old browsers */ /* Chrome 10-25, Safari 5.1-6 */
+  background: -o-linear-gradient(left, #0757ad, #21214c);
   background: -webkit-gradient(
     linear,
     left top,
     right top,
-    from(#2b32b2),
-    to(#1488cc)
+    from(#0757ad),
+    to(#21214c)
   );
-  background: -o-linear-gradient(left, #2b32b2, #1488cc);
+  background: -o-linear-gradient(left, #2b32b2, #21214c);
   background: linear-gradient(
     to right,
-    #2b32b2,
-    #1488cc
+    #0757ad,
+    #21214c
   ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 .flex {
