@@ -172,7 +172,8 @@ use Constellation\Alerts\Flash;
                             sort($options);
                         }
                         foreach ($options as $val) {
-                            $selected = $val == $this->limit_clause ? " selected" : "";
+                            $selected =
+                                $val == $this->limit_clause ? " selected" : "";
                             echo "<option value='{$val}'{$selected}>{$val}</option>";
                         }
                         ?>

@@ -247,12 +247,10 @@ class Module
     {
         if (isset($this->request->data["limit"])) {
             $this->limit_clause = (int) $this->request->data["limit"];
-            $_SESSION[$this->module]["limit"] =
-                $this->limit_clause;
+            $_SESSION[$this->module]["limit"] = $this->limit_clause;
             $this->page = 1;
         } elseif (isset($_SESSION[$this->module]["limit"])) {
-            $this->limit_clause =
-                $_SESSION[$this->module]["limit"];
+            $this->limit_clause = $_SESSION[$this->module]["limit"];
         }
     }
 
