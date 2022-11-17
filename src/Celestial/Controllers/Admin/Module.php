@@ -32,7 +32,7 @@ class Module
     // Current page
     protected int $page = 1;
     // Total pages
-    protected int $total_pages = 0;
+    protected int $total_pages = 1;
     // Total results
     protected int $total_results = 0;
     // The request
@@ -67,6 +67,8 @@ class Module
     protected array $form_columns = [];
     // Show table actions cell
     protected bool $show_table_actions = true;
+    // Show the export csv action
+    protected bool $show_export_csv = true;
     // Table filters (search, date, etc)
     protected array $table_filters = [];
     // Table formatting
@@ -214,6 +216,10 @@ class Module
     protected function action($action)
     {
         switch ($action) {
+            case "export_csv":
+                $this->compileWhereClause();
+                $this->exportCsv();
+                break;
             case "cancel":
                 Flash::addFlash("info", "Action cancelled");
                 $this->refreshTable();
@@ -225,6 +231,31 @@ class Module
                 Flash::addFlash("error", "Unknown action");
                 $this->refreshTable();
         }
+    }
+
+    /**
+     * Export list view to CSV
+     */
+    protected function exportCsv()
+    {
+        header("Content-Type: text/csv");
+        header('Content-Disposition: attachment; filename="csv_export.csv"');
+        $fp = fopen("php://output", "wb");
+        $headers = array_values($this->table_columns);
+        fputcsv($fp, $headers);
+        $this->limit_clause = 10_000;
+        $this->page = 1;
+        while ($this->page <= $this->total_pages) {
+            $this->getTableData();
+            foreach ($this->dataset as $item) {
+                $row = $this->override($item);
+                $values = array_values($row);
+                fputcsv($fp, $values);
+            }
+            $this->page++;
+        }
+        fclose($fp);
+        exit();
     }
 
     /**
@@ -248,7 +279,7 @@ class Module
         if (isset($this->request->data["limit"])) {
             if ((int) $this->request->data["limit"] > 500) {
                 $this->request->data["limit"] = 500;
-            } else if ((int) $this->request->data["limit"] < 5) {
+            } elseif ((int) $this->request->data["limit"] < 5) {
                 $this->request->data["limit"] = 5;
             }
             $this->limit_clause = (int) $this->request->data["limit"];
@@ -347,8 +378,6 @@ class Module
         if (!$this->table) {
             return;
         }
-        // Process actions requests, etc
-        $this->processRequest();
         // Get the table query
         $query = $this->getTableQuery();
         $stmt = $this->db->run($query, $this->params);
@@ -432,6 +461,8 @@ class Module
      */
     protected function getData($type = "index", $id = null)
     {
+        // Process actions requests, etc
+        $this->processRequest();
         return match ($type) {
             "index" => $this->getTableData(),
             "create" => $this->getFormData($id),

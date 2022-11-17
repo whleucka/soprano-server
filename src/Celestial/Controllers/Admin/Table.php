@@ -21,10 +21,17 @@ use Constellation\Alerts\Flash;
             endif; ?>
         </div>
     <?php endif; ?>
-    <?php if (!empty($this->table_actions)): ?>
-        <div id="actions">
+    <div id="actions" class="flex">
+        <?php if ($this->show_export_csv): ?>
+        <div id="export-csv">
+            <form method="GET">
+                <button class="md" type="submit" name="a" value="export_csv" title="Export CSV">Export CSV</button>
+            </form>
         </div>
-    <?php endif; ?>
+        <?php if (!empty($this->table_actions)): ?>
+        <?php endif; ?>
+        <?php endif; ?>
+    </div>
     <?php if (!empty($this->filter_links)): ?>
         <div id="filter-links" class="pt-10 pb-10">
         <?php
