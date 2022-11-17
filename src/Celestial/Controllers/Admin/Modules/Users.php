@@ -32,15 +32,6 @@ class Users extends Module
             "Me" => "id = " . $this->user?->id,
             "Others" => "id != " . $this->user?->id,
         ];
-        $this->form_columns = [
-            "name" => "Name",
-            "email" => "E-mail",
-            "'' as password" => "Password",
-            "'' as password_match" => "Password (again)",
-            // These columns are part of the dataset, but are not rendered
-            "uuid" => "UUID",
-            "created_at" => "Created",
-        ];
         parent::__construct("users");
     }
 }

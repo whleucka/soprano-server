@@ -3,11 +3,13 @@
 namespace Celestial\Controllers\Admin\Modules;
 
 use Celestial\Controllers\Admin\Module;
+use Constellation\Authentication\Auth;
 
 class Sessions extends Module
 {
     public function __construct()
     {
+        $this->user = Auth::user();
         $this->allow_insert = $this->allow_edit = $this->allow_delete = false;
         $this->show_table_actions = false;
         $this->title = "Sessions";
@@ -28,6 +30,10 @@ class Sessions extends Module
         $this->table_filters = ["ip", "name"];
         $this->order_by_clause = "created_at";
         $this->sort_clause = "DESC";
+        $this->filter_links = [
+            "Me" => "user_id = " . $this->user?->id,
+            "Others" => "user_id != " . $this->user?->id,
+        ];
         parent::__construct("sessions");
     }
 }
