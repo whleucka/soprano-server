@@ -13,16 +13,19 @@ class Sessions extends Module
         $this->title = "Sessions";
         $this->table = "sessions";
         $this->table_columns = [
-            "id" => "ID",
-            "user_id" => "User",
+            "sessions.id" => "ID",
+            "users.name" => "User",
             "ip" => "IP",
             "url" => "URL",
-            "created_at" => "Created",
+            "sessions.created_at" => "Created",
         ];
         $this->table_format = [
             "created_at" => "ago",
         ];
-        $this->table_filters = ["ip"];
+        $this->extra_tables = [
+            "INNER JOIN users ON users.id = sessions.user_id"
+        ];
+        $this->table_filters = ["ip","name"];
         $this->order_by_clause = "created_at";
         $this->sort_clause = "DESC";
         parent::__construct("sessions");

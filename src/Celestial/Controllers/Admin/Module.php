@@ -351,7 +351,7 @@ class Module
         $columns = $this->getColumns("table");
         $query = "SELECT {$columns} ";
         $extra_tables = implode(" ", $this->extra_tables);
-        $query .= "FROM {$this->table} {$extra_tables}";
+        $query .= "FROM {$this->table} {$extra_tables} ";
         if (!is_null($this->where_clause)) {
             $query .= "WHERE {$this->where_clause} ";
         }
