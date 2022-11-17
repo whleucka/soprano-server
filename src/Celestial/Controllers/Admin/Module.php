@@ -246,6 +246,11 @@ class Module
     protected function setLimit()
     {
         if (isset($this->request->data["limit"])) {
+            if ((int) $this->request->data["limit"] > 500) {
+                $this->request->data["limit"] = 500;
+            } else if ((int) $this->request->data["limit"] < 5) {
+                $this->request->data["limit"] = 5;
+            }
             $this->limit_clause = (int) $this->request->data["limit"];
             $_SESSION[$this->module]["limit"] = $this->limit_clause;
             $this->page = 1;
