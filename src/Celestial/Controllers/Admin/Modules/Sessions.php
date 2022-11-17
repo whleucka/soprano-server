@@ -23,9 +23,9 @@ class Sessions extends Module
             "created_at" => "ago",
         ];
         $this->extra_tables = [
-            "INNER JOIN users ON users.id = sessions.user_id"
+            "INNER JOIN users ON users.id = sessions.user_id",
         ];
-        $this->table_filters = ["ip","name"];
+        $this->table_filters = ["ip", "name"];
         $this->order_by_clause = "created_at";
         $this->sort_clause = "DESC";
         parent::__construct("sessions");
