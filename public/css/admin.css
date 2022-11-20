@@ -365,6 +365,9 @@ button:hover {
 .filter-link {
   position: relative;
 }
+.filter-link .mono {
+    font-size: 0.65rem;
+}
 .table-wrapper {
   border-radius: 4px;
   width: 100%;
@@ -484,6 +487,9 @@ table.module-table {
 /**
  * Utility
  */
+.mono {
+  font-family: monospace;
+}
 .text-left {
   text-align: left !important;
 }

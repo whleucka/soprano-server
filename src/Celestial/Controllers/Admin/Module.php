@@ -522,6 +522,30 @@ class Module
         return $form;
     }
 
+    protected function getFilterTotalCount()
+    {
+        $total = 0;
+        // Determine count, up to x
+        $limit = 500;
+        $this->limit_clause = $limit;
+        $this->offset_clause = 0;
+        $query = $this->getTableQuery();
+        $stmt = $this->db->run($query, $this->params);
+        $total = $stmt->rowCount();
+        // Look for one more
+        $this->limit_clause = 1;
+        $this->offset_clause = $limit;
+        $query = $this->getTableQuery();
+        $stmt = $this->db->run($query, $this->params);
+        $count = $stmt->rowCount();
+        $extra = '';
+        // Add a + sign if there is more than $limit records
+        if ($count) {
+            $extra = "+";
+        }
+        return $extra.number_format($total);
+    }
+
     protected function permissionDenied()
     {
         Flash::addFlash("warning", "Permission denied");
@@ -631,33 +655,10 @@ class Module
             $this->addWhereClause($clause);
             $this->handleSearchFilter();
             $this->compileWhereClause();
-            $total = $this->getTotalCount();
+            $total = $this->getFilterTotalCount();
             header("Content-Type: application/json; charset=utf-8");
             echo json_encode(["total" => $total]);
             exit();
         }
-    }
-
-    protected function getTotalCount()
-    {
-        $total = 0;
-        // Determine count, up to 1000
-        $limit = 1000;
-        $this->limit_clause = $limit;
-        $this->offset_clause = 0;
-        $query = $this->getTableQuery();
-        $stmt = $this->db->run($query, $this->params);
-        $total = $stmt->rowCount();
-        // Look for one more
-        $this->limit_clause = 1;
-        $this->offset_clause = $limit;
-        $query = $this->getTableQuery();
-        $stmt = $this->db->run($query, $this->params);
-        $count = $stmt->rowCount();
-        // Add a + sign if there is more than 1000 records
-        if ($count) {
-            $total .= "+";
-        }
-        return $total;
     }
 }

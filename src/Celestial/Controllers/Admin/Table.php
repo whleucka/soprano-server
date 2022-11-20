@@ -44,7 +44,7 @@ use Constellation\Alerts\Flash;
                     ? "active"
                     : "";
             echo "<span class='filter-link'>
-            <a title='Filter on {$title}' href='?filter_link={$title_encode}'><button class='{$class}'>{$title} (<span class='filter-link-count' data-title='{$title_encode}'>...</span>)</button></a>
+            <a title='Filter on {$title}' href='?filter_link={$title_encode}'><button class='{$class}'>{$title} <span class='mono'>[<span class='filter-link-count' data-title='{$title_encode}'>...</span>]</span></button></a>
                 </span>";
         }, $keys);
         echo implode(" ", $keys);
