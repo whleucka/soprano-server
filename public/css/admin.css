@@ -377,6 +377,9 @@ table.module-table {
   border-collapse: collapse;
   font-size: 0.9rem;
 }
+#module-content-table h3 {
+    color: #333;
+}
 .module-table tbody tr:nth-child(odd) {
   background-color: #f7f7f7;
 }

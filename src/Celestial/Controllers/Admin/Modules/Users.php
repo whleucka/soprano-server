@@ -34,4 +34,11 @@ class Users extends Module
         ];
         parent::__construct("users");
     }
+
+    protected function hasDeletePermission($id)
+    {
+        // For now, you cannot delete your own account
+        // TODO user permissions
+        return parent::hasDeletePermission($id) && $id != $this->user->id;
+    }
 }

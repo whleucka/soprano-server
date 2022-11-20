@@ -2,7 +2,7 @@
 use Constellation\Routing\Router;
 use Constellation\Alerts\Flash;
 ?>
-<section id="module-table">
+<section id="module-content-table">
     <h3><?= $this->title ?></h3>
     <div class="alerts">
         <?= Flash::getSessionFlash() ?>
