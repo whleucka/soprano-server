@@ -366,7 +366,7 @@ button:hover {
   position: relative;
 }
 .filter-link .mono {
-    font-size: 0.65rem;
+  font-size: 0.65rem;
 }
 .table-wrapper {
   border-radius: 4px;
@@ -381,7 +381,7 @@ table.module-table {
   font-size: 0.9rem;
 }
 #module-content-table h3 {
-    color: #333;
+  color: #333;
 }
 .module-table tbody tr:nth-child(odd) {
   background-color: #f7f7f7;
