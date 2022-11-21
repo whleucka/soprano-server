@@ -35,10 +35,26 @@ class Users extends Module
         $this->form_columns = [
             "name" => "Name",
             "email" => "E-mail",
+            "'' as password" => "Password",
+            "'' as password_match" => "Password (again)",
         ];
         $this->form_control = [
-            "name" => "text",
+            "name" => "input",
             "email" => "email",
+            "password" => "password",
+            "password_match" => "password",
+        ];
+        $this->validate = [
+            "name" => ["required"],
+            "email" => ["required", "email"],
+            "password" => [
+                "required",
+                "match",
+                "min_length=8",
+                "uppercase=1",
+                "lowercase=1",
+                "symbol=1",
+            ],
         ];
         parent::__construct("users");
     }
@@ -48,5 +64,26 @@ class Users extends Module
         // For now, you cannot delete your own account
         // TODO user permissions
         return parent::hasDeletePermission($id) && $id != $this->user->id;
+    }
+
+    protected function updateModule($id)
+    {
+        $this->dataset["password"] = Auth::hashPassword(
+            $this->request->data["password"]
+        );
+        $this->dataset["created_at"] = date("Y-m-d H:i:s");
+        unset($this->dataset["password_match"]);
+        return parent::updateModule($id);
+    }
+
+    protected function storeModule()
+    {
+        $this->dataset["uuid"] = Auth::generateUuid();
+        $this->dataset["password"] = Auth::hashPassword(
+            $this->request->data["password"]
+        );
+        $this->dataset["created_at"] = date("Y-m-d H:i:s");
+        unset($this->dataset["password_match"]);
+        return parent::storeModule();
     }
 }
