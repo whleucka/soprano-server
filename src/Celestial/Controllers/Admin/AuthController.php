@@ -99,7 +99,7 @@ class AuthController extends BaseController
             $user = User::findByAttribute("email", $data->email);
             if ($user) {
                 Validate::$errors["email"][] =
-                    "this email is already associated with another user";
+                    "this email address is already associated with another user";
             } else {
                 $registered = Auth::register([
                     "email" => $data->email,

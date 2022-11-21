@@ -2,8 +2,11 @@
 
 namespace Celestial\Controllers\Admin\Modules;
 
+use Celestial\Models\User;
 use Constellation\Module\Module;
 use Constellation\Authentication\Auth;
+use Constellation\Controller\Controller;
+use Constellation\Validation\Validate;
 
 class Users extends Module
 {
@@ -57,6 +60,27 @@ class Users extends Module
             ],
         ];
         parent::__construct("users");
+    }
+
+    protected function validateRequest(Controller $controller, $id = null)
+    {
+        // Custom validation on email field
+        Validate::$custom["email"] = function ($rule, $value) use ($id) {
+            // Override the default message
+            $user = User::findByAttribute("email", $value);
+            // No user found with this email
+            if (!$user) {
+                return null;
+            }
+            // No changes required
+            if ($user && $user->id == $id && $user->email == $value) {
+                return null;
+            }
+            if ($user) {
+                return "Email is already associated with another user";
+            }
+        };
+        return parent::validateRequest($controller, $id);
     }
 
     protected function hasDeletePermission($id)
