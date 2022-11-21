@@ -55,14 +55,14 @@ body {
   padding: 20px;
   background-color: #fff;
 }
-#edit-form .edit-title {
+#module-form .edit-title {
   padding-right: 10px;
   text-align: right;
 }
-#edit-form #edit-actions {
+#module-form #edit-actions {
   margin-top: 10px;
 }
-#edit-form #edit-actions button {
+#module-form #edit-actions button {
   margin-right: 10px;
 }
 .form-error {
@@ -82,7 +82,7 @@ body {
 #register-form input {
   width: 100%;
 }
-#edit-form label,
+#module-form label,
 #sign-in-form label,
 #register-form label {
   font-size: 0.8rem;

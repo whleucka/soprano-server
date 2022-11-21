@@ -32,6 +32,14 @@ class Users extends Module
             "Me" => "id = " . $this->user?->id,
             "Others" => "id != " . $this->user?->id,
         ];
+        $this->form_columns = [
+            "name" => "Name",
+            "email" => "E-mail",
+        ];
+        $this->form_control = [
+            "name" => "text",
+            "email" => "email",
+        ];
         parent::__construct("users");
     }
 
