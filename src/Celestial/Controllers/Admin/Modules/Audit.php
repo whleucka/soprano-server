@@ -2,7 +2,7 @@
 
 namespace Celestial\Controllers\Admin\Modules;
 
-use Celestial\Controllers\Admin\Module;
+use Constellation\Module\Module;
 
 class Audit extends Module
 {
