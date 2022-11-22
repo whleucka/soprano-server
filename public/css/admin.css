@@ -402,6 +402,9 @@ table.module-table {
   color: #fff;
   text-align: left;
 }
+.module-table .header {
+  white-space: nowrap;
+}
 .module-table span.header-active {
   color: peachpuff;
   white-space: nowrap;
