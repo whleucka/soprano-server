@@ -24,6 +24,9 @@ class Users extends Module
             "created_at" => "Created",
         ];
         $this->table_format = [
+            // Format by type
+            "created_at" => "datetime-local",
+            // Format by callback
             "name" => function ($column, $value) {
                 if ($this->user->name == $value) {
                     return "<span style='color: royalblue;'>Me</span>";
@@ -42,6 +45,7 @@ class Users extends Module
             "'' as password_match" => "Password (again)",
         ];
         $this->form_control = [
+            // Control by type
             "name" => "input",
             "email" => "email",
             "password" => "password",

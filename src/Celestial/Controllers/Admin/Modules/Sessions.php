@@ -19,7 +19,7 @@ class Sessions extends Module
             "users.name" => "User",
             "ip" => "IP",
             "url" => "URL",
-            "sessions.created_at" => "Created",
+            "sessions.created_at" => "Event",
         ];
         $this->table_format = [
             "created_at" => "ago",
