@@ -99,7 +99,6 @@ class Users extends Module
         $this->dataset["password"] = Auth::hashPassword(
             $this->request->data["password"]
         );
-        $this->dataset["created_at"] = date("Y-m-d H:i:s");
         unset($this->dataset["password_match"]);
         return parent::updateModule($id);
     }
