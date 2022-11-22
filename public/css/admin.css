@@ -406,7 +406,7 @@ table.module-table {
   color: peachpuff;
   white-space: nowrap;
 }
-.module-table tbody tr td:not(:last-child) span {
+.module-table tbody tr td span {
   width: 1px;
   white-space: nowrap;
 }
