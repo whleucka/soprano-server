@@ -70,10 +70,13 @@ class Users extends Module
     {
         // (on update existing record) If the password + password match field
         // are empty, then we do not need to change the password
-        if (!$this->request->data['password'] && !$this->request->data['password_match']) {
-            unset($this->validate['password']);
-            unset($this->request->data['password']);
-            unset($this->request->data['password_match']);
+        if (
+            !$this->request->data["password"] &&
+            !$this->request->data["password_match"]
+        ) {
+            unset($this->validate["password"]);
+            unset($this->request->data["password"]);
+            unset($this->request->data["password_match"]);
         }
         parent::update($controller, $id);
     }
