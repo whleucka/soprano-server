@@ -27,7 +27,7 @@ body {
   background-color: #fff;
 }
 #module-content {
-  min-height: calc(100% - 40px);
+  min-height: calc(100% - 150px);
 }
 #content {
   background-color: #fbfbfb;
@@ -40,9 +40,23 @@ body {
   flex-direction: row;
   height: 100%;
 }
-#footer {
-  font-size: 0.7rem;
-  color: #888;
+footer {
+    margin-top: 50px;
+}
+footer #footer {
+    height: 40px;
+    padding-left: 20px;
+    margin-left: -10px;
+    margin-right: -10px;
+}
+footer #footer .brand {
+    color: #fff;
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+footer #profiler {
+  font-size: 0.8rem;
+  color: #666;
 }
 
 /**
