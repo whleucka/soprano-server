@@ -27,7 +27,7 @@ body {
   background-color: #fff;
 }
 #module-content {
-  min-height: calc(100% - 150px);
+  /* min-height: calc(100% - 150px); */
 }
 #content {
   background-color: #fbfbfb;
