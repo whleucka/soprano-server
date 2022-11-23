@@ -19,10 +19,10 @@ class Sessions extends Module
             "users.name" => "User",
             "ip" => "IP",
             "url" => "URL",
-            "sessions.created_at" => "Event",
+            "sessions.created_at" => "Created",
         ];
         $this->table_format = [
-            "created_at" => "ago",
+            "created_at" => "datetime-local",
         ];
         $this->extra_tables = [
             "INNER JOIN users ON users.id = sessions.user_id",

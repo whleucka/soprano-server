@@ -476,7 +476,7 @@ table.module-table {
 }
 .limit-select select {
   background: #fff;
-  border: 1px solid #aeaeae;
+  border: 1px solid #ddd;
   height: 32px;
   border-radius: 4px;
 }
