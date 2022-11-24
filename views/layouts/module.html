@@ -21,9 +21,15 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
 {% endblock %}
   </head>
   <body>
+      <section id="navbar" class="blue-gradient flex align-items-center pl-10 pr-10">
+          <div>
+              <span class="brand">{{ project_name }}</span>
+          </div>
+      </section>
       <section id="content">
           <section id="sidebar">
               <input tabIndex="0" placeholder="Filter" id="sidebar-filter" type="search" />
