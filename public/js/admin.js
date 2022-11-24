@@ -32,6 +32,10 @@ searchInput.addEventListener("keyup", (e) => {
 // Focus on keyup binding
 addEventListener("keyup", (e) => {
   if (e.code == searchHotKey) {
+    const sidebar = document.getElementById("sidebar");
+    if (sidebar.offsetWidth < 1) {
+      sidebar.style.display = "block";
+    }
     return document.getElementById("sidebar-filter").focus();
   }
 });
@@ -40,24 +44,23 @@ addEventListener("keyup", (e) => {
 const filterLinks = document.getElementsByClassName("filter-link-count");
 for (let link of filterLinks) {
   const title = link.dataset.title;
-  fetch(`?a=filter_count&filter_count=${title}`)
+  fetch(`?a=filter_count&filter_count=${title}`, { credentials: "include" })
     .then((res) => res.json())
     .then((res) => {
       link.innerHTML = res.total;
     });
 }
 
-// Menu button
+// Menu button (toggle sidebar)
 const menuButton = document.getElementById("menu-button");
 menuButton.addEventListener("click", (e) => {
-    const sidebar = document.getElementById("sidebar");
-    if (sidebar.offsetWidth > 0) {
-        sidebar.style.display = "none";
-    } else {
-        sidebar.style.display = "block";
-    }
+  const sidebar = document.getElementById("sidebar");
+  fetch(`?a=sidebar`)
+    .then((res) => res.json())
+    .then((res) => {
+      sidebar.style.display = res.setting == "1" ? "none" : "block";
+    });
 });
-
 
 // Utility
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
