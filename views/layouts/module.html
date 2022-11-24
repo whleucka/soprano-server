@@ -44,7 +44,7 @@
                   <div id="footer" class="blue-gradient flex align-items-center">
                       <span class="brand">{{ project_name }}</span>
                   </div>
-                  {% if profiler and profile['total_php'] %}
+                  {% if profile['total_php'] %}
                   <section id="profiler">
                       <p>PHP time: {{ profile['total_php'] }}, DB time: {{ profile['db_total_time']}} ({{ profile['db_num_queries'] }} queries)</p>
                       {% if profile['slow_traces'] is not empty %}
