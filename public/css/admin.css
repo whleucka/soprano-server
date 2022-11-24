@@ -54,6 +54,20 @@ body {
     font-size: 1.2rem;
     font-family: 'Orbitron', sans-serif;
 }
+#navbar #menu-toggle {
+    position: fixed;
+    right: 10px;
+}
+
+#navbar #menu-toggle button {
+    background-color: #21214c;
+    border: 0;
+}
+
+#navbar #menu-toggle img {
+    height: 24px;
+    filter:invert(1);
+}
 
 /**
  * Footer
@@ -75,8 +89,9 @@ footer #footer .brand {
     font-family: 'Orbitron', sans-serif;
 }
 footer #profiler {
-  font-size: 0.75rem;
-  color: #666;
+  font-size: 0.6rem;
+  color: #444;
+  font-family: monospace;
 }
 
 /**
@@ -338,6 +353,7 @@ button:hover {
  * Sidebar
  */
 #sidebar {
+  display: block;
   height: auto;
   background-color: #fbfbfb;
   font-size: 0.9rem;
@@ -661,6 +677,9 @@ table.module-table {
 .w-100 {
   width: 100%;
 }
+.hidden {
+  display: none;
+}
 
 /**
  * Mobile
@@ -674,5 +693,8 @@ table.module-table {
   }
   .total-results {
     display: none;
+  }
+  #navbar #menu-toggle {
+      display: block;
   }
 }

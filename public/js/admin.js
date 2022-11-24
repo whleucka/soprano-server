@@ -47,5 +47,17 @@ for (let link of filterLinks) {
     });
 }
 
+// Menu button
+const menuButton = document.getElementById("menu-button");
+menuButton.addEventListener("click", (e) => {
+    const sidebar = document.getElementById("sidebar");
+    if (sidebar.offsetWidth > 0) {
+        sidebar.style.display = "none";
+    } else {
+        sidebar.style.display = "block";
+    }
+});
+
+
 // Utility
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
