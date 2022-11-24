@@ -34,7 +34,7 @@
           </div>
       </section>
       <section id="content">
-          <section id="sidebar" style="display: {% if sidebar == 1 %}none{% else %}block{% endif %}">
+          <section id="sidebar" style="display: {% if sidebar == 1 %}block{% else %}none{% endif %};">
               <input tabIndex="0" placeholder="Filter" id="sidebar-filter" type="search" />
               <ul>
                   <a tabIndex="-1" class="sidebar-link" data-module="dashboard" href='/admin'><li>Dashboard</li></a>

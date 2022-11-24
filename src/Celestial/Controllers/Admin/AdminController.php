@@ -59,6 +59,9 @@ class AdminController extends Controller
         return $this->render("layouts/module.html", [
             "sidebar_links" => $this->sidebar_links,
             "content" => "<h2>Dashboard</h2><p>Hello, {$this->user?->name}</p>",
+            "sidebar" => isset($_SESSION["sidebar"])
+                ? $_SESSION["sidebar"]
+                : 1,
         ]);
     }
 
