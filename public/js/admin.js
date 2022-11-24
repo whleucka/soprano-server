@@ -31,12 +31,15 @@ searchInput.addEventListener("keyup", (e) => {
 });
 // Focus on keyup binding
 addEventListener("keyup", (e) => {
+  const sidebar = document.getElementById("sidebar");
   if (e.code == searchHotKey) {
-    const sidebar = document.getElementById("sidebar");
     if (sidebar.offsetWidth < 1) {
       sidebar.style.display = "block";
     }
     return document.getElementById("sidebar-filter").focus();
+  } else if (e.code == "Escape") {
+      if (sidebar.style.display == "block")
+          sidebar.style.display = "none";
   }
 });
 
