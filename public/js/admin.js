@@ -34,7 +34,7 @@ addEventListener("keyup", (e) => {
   if (e.code == searchHotKey) {
     const sidebar = document.getElementById("sidebar");
     if (sidebar.offsetWidth < 1) {
-        sidebar.style.display = "block";
+      sidebar.style.display = "block";
     }
     return document.getElementById("sidebar-filter").focus();
   }
@@ -54,14 +54,12 @@ for (let link of filterLinks) {
 // Menu button (toggle sidebar)
 const menuButton = document.getElementById("menu-button");
 menuButton.addEventListener("click", (e) => {
-    const sidebar = document.getElementById("sidebar");
-    fetch(`?a=sidebar`, {credentials: 'include'})
-        .then((res) => res.json())
-        .then((res) => {
-            sidebar.style.display = res.setting == "0"
-                ? "none"
-                : "block";
-        });
+  const sidebar = document.getElementById("sidebar");
+  fetch(`?a=sidebar`, { credentials: "include" })
+    .then((res) => res.json())
+    .then((res) => {
+      sidebar.style.display = res.setting == "0" ? "none" : "block";
+    });
 });
 
 // Utility
