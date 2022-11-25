@@ -65,5 +65,16 @@ menuButton.addEventListener("click", (e) => {
     });
 });
 
+
+const profiler = document.getElementById("profiler-extra-info");
+profiler.addEventListener("click", (e) => {
+    const extra_info = document.getElementById("extra-info");
+    if (extra_info.style.display == "block") {
+        extra_info.style.display = "none";
+    } else {
+        extra_info.style.display = "block";
+    }
+});
+
 // Utility
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));

@@ -93,6 +93,9 @@ footer #profiler {
   color: #444;
   font-family: monospace;
 }
+footer #profiler-extra-info {
+    cursor: pointer;
+}
 
 /**
  * Forms

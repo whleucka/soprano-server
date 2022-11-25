@@ -49,17 +49,19 @@
                   {{ content|raw }}
               </div>
               <footer>
-                  <div id="footer" class="blue-gradient flex align-items-center">
-                      <span class="brand">{{ project_name }}</span>
-                  </div>
+                  <!-- <div id="footer" class="blue-gradient flex align-items-center"> -->
+                  <!--     <span class="brand">{{ project_name }}</span> -->
+                  <!-- </div> -->
                   {% if profile['total_php'] %}
                   <section id="profiler">
-                      <p>PHP time: {{ profile['total_php'] }}, DB time: {{ profile['db_total_time']}} ({{ profile['db_num_queries'] }} queries)</p>
-                      {% if profile['slow_traces'] is not empty %}
-                          {% for trace in profile['slow_traces'] %}
-                              <p>{{ trace|raw }}</p>
-                          {% endfor %}
-                      {% endif %}
+                      <p title="Show more info" id="profiler-extra-info">PHP time: {{ profile['total_php'] }}, DB time: {{ profile['db_total_time']}} ({{ profile['db_num_queries'] }} queries)</p>
+                      <div id="extra-info" class="hidden">
+                          {% if profile['slow_traces'] is not empty %}
+                              {% for trace in profile['slow_traces'] %}
+                                  <p>{{ trace|raw }}</p>
+                              {% endfor %}
+                          {% endif %}
+                      </div>
                   </section>
                   {% endif %}
               </footer>
