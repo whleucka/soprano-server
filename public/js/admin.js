@@ -38,7 +38,10 @@ addEventListener("keyup", (e) => {
     }
     return document.getElementById("sidebar-filter").focus();
   } else if (e.code == "Escape") {
-    if (sidebar.style.display == "block") sidebar.style.display = "none";
+    sidebar.style.display = sidebar.style.display == "block"
+      ? "none"
+      : "block";
+    fetch(`?a=sidebar`, { credentials: "include" });
   }
 });
 
