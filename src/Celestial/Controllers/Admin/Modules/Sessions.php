@@ -28,7 +28,7 @@ class Sessions extends Module
             "INNER JOIN users ON users.id = sessions.user_id",
         ];
         $this->table_filters = ["ip", "name"];
-        $this->order_by_clause = "created_at";
+        $this->order_by_clause = "sessions.created_at";
         $this->sort_clause = "DESC";
         $this->filter_links = [
             "Me" => "user_id = " . $this->user?->id,

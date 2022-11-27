@@ -888,12 +888,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/libra-php/constellation.git",
-                "reference": "28b43d6279ced12647a2269b613f08ba99a6c86b"
+                "reference": "b509727a408eeb0a191395107ef3a7e0b3f05de5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/libra-php/constellation/zipball/28b43d6279ced12647a2269b613f08ba99a6c86b",
-                "reference": "28b43d6279ced12647a2269b613f08ba99a6c86b",
+                "url": "https://api.github.com/repos/libra-php/constellation/zipball/b509727a408eeb0a191395107ef3a7e0b3f05de5",
+                "reference": "b509727a408eeb0a191395107ef3a7e0b3f05de5",
                 "shasum": ""
             },
             "require": {
@@ -928,7 +928,7 @@
                 "issues": "https://github.com/libra-php/constellation/issues",
                 "source": "https://github.com/libra-php/constellation/tree/v0.0.2"
             },
-            "time": "2022-11-27T15:53:49+00:00"
+            "time": "2022-11-27T21:36:57+00:00"
         },
         {
             "name": "nesbot/carbon",

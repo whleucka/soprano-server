@@ -43,7 +43,7 @@ body {
  * Navbar
  */
 #navbar {
-  height: 50px;
+  height: 40px;
   background-color: #fbfbfb;
   border-bottom: 2px solid #ddd;
 }
@@ -73,7 +73,7 @@ body {
  * Footer
  */
 footer {
-  margin-top: 10px;
+  margin-top: 24px;
 }
 footer #footer {
   height: 50px;
@@ -89,12 +89,15 @@ footer #footer .brand {
   font-family: "Orbitron", sans-serif;
 }
 footer #profiler {
-  font-size: 0.6rem;
+  font-size: 0.65rem;
   color: #444;
   font-family: monospace;
 }
 footer #profiler-extra-info {
   cursor: pointer;
+}
+footer #extra-info {
+  color: #222;
 }
 
 /**
@@ -279,6 +282,14 @@ input {
   height: 25px;
   border-radius: 4px;
   border: 1px solid #aeaeae;
+}
+input[type="color"] {
+    width: 25px;
+}
+input[type="radio"],
+input[type="checkbox"]
+{
+    width: 15px;
 }
 input[type="search"] {
   padding: 7px 0 7px 30px;

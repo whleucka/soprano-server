@@ -10,9 +10,6 @@ class Test extends Module
     {
         $this->title = "__Test__";
         $this->table = "test";
-        $this->table_columns = [
-            "id" => "",
-        ];
         $this->form_columns = [
             "email" => "E-mail",
             "checkbox" => "Checkbox",
