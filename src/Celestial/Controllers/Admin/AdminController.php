@@ -55,7 +55,7 @@ class AdminController extends Controller
     #[Get("/admin", "admin.index", ["auth"])]
     public function admin()
     {
-        $this->index('dashboard');
+        $this->index("dashboard");
     }
 
     /**

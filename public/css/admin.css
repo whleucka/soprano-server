@@ -73,7 +73,7 @@ body {
  * Footer
  */
 footer {
-  margin-top: 50px;
+  margin-top: 10px;
 }
 footer #footer {
   height: 50px;
@@ -94,7 +94,7 @@ footer #profiler {
   font-family: monospace;
 }
 footer #profiler-extra-info {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 /**
@@ -116,6 +116,9 @@ footer #profiler-extra-info {
 }
 #module-form #edit-actions button {
   margin-right: 10px;
+}
+#module-form .form-label {
+  max-width: 140px;
 }
 .form-error {
   color: darkred;
@@ -272,6 +275,7 @@ ul.breadcrumb li a:hover {
  * Inputs
  */
 input {
+  width: 197px;
   height: 25px;
   border-radius: 4px;
   border: 1px solid #aeaeae;
@@ -429,6 +433,7 @@ button:hover {
   overflow: auto;
 }
 table.module-table {
+  position: relative;
   width: 100%;
   border-collapse: collapse;
   font-size: 0.9rem;

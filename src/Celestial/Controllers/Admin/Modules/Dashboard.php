@@ -12,5 +12,13 @@ class Dashboard extends Module
         $this->title = "Dashboard";
         parent::__construct("dashboard");
     }
-}
 
+    /**
+     * getTable returns a table string. However, it can return
+     * any string which will be rentered as the table var
+     */
+    protected function getTable()
+    {
+        return "<p>Hello, {$this->user->name}</p>";
+    }
+}

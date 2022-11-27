@@ -38,8 +38,7 @@ addEventListener("keyup", (e) => {
     }
     return document.getElementById("sidebar-filter").focus();
   } else if (e.code == "Escape") {
-      if (sidebar.style.display == "block")
-          sidebar.style.display = "none";
+    if (sidebar.style.display == "block") sidebar.style.display = "none";
   }
 });
 
@@ -65,15 +64,14 @@ menuButton.addEventListener("click", (e) => {
     });
 });
 
-
 const profiler = document.getElementById("profiler-extra-info");
 profiler.addEventListener("click", (e) => {
-    const extra_info = document.getElementById("extra-info");
-    if (extra_info.style.display == "block") {
-        extra_info.style.display = "none";
-    } else {
-        extra_info.style.display = "block";
-    }
+  const extra_info = document.getElementById("extra-info");
+  if (extra_info.style.display == "block") {
+    extra_info.style.display = "none";
+  } else {
+    extra_info.style.display = "block";
+  }
 });
 
 // Utility
