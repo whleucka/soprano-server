@@ -57,11 +57,12 @@ for (let link of filterLinks) {
 const menuButton = document.getElementById("menu-button");
 menuButton.addEventListener("click", (e) => {
   const sidebar = document.getElementById("sidebar");
-  fetch(`?a=sidebar`, { credentials: "include" })
-    .then((res) => res.json())
-    .then((res) => {
-      sidebar.style.display = res.setting == "0" ? "none" : "block";
-    });
+  if (sidebar.style.display == "none") {
+      sidebar.style.display = "block";
+  } else {
+      sidebar.style.display = "none";
+  }
+  fetch(`?a=sidebar`, { credentials: "include" });
 });
 
 const profiler = document.getElementById("profiler-extra-info");
