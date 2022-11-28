@@ -89,7 +89,7 @@ footer #footer .brand {
   font-family: "Orbitron", sans-serif;
 }
 footer #profiler {
-  font-size: 0.65rem;
+  font-size: 0.6rem;
   color: #444;
   font-family: monospace;
 }
@@ -278,7 +278,7 @@ ul.breadcrumb li a:hover {
  * Inputs
  */
 input {
-  width: 197px;
+  width: 176px;
   height: 25px;
   border-radius: 4px;
   border: 1px solid #aeaeae;
@@ -290,6 +290,9 @@ input[type="radio"],
 input[type="checkbox"]
 {
     width: 14px;
+}
+input[type="file"] {
+    border: 0;
 }
 input[type="search"] {
   padding: 7px 0 7px 30px;
@@ -304,7 +307,7 @@ input:focus, textarea:focus {
   background-color: #ebffe8;
 }
 #search-input {
-  width: 180px;
+  width: 172px;
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
 }
@@ -715,5 +718,11 @@ table.module-table {
   }
   #navbar #menu-toggle {
     display: block;
+  }
+  .limit-select {
+      padding-right: 0;
+  }
+  div.limit-select label {
+      display: none;
   }
 }
