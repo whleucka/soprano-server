@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e738cf7f7878c372824a9e03023f7487",
+    "content-hash": "d522a2e0465f07f7538f947e3bb18d5a",
     "packages": [
         {
             "name": "brick/math",
@@ -884,16 +884,16 @@
         },
         {
             "name": "libra-php/constellation",
-            "version": "v0.0.2.x-dev",
+            "version": "v0.0.3.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/libra-php/constellation.git",
-                "reference": "2f9827a440bc63cb10cacfb7550ad3c26c8fa6be"
+                "reference": "dddd9e18fe084876ef7be57e04a12a19278649a3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/libra-php/constellation/zipball/2f9827a440bc63cb10cacfb7550ad3c26c8fa6be",
-                "reference": "2f9827a440bc63cb10cacfb7550ad3c26c8fa6be",
+                "url": "https://api.github.com/repos/libra-php/constellation/zipball/dddd9e18fe084876ef7be57e04a12a19278649a3",
+                "reference": "dddd9e18fe084876ef7be57e04a12a19278649a3",
                 "shasum": ""
             },
             "require": {
@@ -926,9 +926,9 @@
             "description": "Celestial PHP framework library",
             "support": {
                 "issues": "https://github.com/libra-php/constellation/issues",
-                "source": "https://github.com/libra-php/constellation/tree/v0.0.2"
+                "source": "https://github.com/libra-php/constellation/tree/v0.0.3"
             },
-            "time": "2022-11-27T23:08:19+00:00"
+            "time": "2022-11-28T19:47:54+00:00"
         },
         {
             "name": "nesbot/carbon",
@@ -1800,16 +1800,16 @@
         },
         {
             "name": "symfony/console",
-            "version": "v6.1.7",
+            "version": "v6.1.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "a1282bd0c096e0bdb8800b104177e2ce404d8815"
+                "reference": "a71863ea74f444d93c768deb3e314e1f750cf20d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/a1282bd0c096e0bdb8800b104177e2ce404d8815",
-                "reference": "a1282bd0c096e0bdb8800b104177e2ce404d8815",
+                "url": "https://api.github.com/repos/symfony/console/zipball/a71863ea74f444d93c768deb3e314e1f750cf20d",
+                "reference": "a71863ea74f444d93c768deb3e314e1f750cf20d",
                 "shasum": ""
             },
             "require": {
@@ -1876,7 +1876,7 @@
                 "terminal"
             ],
             "support": {
-                "source": "https://github.com/symfony/console/tree/v6.1.7"
+                "source": "https://github.com/symfony/console/tree/v6.1.8"
             },
             "funding": [
                 {
@@ -1892,7 +1892,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-10-26T21:42:49+00:00"
+            "time": "2022-11-25T18:59:16+00:00"
         },
         {
             "name": "symfony/deprecation-contracts",
