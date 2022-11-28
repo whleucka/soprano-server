@@ -6,6 +6,9 @@ define("ROOT", __DIR__ . "/../../../");
 
 class Application
 {
+    public static $allowed_origins = [
+        "domains" => []
+    ];
     public static $environment = [
         "environment_path" => ROOT,
     ];
