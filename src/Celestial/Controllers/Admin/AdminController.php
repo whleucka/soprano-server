@@ -55,11 +55,7 @@ class AdminController extends Controller
     #[Get("/admin", "admin.index", ["auth"])]
     public function admin()
     {
-        $this->getSidebarLinks();
-        return $this->render("layouts/module.html", [
-            "sidebar_links" => $this->sidebar_links,
-            "content" => "<p>Hello, {$this->user?->name}</p>",
-        ]);
+        $this->index("dashboard");
     }
 
     /**

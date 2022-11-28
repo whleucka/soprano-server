@@ -14,21 +14,31 @@
     <meta name="keywords" content="PHP, Framework, Celestial, Constellation, Libra">
     <meta name="author" content="Libra PHP">
 {% endblock %}
-    <title>{% block title %}{% endblock %}</title>
+<title>{% block title %}{{ project_name }} — Admin{% endblock %}</title>
 {% block head_scripts %}
     <link rel="stylesheet" href="/css/admin.css">
 {% endblock %}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet"true>
 {% endblock %}
   </head>
   <body>
+      <section id="navbar" class="blue-gradient flex align-items-center pl-10 pr-10">
+          <div>
+              <a href="/admin">
+                  <span class="brand">{{ project_name }}</span>
+              </a>
+          </div>
+          <div id="menu-toggle">
+              <button id="menu-button" type="image"><img src="/img/hamburger.svg"></button>
+          </div>
+      </section>
       <section id="content">
-          <section id="sidebar">
+          <section id="sidebar" style="display: {% if sidebar == 1 %}block{% else %}none{% endif %};">
               <input tabIndex="0" placeholder="Filter" id="sidebar-filter" type="search" />
               <ul>
-                  <a tabIndex="-1" class="sidebar-link" data-module="dashboard" href='/admin'><li>Dashboard</li></a>
                   {% for link in sidebar_links %}
                   <a tabIndex="-1" class="sidebar-link" data-module="{{ link.module }}" href="{{ link.uri }}"><li>{{ link.title }}</li></a>
                   {% endfor %}
@@ -41,6 +51,21 @@
                   {{ content|raw }}
               </div>
               <footer>
+                  <!-- <div id="footer" class="blue-gradient flex align-items-center"> -->
+                  <!--     <span class="brand">{{ project_name }}</span> -->
+                  <!-- </div> -->
+                  {% if profile['total_php'] %}
+                  <section id="profiler">
+                      <p title="Show more info" id="profiler-extra-info">🛈 PHP time: {{ profile['total_php'] }}, DB time: {{ profile['db_total_time']}} ({{ profile['db_num_queries'] }} queries)</p>
+                      <div id="extra-info" class="hidden">
+                          {% if profile['slow_traces'] is not empty %}
+                              {% for trace in profile['slow_traces'] %}
+                                  <p>{{ trace|raw }}</p>
+                              {% endfor %}
+                          {% endif %}
+                      </div>
+                  </section>
+                  {% endif %}
               </footer>
           </section>
       </section>

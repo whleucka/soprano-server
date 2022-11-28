@@ -19,16 +19,16 @@ class Sessions extends Module
             "users.name" => "User",
             "ip" => "IP",
             "url" => "URL",
-            "sessions.created_at" => "Event",
+            "sessions.created_at" => "Created",
         ];
         $this->table_format = [
-            "created_at" => "ago",
+            "created_at" => "datetime-local",
         ];
         $this->extra_tables = [
             "INNER JOIN users ON users.id = sessions.user_id",
         ];
         $this->table_filters = ["ip", "name"];
-        $this->order_by_clause = "created_at";
+        $this->order_by_clause = "sessions.created_at";
         $this->sort_clause = "DESC";
         $this->filter_links = [
             "Me" => "user_id = " . $this->user?->id,

@@ -35,7 +35,7 @@ class Audit extends Module
             "name",
             "message",
         ];
-        $this->order_by_clause = "created_at";
+        $this->order_by_clause = "audit.created_at";
         $this->sort_clause = "DESC";
         $this->filter_links = [
             "Me" => "user_id = " . $this->user?->id,

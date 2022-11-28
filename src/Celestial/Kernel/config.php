@@ -30,6 +30,7 @@ return [
         Application::$router
     ),
     DB::class => DI\autowire()->constructorParameter("config", [
+        "show_errors" => $_ENV["DB_SHOW_ERRORS"] == "true",
         "path" => $_ENV["DB_PATH"],
         "type" => $_ENV["DB_TYPE"],
         "host" => $_ENV["DB_HOST"],

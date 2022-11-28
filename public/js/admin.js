@@ -31,8 +31,17 @@ searchInput.addEventListener("keyup", (e) => {
 });
 // Focus on keyup binding
 addEventListener("keyup", (e) => {
+  const sidebar = document.getElementById("sidebar");
   if (e.code == searchHotKey) {
+    if (sidebar.offsetWidth < 1) {
+      sidebar.style.display = "block";
+    }
     return document.getElementById("sidebar-filter").focus();
+  } else if (e.code == "Escape") {
+    sidebar.style.display = sidebar.style.display == "block"
+      ? "none"
+      : "block";
+    fetch(`?a=sidebar`, { credentials: "include" });
   }
 });
 
@@ -46,6 +55,28 @@ for (let link of filterLinks) {
       link.innerHTML = res.total;
     });
 }
+
+// Menu button (toggle sidebar)
+const menuButton = document.getElementById("menu-button");
+menuButton.addEventListener("click", (e) => {
+  const sidebar = document.getElementById("sidebar");
+  if (sidebar.style.display == "none") {
+      sidebar.style.display = "block";
+  } else {
+      sidebar.style.display = "none";
+  }
+  fetch(`?a=sidebar`, { credentials: "include" });
+});
+
+const profiler = document.getElementById("profiler-extra-info");
+profiler.addEventListener("click", (e) => {
+  const extra_info = document.getElementById("extra-info");
+  if (extra_info.style.display == "block") {
+    extra_info.style.display = "none";
+  } else {
+    extra_info.style.display = "block";
+  }
+});
 
 // Utility
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
