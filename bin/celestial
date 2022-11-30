@@ -218,11 +218,20 @@ function migrationDelete($file)
     return $db->query("DELETE FROM migrations WHERE migration_hash = ?", $md_5);
 }
 
+function migrationTableExists()
+{
+    global $db;
+    return $db->selectOne("SHOW TABLES LIKE 'migrations'");
+}
+
 function migrationExists($file): bool
 {
-    $md_5 = md5(basename($file));
-    $exists = migrationRow($md_5);
-    return $exists ? true : false;
+    if (migrationTableExists()) {
+        $md_5 = md5(basename($file));
+        $exists = migrationRow($md_5);
+        return $exists ? true : false;
+    }
+    return false;
 }
 
 function migrationRunner($up = true)
