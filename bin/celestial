@@ -44,6 +44,7 @@ $longopts = [
     "serve",
     "port::",
     "cache-create",
+    "migration-list",
     "migration-run",
     "migration-fresh",
     "migration-up::",
@@ -75,6 +76,9 @@ foreach ($options as $key => $value) {
             break;
         case "cache-create":
             cacheCreate();
+            break;
+        case "migration-list":
+            migrationList();
             break;
         case "migration-run":
             migrationRun();
@@ -164,6 +168,18 @@ function cacheCreate()
         cprint(Console::green("Success: view cache directory created"));
     } else {
         cprint(Console::red("Error: view cache directory couldn't be created"));
+    }
+}
+
+function migrationList()
+{
+    global $migrations_path;
+    if (file_exists($migrations_path)) {
+        $files = glob($migrations_path . "/*.php");
+        foreach ($files as $file) {
+            $basename = basename($file);
+            cprint(Console::green($basename));
+        }
     }
 }
 
