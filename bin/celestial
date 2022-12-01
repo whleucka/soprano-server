@@ -207,6 +207,10 @@ function migrationRow($md_5)
 function migrationInsert($file)
 {
     global $db;
+    if (!file_exists($file)) {
+        error_log("Migration file doesn't exist {$file}");
+        die("migrationInsert error");
+    }
     $md_5 = md5(basename($file));
     return $db->query("INSERT INTO migrations SET migration_hash = ?", $md_5);
 }
@@ -214,6 +218,10 @@ function migrationInsert($file)
 function migrationDelete($file)
 {
     global $db;
+    if (!file_exists($file)) {
+        error_log("Migration file doesn't exist {$file}");
+        die("migrationDelete error");
+    }
     $md_5 = md5(basename($file));
     return $db->query("DELETE FROM migrations WHERE migration_hash = ?", $md_5);
 }
@@ -226,6 +234,10 @@ function migrationTableExists()
 
 function migrationExists($file): bool
 {
+    if (!file_exists($file)) {
+        error_log("Migration file doesn't exist {$file}");
+        die("migrationExists error");
+    }
     if (migrationTableExists()) {
         $md_5 = md5(basename($file));
         $exists = migrationRow($md_5);
@@ -306,4 +318,3 @@ function migrationFresh()
     }
     cprint(Console::green("Done!"));
 }
-
