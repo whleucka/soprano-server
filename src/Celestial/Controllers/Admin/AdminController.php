@@ -62,6 +62,7 @@ class AdminController extends Controller
      * Show all module items (view)
      */
     #[Get("/admin/module/{module}", "module.index", ["auth"])]
+    #[Post("/admin/module/{module}", "module.post", ["auth"])]
     public function index($module)
     {
         $module = $this->getModule($module);
