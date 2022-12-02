@@ -3,3 +3,5 @@ constellation/
 .env
 node_modules/
 public/assets/
+commit
+composer-prod.json
