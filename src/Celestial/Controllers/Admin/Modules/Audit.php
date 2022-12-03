@@ -14,7 +14,6 @@ class Audit extends Module
         $this->table = "audit";
         $this->title = "Audit";
         $this->table_columns = [
-            "audit.id" => "ID",
             "users.name" => "User",
             "table_name" => "Table",
             "table_id" => "ID",

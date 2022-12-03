@@ -15,7 +15,6 @@ class Sessions extends Module
         $this->title = "Sessions";
         $this->table = "sessions";
         $this->table_columns = [
-            "sessions.id" => "ID",
             "users.name" => "User",
             "ip" => "IP",
             "url" => "URL",

@@ -17,7 +17,6 @@ class Users extends Module
         $this->name_col = "uuid";
         $this->table = "users";
         $this->table_columns = [
-            "id as id" => null,
             "uuid" => "UUID",
             "name" => "Name",
             "email" => "E-mail",
