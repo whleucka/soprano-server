@@ -23,6 +23,7 @@ class Users extends Module
             "email" => "E-mail",
             "created_at" => "Created",
         ];
+        $this->table_exclude[] = "id";
         $this->table_format = [
             // Format by type
             "created_at" => "datetime-local",
