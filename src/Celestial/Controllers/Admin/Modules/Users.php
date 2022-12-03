@@ -17,13 +17,12 @@ class Users extends Module
         $this->name_col = "uuid";
         $this->table = "users";
         $this->table_columns = [
-            "id as id" => "ID",
+            "id as id" => null,
             "uuid" => "UUID",
             "name" => "Name",
             "email" => "E-mail",
             "created_at" => "Created",
         ];
-        $this->table_exclude[] = "id";
         $this->table_format = [
             // Format by type
             "created_at" => "datetime-local",
