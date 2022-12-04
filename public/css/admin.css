@@ -486,13 +486,16 @@ table.module-table {
   white-space: nowrap;
 }
 .module-table tbody tr td span {
-  width: 1px;
   white-space: nowrap;
 }
 .module-table thead th,
 .module-table tbody td {
-  padding: 6px 5px;
+    width: 1px;
+  padding: 6px 10px;
   border-bottom: 1px solid #eaeaea;
+}
+.module-table tbody td:last-child {
+    width: 100%;
 }
 .module-table .action-row {
   width: 100%;
