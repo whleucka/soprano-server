@@ -345,6 +345,7 @@ function storageLink()
     $storage_dir = Application::$storage["storage_path"];
     $public_storage = Application::$storage["public_storage_path"];
     if (!file_exists($storage_dir)) {
+        chown($storage_dir, "www-data");
         if (mkdir($storage_dir)) {
             cprint(Console::green("Success: created storage dir: {$storage_dir}"));
             if (symlink($storage_dir, $public_storage)) {
