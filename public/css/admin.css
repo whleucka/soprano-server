@@ -494,11 +494,10 @@ table.module-table {
   padding: 6px 10px;
   border-bottom: 1px solid #eaeaea;
 }
-.module-table tbody td:last-child {
+.module-table tbody td:last-child:has(.action-row) {
     width: 100%;
 }
 .module-table .action-row {
-  width: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
