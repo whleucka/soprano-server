@@ -31,4 +31,8 @@ class Application
     public static $middleware = [
         "middleware_path" => ROOT . "src/Celestial/Middleware",
     ];
+    public static $storage = [
+        "storage_path" => ROOT . 'storage',
+        "public_storage_path" => ROOT . 'public/storage',
+    ];
 }

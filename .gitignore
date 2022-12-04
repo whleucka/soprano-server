@@ -3,6 +3,8 @@ constellation/
 .env
 node_modules/
 public/assets/
+public/storage
 commit
 composer-prod.json
 composer-dev.json
+storage/
