@@ -16,6 +16,7 @@
         }
     ],
     "require": {
-        "libra-php/constellation": "v0.0.3.x-dev"
+        "libra-php/constellation": "v0.0.3.x-dev",
+        "james-heinrich/getid3": "^1.9"
     }
 }

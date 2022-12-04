@@ -17,11 +17,13 @@
 <title>{% block title %}{{ project_name }} — Admin{% endblock %}</title>
 {% block head_scripts %}
     <link rel="stylesheet" href="/css/admin.css">
+    <link rel="stylesheet" href="/css/soprano.css">
 {% endblock %}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet"true>
+    <script src="https://unpkg.com/feather-icons"></script>
 {% endblock %}
   </head>
   <body>
@@ -71,6 +73,10 @@
       </section>
 {% block body_scripts %}
       <script src="/js/admin.js"></script>
+      <script src="/js/soprano.js"></script>
 {% endblock %}
+  <script>
+      feather.replace();
+  </script>
   </body>
 </html>

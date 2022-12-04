@@ -6,8 +6,14 @@ define("ROOT", __DIR__ . "/../../../");
 
 class Application
 {
+    public static $soprano = [
+        "music_path" => "/mnt/data/Music",
+    ];
     public static $allowed_origins = [
-        "domains" => [],
+        "domains" => [
+            "http://localhost:3000",
+            "http://soprano.williamhleucka.com",
+        ]
     ];
     public static $environment = [
         "environment_path" => ROOT,
