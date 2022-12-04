@@ -44,6 +44,7 @@ $longopts = [
     "serve",
     "port::",
     "cache-create",
+    "storage-link",
     "migration-list",
     "migration-run",
     "migration-fresh",
@@ -103,6 +104,9 @@ foreach ($options as $key => $value) {
                 );
             }
             break;
+        case "storage-link":
+            storageLink();
+            break;
     }
 }
 
@@ -133,6 +137,7 @@ Usage: celestial [options...]
 -p, --port                  Set development server port
 -s, --serve                 Run development server
 --cache-create              Create view cache directory
+--storage-link              Create storage directory and public symlink
 --migration-run             Run migration files and call up method
 --migration-fresh           Drop database and call migration-run
 --migration-up=file         Call up method from migration file
@@ -333,4 +338,22 @@ function migrationFresh()
         migrationRunner();
     }
     cprint(Console::green("Done!"));
+}
+
+function storageLink()
+{
+    $storage_dir = Application::$storage["storage_path"];
+    $public_storage = Application::$storage["public_storage_path"];
+    if (!file_exists($storage_dir)) {
+        if (mkdir($storage_dir)) {
+            cprint(Console::green("Success: created storage dir: {$storage_dir}"));
+            if (symlink($storage_dir, $public_storage)) {
+                cprint(Console::green("Success: created symblink: {$public_storage}"));
+            } else {
+                cprint(Console::red("Error: couldn't create symlink: {$public_storage}"));
+            }
+        } else {
+            cprint(Console::red("Error: couldn't create storage dir: {$storage_dir}"));
+        }
+    }
 }
