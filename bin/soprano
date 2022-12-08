@@ -1,0 +1,117 @@
+#!/usr/bin/env php
+<?php
+/**
+ * Soprano Script
+ * @author William Hleucka <william.hleucka@gmail.com>
+ */
+
+include __DIR__ . "/../vendor/autoload.php";
+include __DIR__ . "/console.php";
+
+use Celestial\Kernel\Main;
+use Celestial\Config\Application;
+use Constellation\Database\DB;
+use Celestial\Soprano\Scan;
+
+$dev_port = 8080;
+
+function banner()
+{
+    $banner = <<<BANNER
+
+███████╗ ██████╗ ██████╗ ██████╗  █████╗ ███╗   ██╗ ██████╗
+██╔════╝██╔═══██╗██╔══██╗██╔══██╗██╔══██╗████╗  ██║██╔═══██╗
+███████╗██║   ██║██████╔╝██████╔╝███████║██╔██╗ ██║██║   ██║
+╚════██║██║   ██║██╔═══╝ ██╔══██╗██╔══██║██║╚██╗██║██║   ██║
+███████║╚██████╔╝██║     ██║  ██║██║  ██║██║ ╚████║╚██████╔╝
+╚══════╝ ╚═════╝ ╚═╝     ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═══╝ ╚═════╝
+
+BANNER;
+    cprint(Console::green($banner, "bold"));
+}
+
+$app = new Main(false);
+$db = $app->container->get(DB::class);
+$migrations_path = Application::$migrations["migrations_path"];
+$cache_path = Application::$view["cache_path"];
+
+$shortopts = "";
+#$shortops .= "f:"; // Required
+#$shortopts .= "p::"; // Optional
+$shortopts .= "hs"; // Do not accept values
+
+$longopts = [
+    "help",
+    "music-scan",
+    "music-clean",
+];
+
+$options = getopt($shortopts, $longopts);
+
+if ($argc == 1) {
+    help();
+}
+if (!$options) {
+    cprint(Console::red("Eh? Unknown command"));
+}
+
+foreach ($options as $key => $value) {
+    switch ($key) {
+        case "h":
+        case "help":
+            help();
+            break;
+        case "s":
+        case "music-scan":
+            musicScan();
+            break;
+        case "music-clean":
+            musicClean();
+            break;
+    }
+}
+
+function cprint($string)
+{
+    printf($string . "\n");
+}
+
+function input(string $prompt = null)
+{
+    echo $prompt;
+    $handle = fopen("php://stdin", "r");
+    $output = fgets($handle);
+    return trim($output);
+}
+
+function help()
+{
+    banner();
+    $help = <<<HELP
+Usage: soprano [options...]
+-h, --help                      Get help for commands
+-s, --music-scan                Scan music path for audio files and synchronize to database
+--music-clean                   Look for orphan tracks in the database and remove them
+
+HELP;
+    cprint($help);
+}
+
+function musicScan()
+{
+    $scanner = new Scan;
+    $start_time = microtime(true);
+    $scanner->scanMusicTracks();
+    $finish_time = microtime(true) - $start_time;
+    cprint(Console::green("Success: scan finished: {$finish_time}"));
+}
+
+function musicClean()
+{
+    $scanner = new Scan;
+    $start_time = microtime(true);
+    $scanner->removeMissingTracks();
+    $finish_time = microtime(true) - $start_time;
+    cprint(Console::green("Success: clean finished: {$finish_time}"));
+}
+

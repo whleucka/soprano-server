@@ -12,7 +12,7 @@ class Application
     public static $allowed_origins = [
         "domains" => [
             "http://localhost:3000",
-            "http://soprano.williamhleucka.com",
+            "https://soprano.williamhleucka.com",
         ]
     ];
     public static $environment = [
