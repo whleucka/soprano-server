@@ -1,11 +1,12 @@
 # Soprano Server
 [![PHP Composer](https://github.com/libra-php/constellation/actions/workflows/php.yml/badge.svg?branch=main)](https://github.com/libra-php/constellation/actions/workflows/php.yml)
 
-A backed for <a href='https://github.com/whleucka/soprano-react' title='Soprano'>Soprano</a>, a music player application.
+A backend server for <a href="https://github.com/whleucka/soprano-react" title='Soprano'>Soprano</a>, a music player application.
+Built on top of a custom PHP framework called <a href="https://github.com/libra-php/celestial" title="Celestial">Celestial</a>.
 
 #### Installation
+- WIP, detailed instructions coming soon.
 - Read more about it <a href="https://github.com/libra-php/celestial" title="Celestial">here</a>.
-- Detailed instructions coming soon.
 
 #### Soprano Tool
 ```
