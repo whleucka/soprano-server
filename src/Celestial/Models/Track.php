@@ -27,6 +27,7 @@ class Track extends Model
             header('Content-Type: ' . $mime_type);
             header('Content-Disposition: attachment; filename="'.basename($file).'"');
             header('Expires: 0');
+            header('Accept-Ranges: bytes');
             header('Cache-Control: must-revalidate');
             header('Pragma: public');
             header('Content-Length: '.filesize($file));

@@ -12,6 +12,7 @@ class Application
     public static $allowed_origins = [
         "domains" => [
             "http://localhost:3000",
+            "http://192.168.0.12:3000",
             "https://soprano.williamhleucka.com",
         ]
     ];
