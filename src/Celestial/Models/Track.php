@@ -20,16 +20,17 @@ class Track extends Model
                 $this->mime_type !== 'audio/mpeg'
                 ? $this->transcode()
                 : $this->filenamepath;
+            $mime_type = $this->mime_type ?? mime_content_type($file);
             ob_clean();
-            header('Content-Type: ' . mime_content_type($file));
-            header('Content-Disposition: inline');
-            header('Cache-Control: public, max-age=2629746');
-            header('Accept-Ranges: bytes');
-            header('Content-Length: ' . filesize($file));
-            header('Content-Transfer-Encoding: chunked');
-            header('Connection: Keep-Alive');
-            header('X-Pad: avoid browser bug');
-            readFile($file);
+            header('Content-Description: File Transfer');
+            header("Content-Transfer-Encoding: binary");
+            header('Content-Type: ' . $mime_type);
+            header('Content-Disposition: attachment; filename="'.basename($file).'"');
+            header('Expires: 0');
+            header('Cache-Control: must-revalidate');
+            header('Pragma: public');
+            header('Content-Length: '.filesize($file));
+            readfile($file);
             exit();
         } else {
             error_log("Track filename path not found {$this->filenamepath}");
