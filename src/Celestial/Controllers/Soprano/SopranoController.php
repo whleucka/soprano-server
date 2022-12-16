@@ -33,7 +33,23 @@ class SopranoController extends BaseController
         ]);
         if ($request) {
             $tracks = $this->db
-                ->selectMany("SELECT *
+                ->selectMany("SELECT id,
+                        md5,
+                        filesize,
+                        filenamepath,
+                        file_format,
+                        mime_type,
+                        bitrate,
+                        playtime_seconds,
+                        playtime_string,
+                        track_number,
+                        artist,
+                        title,
+                        album,
+                        genre,
+                        year,
+                        CONCAT('".$_ENV['SERVER_URL']."', cover) as cover,
+                        CONCAT('".$_ENV['SERVER_URL']."/api/v1/music/play/', md5) as src
                     FROM tracks
                     WHERE artist LIKE ? OR
                     album LIKE ? OR
