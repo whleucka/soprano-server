@@ -53,9 +53,13 @@ class SopranoController extends BaseController
                     FROM tracks
                     WHERE artist LIKE ? OR
                     album LIKE ? OR
-                    title LIKE ?
+                    title LIKE ? OR
+                    genre LIKE ? OR
+                    year LIKE ? OR
+                    CONCAT(artist, ' ', album) LIKE ? OR
+                    CONCAT(album, ' ', title) LIKE ?
                     ORDER BY artist, album, track_number",
-                    ...array_fill(0, 3, "%{$request->term}%"));
+                    ...array_fill(0, 6, "%{$request->term}%"));
             return [
                 "payload" => $tracks,
             ];

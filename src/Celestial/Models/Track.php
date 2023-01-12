@@ -17,7 +17,6 @@ class Track extends Model
     public function play()
     {
         if (file_exists($this->filenamepath)) {
-            // TODO: Transcode to mp3 to have more compatibility
             ob_start();
             $file =
                 $this->mime_type !== 'audio/mpeg'
