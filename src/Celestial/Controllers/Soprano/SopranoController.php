@@ -59,7 +59,7 @@ class SopranoController extends BaseController
                     CONCAT(artist, ' ', album) LIKE ? OR
                     CONCAT(album, ' ', title) LIKE ?
                     ORDER BY artist, album, track_number",
-                    ...array_fill(0, 6, "%{$request->term}%"));
+                    ...array_fill(0, 7, "%{$request->term}%"));
             return [
                 "payload" => $tracks,
             ];
