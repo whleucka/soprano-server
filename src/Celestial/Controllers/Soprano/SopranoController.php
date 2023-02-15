@@ -74,13 +74,13 @@ class SopranoController extends BaseController
     #[GET(API_PREFIX . "/radio/stations", "soprano.radio-stations", ["api"])]
     public function radio_stations()
     {
-        // TODO: refactor to module
-        $radio_stations = $this->db
-            ->selectMany("SELECT *
-                FROM radio
-                ORDER BY station_name");
+        $radio_stations = Radio::findAll();
+        $stations = [];
+        foreach ($radio_stations as $station) {
+            $stations[] = $station->getAttributes();
+        }
         return [
-            "payload" => $radio_stations
+            "payload" => $stations
         ];
     }
 }
