@@ -2,6 +2,7 @@
 
 namespace Celestial\Controllers\Soprano;
 
+use Celestial\Models\Radio;
 use Celestial\Models\Track;
 use Constellation\Controller\Controller as BaseController;
 use Constellation\Routing\Get;
@@ -24,7 +25,7 @@ class SopranoController extends BaseController
     }
 
     #[Get(API_PREFIX . "/music/search", "soprano.music-search", ["api"])]
-    public function search()
+    public function music_search()
     {
         $request = $this->validateRequest([
             "term" => [
@@ -67,6 +68,19 @@ class SopranoController extends BaseController
         return [
             "success" => false,
             "message" => "Validation error",
+        ];
+    }
+
+    #[GET(API_PREFIX . "/radio/stations", "soprano.radio-stations", ["api"])]
+    public function radio_stations()
+    {
+        // TODO: refactor to module
+        $radio_stations = $this->db
+            ->selectMany("SELECT *
+                FROM radio
+                ORDER BY station_name");
+        return [
+            "payload" => $radio_stations
         ];
     }
 }
