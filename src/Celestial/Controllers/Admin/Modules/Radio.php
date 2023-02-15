@@ -39,7 +39,7 @@ class Radio extends Module
             "station_name" => ["required"],
             "src_url" => ["required"],
         ];
-        parent::__construct("customers");
+        parent::__construct("radio");
     }
 }
 
