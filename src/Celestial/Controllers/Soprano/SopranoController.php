@@ -2,10 +2,11 @@
 
 namespace Celestial\Controllers\Soprano;
 
+use Celestial\Config\Application;
 use Celestial\Models\Radio;
 use Celestial\Models\Track;
 use Constellation\Controller\Controller as BaseController;
-use Constellation\Routing\Get;
+use Constellation\Routing\{Post, Get};
 
 define("API_PREFIX", "/api/v1");
 
@@ -20,7 +21,7 @@ class SopranoController extends BaseController
         }
         return [
             "success" => false,
-            "message" => "Track doesn't exist",
+            "message" => "Error: track doesn't exist",
         ];
     }
 
@@ -58,20 +59,21 @@ class SopranoController extends BaseController
                     genre LIKE ? OR
                     year LIKE ? OR
                     CONCAT(artist, ' ', album) LIKE ? OR
-                    CONCAT(album, ' ', title) LIKE ?
+                    CONCAT(album, ' ', title) LIKE ? OR
+                    filenamepath LIKE ?
                     ORDER BY artist, album, track_number",
-                    ...array_fill(0, 7, "%{$request->term}%"));
+                    ...array_fill(0, 8, "%{$request->term}%"));
             return [
                 "payload" => $tracks,
             ];
         }
         return [
             "success" => false,
-            "message" => "Validation error",
+            "message" => "Error: term is required",
         ];
     }
 
-    #[GET(API_PREFIX . "/radio/stations", "soprano.radio-stations", ["api"])]
+    #[Get(API_PREFIX . "/radio/stations", "soprano.radio-stations", ["api"])]
     public function radio_stations()
     {
         $radio_stations = Radio::findAll();
@@ -81,6 +83,56 @@ class SopranoController extends BaseController
         }
         return [
             "payload" => $stations
+        ];
+    }
+
+    #[Get(API_PREFIX . "/radio/parse", "soprano.radio-parse", ["api"])]
+    public function radio_parse()
+    {
+        $request = $this->validateRequest([
+            "url" => [
+                "required",
+            ]
+        ]);
+        if ($request) {
+            $cmd = "/usr/bin/ffprobe {$request->url} 2>&1 | rg 'artist'";
+            $artist = exec($cmd);
+            $cmd = "/usr/bin/ffprobe {$request->url} 2>&1 | rg 'title'";
+            $title = exec($cmd);
+            if ($artist || $title) {
+                return [
+                    "payload" => [
+                        'artist' => trim(end(explode(':', $artist))),
+                        'title' => trim(end(explode(':', $title)))
+                    ],
+                ];
+            }
+        }
+        return [
+            "success" => false,
+            "message" => "Error: url is required",
+        ];
+    }
+
+
+    #[Get(API_PREFIX . "/cover/{md5}/{width}/{height}", "soprano.radio-parse", ["api"])]
+    public function thumbnail($md5, $width, $height)
+    {
+        $track = Track::findByAttribute("md5", $md5);
+        $width = intval($width);
+        $height = intval($height);
+        if ($track) {
+            $storage_path = Application::$environment['environment_path'];
+            $imagick = new \imagick($storage_path . $track->cover);
+            $imagick->setbackgroundcolor('rgb(64, 64, 64)');
+            $imagick->thumbnailImage($height, $width, true, true);
+            header("Content-Type: image/jpg");
+            echo $imagick->getImageBlob();
+            exit;
+        }
+        return [
+            "success" => false,
+            "message" => "Error: track doesn't exist",
         ];
     }
 }
