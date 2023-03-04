@@ -4,6 +4,7 @@
 {% endblock %}
 {% block content %}
 <section id="register-form" class="flex justify-content-center align-items-center w-100">
+    {% if enabled == true %}
     <form action="{{ fn.buildRoute('auth.register-post') }}" method="POST">
         <table>
             <tbody>
@@ -54,5 +55,8 @@
             <div id="copyright-caption" class="text-center">&copy; 2022 Libra PHP - All rights reserved</div>
         </caption>
     </form>
+    {% else %}
+        <p>Sorry, registration is disabled</p>
+    {% endif %}
 </section>
 {% endblock %}
