@@ -30,11 +30,11 @@ class AuthController extends BaseController
         exit();
     }
 
-    //#[Get("/admin/register", "auth.register")]
-    //public function register()
-    //{
-    //    return $this->render("admin/auth/register.html");
-    //}
+    #[Get("/admin/register", "auth.register")]
+    public function register()
+    {
+        return $this->render("admin/auth/register.html", ['enabled' => $_ENV['REGISTER_ENABLED'] == 'true']);
+    }
 
     //#[Get("/admin/forgot-password", "auth.forgot-password")]
     //public function forgot_password()
@@ -58,63 +58,56 @@ class AuthController extends BaseController
             "email" => ["required", "string", "email"],
             "password" => ["required", "string"],
         ]);
-        $fail = false;
         if ($data) {
             $user = User::findByAttribute("email", $data->email);
             if ($user) {
                 if (Auth::checkPassword($user, $data->password)) {
                     Auth::signIn($user);
                     $this->redirectHome();
-                } else {
-                    $fail = true;
                 }
-            } else {
-                $fail = true;
             }
-
-            if ($fail) {
-                Validate::$errors["password"][] = "bad email or password";
-            }
+            Validate::$errors["password"][] = "bad email or password";
         }
         return $this->sign_in();
     }
 
-    //#[Post("/admin/register", "auth.register-post")]
-    //public function register_post()
-    //{
-    //    $data = $this->validateRequest([
-    //        "name" => ["required", "string"],
-    //        "email" => ["required", "string", "email"],
-    //        "password" => [
-    //            "required",
-    //            "string",
-    //            "match",
-    //            "min_length=8",
-    //            "uppercase=1",
-    //            "lowercase=1",
-    //            "symbol=1",
-    //        ],
-    //    ]);
-    //    if ($data) {
-    //        $user = User::findByAttribute("email", $data->email);
-    //        if ($user) {
-    //            Validate::$errors["email"][] =
-    //                "this email address is already associated with another user";
-    //        } else {
-    //            $registered = Auth::register([
-    //                "email" => $data->email,
-    //                "name" => $data->name,
-    //                "password" => $data->password,
-    //            ]);
-    //            if ($registered) {
-    //                $user = User::findByAttribute("email", $data->email);
-    //                Auth::signIn($user);
-    //                $this->redirectHome();
-    //            }
-    //        }
-    //    }
-    //    return $this->register();
-    //}
+    #[Post("/admin/register", "auth.register-post")]
+    public function register_post()
+    {
+        if ($_ENV['REGISTER_ENABLED'] != 'true') return $this->register();
+        $data = $this->validateRequest([
+            "name" => ["required", "string"],
+            "email" => ["required", "string", "email"],
+            "password" => [
+                "required",
+                "string",
+                "match",
+                "min_length=8",
+                "uppercase=1",
+                "lowercase=1",
+                "symbol=1",
+            ],
+        ]);
+        if ($data) {
+            $user = User::findByAttribute("email", $data->email);
+            if ($user) {
+                Validate::$errors["email"][] =
+                    "this email address is already associated with another user";
+            } else {
+                $registered = Auth::register([
+                    "email" => $data->email,
+                    "name" => $data->name,
+                    "password" => $data->password,
+                ]);
+                if ($registered) {
+                    $user = User::findByAttribute("email", $data->email);
+                    Auth::signIn($user);
+                    $this->redirectHome();
+                }
+            }
+        }
+        return $this->register();
+    }
 
     private function redirectHome()
     {
