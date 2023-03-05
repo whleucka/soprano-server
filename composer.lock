@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fbca26169e30c42e2344f4c63a0114be",
+    "content-hash": "d522a2e0465f07f7538f947e3bb18d5a",
     "packages": [
         {
             "name": "brick/math",
@@ -885,16 +885,16 @@
         },
         {
             "name": "libra-php/constellation",
-            "version": "dev-main",
+            "version": "v0.0.3.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/libra-php/constellation.git",
-                "reference": "09cc6102eaacb8246cf6a5e0f2f37b0795caf69f"
+                "reference": "1662563a28a0bad6d9a95196cca808abed5e4c89"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/libra-php/constellation/zipball/09cc6102eaacb8246cf6a5e0f2f37b0795caf69f",
-                "reference": "09cc6102eaacb8246cf6a5e0f2f37b0795caf69f",
+                "url": "https://api.github.com/repos/libra-php/constellation/zipball/1662563a28a0bad6d9a95196cca808abed5e4c89",
+                "reference": "1662563a28a0bad6d9a95196cca808abed5e4c89",
                 "shasum": ""
             },
             "require": {
@@ -928,9 +928,9 @@
             "description": "Celestial PHP framework library",
             "support": {
                 "issues": "https://github.com/libra-php/constellation/issues",
-                "source": "https://github.com/libra-php/constellation/tree/main"
+                "source": "https://github.com/libra-php/constellation/tree/v0.0.3-release"
             },
-            "time": "2023-02-15T20:01:53+00:00"
+            "time": "2023-02-15T20:17:10+00:00"
         },
         {
             "name": "nesbot/carbon",

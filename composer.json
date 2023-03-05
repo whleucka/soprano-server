@@ -16,6 +16,6 @@
         }
     ],
     "require": {
-        "libra-php/constellation": "dev-main"
+        "libra-php/constellation": "v0.0.3.x-dev"
     }
 }
