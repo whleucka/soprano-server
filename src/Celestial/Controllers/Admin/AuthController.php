@@ -33,7 +33,7 @@ class AuthController extends BaseController
     #[Get("/admin/register", "auth.register")]
     public function register()
     {
-        return $this->render("admin/auth/register.html");
+        return $this->render("admin/auth/register.html", ['enabled' => $_ENV['REGISTER_ENABLED'] == 'true']);
     }
 
     #[Get("/admin/forgot-password", "auth.forgot-password")]
@@ -58,23 +58,15 @@ class AuthController extends BaseController
             "email" => ["required", "string", "email"],
             "password" => ["required", "string"],
         ]);
-        $fail = false;
         if ($data) {
             $user = User::findByAttribute("email", $data->email);
             if ($user) {
                 if (Auth::checkPassword($user, $data->password)) {
                     Auth::signIn($user);
                     $this->redirectHome();
-                } else {
-                    $fail = true;
                 }
-            } else {
-                $fail = true;
             }
-
-            if ($fail) {
-                Validate::$errors["password"][] = "bad email or password";
-            }
+            Validate::$errors["password"][] = "bad email or password";
         }
         return $this->sign_in();
     }
@@ -82,6 +74,7 @@ class AuthController extends BaseController
     #[Post("/admin/register", "auth.register-post")]
     public function register_post()
     {
+        if ($_ENV['REGISTER_ENABLED'] != 'true') return $this->register();
         $data = $this->validateRequest([
             "name" => ["required", "string"],
             "email" => ["required", "string", "email"],
