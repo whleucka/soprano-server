@@ -81,7 +81,7 @@ class Tracks extends Module
             $genre = implode(', ', explode('|', $datum['genre'])) ?? 'n/a';
             $filesize = $this->formatBytes($datum['filesize'], 1);
             $datum['track_col_1'] = "<div class='track-information flex align-items-center'>
-                <img src='{$datum['cover']}' alt='cover'>
+                <img src='/api/v1/cover/{$md5}/70/70' alt='cover' loading='lazy'>
                 <div class='info'>
                     <div class='flex' title=\"{$datum['artist']}\"><i data-feather='user' width='16' stroke-width='2' class='pr-10'></i> <span class='truncate' style='max-width: 200px'>{$datum['artist']}</span></div>
                     <div class='flex' title=\"{$datum['album']}\"><i data-feather='disc' width='16' stroke-width='2' class='pr-10'></i> <span class='truncate' style='max-width: 200px'>{$datum['album']}</span></div>
