@@ -3,6 +3,7 @@
 namespace Celestial\Controllers\Soprano;
 
 use Celestial\Config\Application;
+use Celestial\Models\Customer;
 use Celestial\Models\Radio;
 use Celestial\Models\Track;
 use Constellation\Controller\Controller as BaseController;
@@ -12,6 +13,31 @@ define("API_PREFIX", "/api/v1");
 
 class SopranoController extends BaseController
 {
+
+    #[Post(API_PREFIX . "/sign-in", "soprano.sign-in", ["api"])]
+    public function sign_in()
+    {
+        $data = $this->validateRequest([
+            "email" => ["required", "string", "email"],
+            "password" => ["required", "string"],
+        ]);
+        if ($data) {
+            $customer = Customer::findByAttribute("email", $data->email);
+            if ($customer) {
+                if (password_verify($data->password, $customer->password)) {
+                    // YAAAAAAA BUDDy, LIGHT WEIGHT BABY!
+                    return [
+                        "payload" => $customer->getAttributes()
+                    ];
+                }
+            }
+        }
+        return [
+            "success" => false,
+            "message" => "Error: bad email and/or password",
+        ];
+    }
+
     #[Get(API_PREFIX . "/music/play/{md5}", "soprano.music-play", ["api"])]
     public function play($md5)
     {
@@ -124,9 +150,13 @@ class SopranoController extends BaseController
         if ($track) {
             $storage_path = Application::$environment['environment_path'];
             $imagick = new \imagick($storage_path . $track->cover);
-            $imagick->setbackgroundcolor('rgb(64, 64, 64)');
-            $imagick->thumbnailImage($height, $width, true, true);
-            header("Content-Type: image/jpg");
+            //crop and resize the image
+            $imagick->cropThumbnailImage($width, $height);
+            //remove the canvas
+            $imagick->setImagePage(0, 0, 0, 0);
+            $imagick->setImageFormat("png");
+
+            header("Content-Type: image/png");
             echo $imagick->getImageBlob();
             exit;
         }

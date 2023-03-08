@@ -3,6 +3,7 @@
 namespace Celestial\Controllers\Admin\Modules;
 
 use Constellation\Module\Module;
+use Constellation\View\Control;
 
 class Tracks extends Module
 {
@@ -35,7 +36,7 @@ class Tracks extends Module
             "cover" => "image",
         ];
         $this->form_columns = [
-            "cover" => "Cover",
+            "md5" => "Cover",
             "artist" => "Artist",
             "album" => "Album",
             "title" => "Title",
@@ -43,7 +44,7 @@ class Tracks extends Module
             "year" => "Year",
         ];
         $this->form_control = [
-            "cover" => "image",
+            "md5" => fn($column, $value) => Control::image("cover", "/api/v1/cover/{$value}/180/180"),
             "artist" => "input",
             "album" => "input",
             "title" => "input",
