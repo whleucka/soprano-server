@@ -29,7 +29,7 @@ return [
         return new Request(
             $_SERVER["REQUEST_URI"],
             $_SERVER["REQUEST_METHOD"],
-            $data,
+            $data ?? [],
         );
     },
     Router::class => DI\autowire()->constructorParameter(
