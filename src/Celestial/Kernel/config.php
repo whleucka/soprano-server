@@ -19,10 +19,17 @@ return [
         ]);
     },
     Request::class => function () {
+        if ($_SERVER["REQUEST_METHOD"] === "GET") {
+            $data = $_GET;
+        } else if ($_SERVER["REQUEST_METHOD"] === "POST") {
+            $data = $_POST;
+        } else {
+            $data = json_decode(file_get_contents('php://input'), true);
+        }
         return new Request(
             $_SERVER["REQUEST_URI"],
             $_SERVER["REQUEST_METHOD"],
-            $_REQUEST
+            $data,
         );
     },
     Router::class => DI\autowire()->constructorParameter(
