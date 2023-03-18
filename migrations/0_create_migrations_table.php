@@ -11,7 +11,7 @@ return new class extends Migration {
         return Schema::create("migrations", function (Blueprint $table) {
             $table->id();
             $table->char("migration_hash", 32);
-            $table->timestamp("ts");
+            $table->timestamp("ts")->default('NOW()');
             $table->primaryKey("id");
         });
     }
