@@ -889,12 +889,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/libra-php/constellation.git",
-                "reference": "1662563a28a0bad6d9a95196cca808abed5e4c89"
+                "reference": "08be0428e8b9af758bceb03fef48a637a737befa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/libra-php/constellation/zipball/1662563a28a0bad6d9a95196cca808abed5e4c89",
-                "reference": "1662563a28a0bad6d9a95196cca808abed5e4c89",
+                "url": "https://api.github.com/repos/libra-php/constellation/zipball/08be0428e8b9af758bceb03fef48a637a737befa",
+                "reference": "08be0428e8b9af758bceb03fef48a637a737befa",
                 "shasum": ""
             },
             "require": {
@@ -928,9 +928,9 @@
             "description": "Celestial PHP framework library",
             "support": {
                 "issues": "https://github.com/libra-php/constellation/issues",
-                "source": "https://github.com/libra-php/constellation/tree/v0.0.3-release"
+                "source": "https://github.com/libra-php/constellation/tree/v0.0.3"
             },
-            "time": "2023-02-15T20:17:10+00:00"
+            "time": "2023-03-18T04:32:43+00:00"
         },
         {
             "name": "nesbot/carbon",

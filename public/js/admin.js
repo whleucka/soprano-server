@@ -78,5 +78,25 @@ profiler.addEventListener("click", (e) => {
   }
 });
 
+// WYSIWYG Editor
+var options = {
+    modules: {
+        toolbar: [
+            [{
+                header: [1, 2, false]
+            }],
+            ['bold', 'italic', 'underline'],
+            ['image', 'code-block']
+        ]
+    },
+    placeholder: 'Type your text here...',
+    theme: 'snow'
+};
+var editor = new Quill('#editor', options);
+editor.on('text-change', function(delta, oldDelta, source) {
+    const text = editor.container.firstChild.innerHTML;
+    document.getElementById('editor-content').value = text;
+});
+
 // Utility
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
