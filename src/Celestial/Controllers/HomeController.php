@@ -3,7 +3,7 @@
 namespace Celestial\Controllers;
 
 use Constellation\Controller\Controller as BaseController;
-use Constellation\Routing\Get;
+use Constellation\Routing\{Post, Get};
 
 class HomeController extends BaseController
 {
@@ -13,6 +13,14 @@ class HomeController extends BaseController
         return $this->render("home/index.html", [
             "greeting" => "Hello, world!",
         ]);
+    }
+
+    #[Post("/api/v1/test", "home.test", ["api"])]
+    public function test()
+    {
+        return [
+            "payload" => "test!!!",
+        ];
     }
 
     #[Get("/api/v1/answer", "home.answer", ["api"])]
