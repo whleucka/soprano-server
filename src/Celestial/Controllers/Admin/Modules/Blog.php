@@ -29,13 +29,16 @@ class Blog extends Module
             'subtitle' => 'Subtitle',
             'slug' => 'Slug',
             'header_image' => 'Header Image',
+            'publish_at' => 'Publish At',
             'content' => 'Content',
         ];
+        $this->form_default['publish_at'] = date("Y-m-d H:i:s");
         $this->form_control = [
             'title' => 'input',
-            'subtitle' => 'input',
+            'subtitle' => 'textarea',
             'slug' => 'input',
             'header_image' => 'file',
+            "publish_at" => "datetime-local",
             'content' => function($column, $value) {
                 return Control::editor($column, $value);
             }

@@ -37,7 +37,8 @@ addEventListener("keyup", (e) => {
       sidebar.style.display = "block";
     }
     return document.getElementById("sidebar-filter").focus();
-  } else if (e.code == "Escape") {
+  } else if (e.code == "Backslash") {
+    document.getElementById("sidebar-filter").value = '';
     sidebar.style.display = sidebar.style.display == "block"
       ? "none"
       : "block";

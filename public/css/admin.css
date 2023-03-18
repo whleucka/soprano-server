@@ -120,7 +120,7 @@ footer #extra-info {
   margin-right: 10px;
 }
 #module-form .form-label {
-  max-width: 140px;
+  max-width: 150px;
 }
 .form-error {
   color: darkred;
@@ -276,8 +276,12 @@ ul.breadcrumb li a:hover {
 /**
  * Inputs
  */
+textarea {
+  width: 240px;
+  height: 100px;
+}
 input {
-  width: 176px;
+  width: 240px;
   height: 25px;
   border-radius: 4px;
   border: 1px solid #aeaeae;
