@@ -66,14 +66,19 @@ ede7e27f30d2# ./celestial -h
 ╚██████╗███████╗███████╗███████╗███████║   ██║   ██║██║  ██║███████╗
  ╚═════╝╚══════╝╚══════╝╚══════╝╚══════╝   ╚═╝   ╚═╝╚═╝  ╚═╝╚══════╝
 Usage: celestial [options...]
--h, --help                  Get help for commands
+h, --help                  Get help for commands
 -p, --port                  Set development server port
 -s, --serve                 Run development server
 --cache-create              Create view cache directory
+--storage-link              Create storage directory and public symlink
+--migration                 Create an empty migration class
+--migration-table           Create an empty migration class new table
+--migration-list            Display all migration files
 --migration-run             Run migration files and call up method
 --migration-fresh           Drop database and call migration-run
 --migration-up=file         Call up method from migration file
 --migration-down=file       Call down method from migration file
+--model                     Create a model class
 ```
 
 
