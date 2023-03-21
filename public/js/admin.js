@@ -37,7 +37,8 @@ addEventListener("keyup", (e) => {
       sidebar.style.display = "block";
     }
     return document.getElementById("sidebar-filter").focus();
-  } else if (e.code == "Escape") {
+  } else if (e.code == "Backslash") {
+    document.getElementById("sidebar-filter").value = '';
     sidebar.style.display = sidebar.style.display == "block"
       ? "none"
       : "block";
@@ -76,6 +77,26 @@ profiler.addEventListener("click", (e) => {
   } else {
     extra_info.style.display = "block";
   }
+});
+
+// WYSIWYG Editor
+var options = {
+    modules: {
+        toolbar: [
+            [{
+                header: [1, 2, false]
+            }],
+            ['bold', 'italic', 'underline'],
+            ['image', 'code-block']
+        ]
+    },
+    placeholder: 'Type your text here...',
+    theme: 'snow'
+};
+var editor = new Quill('#editor', options);
+editor.on('text-change', function(delta, oldDelta, source) {
+    const text = editor.container.firstChild.innerHTML;
+    document.getElementById('editor-content').value = text;
 });
 
 // Utility

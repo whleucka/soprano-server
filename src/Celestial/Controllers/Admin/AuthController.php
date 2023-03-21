@@ -11,7 +11,7 @@ use Exception;
 
 class AuthController extends BaseController
 {
-    public $home_route = "admin.index";
+    public $redirect_route = "admin.index";
 
     /**
      * Views
@@ -111,12 +111,12 @@ class AuthController extends BaseController
 
     private function redirectHome()
     {
-        $route = Router::findRoute($this->home_route);
+        $route = Router::findRoute($this->redirect_route);
         if ($route) {
             $uri = $route->getUri();
             header("Location: $uri");
             exit();
         }
-        throw new Exception("Home route not configured");
+        throw new Exception("Route not configured");
     }
 }

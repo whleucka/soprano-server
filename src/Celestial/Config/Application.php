@@ -24,6 +24,9 @@ class Application
     public static $migrations = [
         "migrations_path" => ROOT . "migrations",
     ];
+    public static $model = [
+        "model_path" => ROOT . "src/Celestial/Models",
+    ];
     public static $view = [
         "view_path" => ROOT . "views",
         "cache_path" => ROOT . "views/.cache",

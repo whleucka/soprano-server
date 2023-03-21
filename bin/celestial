@@ -32,6 +32,7 @@ BANNER;
 $app = new Main(false);
 $db = $app->container->get(DB::class);
 $migrations_path = Application::$migrations["migrations_path"];
+$model_path = Application::$model["model_path"];
 $cache_path = Application::$view["cache_path"];
 
 $shortopts = "";
@@ -45,6 +46,9 @@ $longopts = [
     "port::",
     "cache-create",
     "storage-link",
+    "model::",
+    "migration::",
+    "migration-table::",
     "migration-list",
     "migration-run",
     "migration-fresh",
@@ -77,6 +81,15 @@ foreach ($options as $key => $value) {
             break;
         case "cache-create":
             cacheCreate();
+            break;
+        case "model":
+            createModel($value);
+            break;
+        case "migration":
+            createMigration($value);
+            break;
+        case "migration-table":
+            createMigration($value, true);
             break;
         case "migration-list":
             migrationList();
@@ -138,10 +151,14 @@ Usage: celestial [options...]
 -s, --serve                 Run development server
 --cache-create              Create view cache directory
 --storage-link              Create storage directory and public symlink
+--migration                 Create an empty migration class
+--migration-table           Create an empty migration class new table
+--migration-list            Display all migration files
 --migration-run             Run migration files and call up method
 --migration-fresh           Drop database and call migration-run
 --migration-up=file         Call up method from migration file
 --migration-down=file       Call down method from migration file
+--model                     Create a model class
 
 HELP;
     cprint($help);
@@ -357,4 +374,82 @@ function storageLink()
             cprint(Console::red("Error: couldn't create storage dir: {$storage_dir}"));
         }
     }
+}
+
+function createMigration($name, $table = false) {
+    global $migrations_path;
+    $name = strtolower($name);
+    $migration_table=<<<MIGRATION
+<?php
+namespace Celestial\Migrations;
+
+use Constellation\Database\Blueprint;
+use Constellation\Database\Migration;
+use Constellation\Database\Schema;
+
+return new class extends Migration {
+    public function up()
+    {
+        return Schema::create("{name}", function (Blueprint \$table) {
+        });
+    }
+
+    public function down()
+    {
+        return Schema::drop("{name}");
+    }
+};
+MIGRATION;
+    $migration=<<<MIGRATION
+<?php
+namespace Celestial\Migrations;
+
+use Constellation\Database\Migration;
+use Constellation\Database\Schema;
+
+return new class extends Migration {
+    public function up()
+    {
+    }
+
+    public function down()
+    {
+    }
+};
+MIGRATION;
+    $epoch = time();
+    if ($table) {
+        $migration = str_replace('{name}', $name, $migration_table);
+        $filename =  $migrations_path . "/{$epoch}_{$name}_table.php";
+        file_put_contents($filename, $migration);
+    } else {
+        $filename =  $migrations_path . "/{$epoch}_{$name}.php";
+        file_put_contents($filename, $migration);
+    }
+}
+
+function createModel($name)
+{
+    global $model_path;
+    $name = strtolower($name);
+    $model=<<<MIGRATION
+<?php
+
+namespace Celestial\Models;
+
+use Constellation\Model\Model;
+
+class {name} extends Model
+{
+    public function __construct(?array \$id = null)
+    {
+        parent::__construct("{table}", ["id"], \$id);
+    }
+}
+MIGRATION;
+    $model = str_replace('{table}', $name, $model);
+    $name = ucfirst($name);
+    $model = str_replace('{name}', $name, $model);
+    $filename =  $model_path . "/{$name}.php";
+    file_put_contents($filename, $model);
 }
