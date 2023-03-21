@@ -3,9 +3,7 @@
 namespace Celestial\Controllers\Soprano;
 
 use Celestial\Config\Application;
-use Celestial\Models\Customer;
-use Celestial\Models\Radio;
-use Celestial\Models\Track;
+use Celestial\Models\{Customer,Radio,Track,TrackLikes};
 use Constellation\Controller\Controller as BaseController;
 use Constellation\Routing\{Post, Get};
 
@@ -35,6 +33,38 @@ class SopranoController extends BaseController
         return [
             "success" => false,
             "message" => "Error: bad email and/or password",
+        ];
+    }
+
+    #[Post(API_PREFIX . "/like/{md5}", "soprano.like", ["api"])]
+    public function like($md5)
+    {
+        // Make sure track exists
+        $track = Track::findByAttribute("md5", $md5);
+        if (!$track) {
+            return [
+                "success" => false,
+                "message" => "Error: track doesn't exist",
+            ];
+        }
+        // User uuid valdiation
+        $request = $this->validateRequest([
+            "uuid" => [
+                "required",
+            ]
+        ]);
+        if ($request) {
+            // Technically, anyone could like a song if they know your uuid
+            // This should be improved
+            // Decide if this is a 'like' or 'unlike'
+            //
+            // Testing composite keys
+            $like = new TrackLikes([$request->uuid, $track->md5]);
+            // Do something?
+        }
+        return [
+            "success" => false,
+            "message" => "Error: user doesn't exist",
         ];
     }
 

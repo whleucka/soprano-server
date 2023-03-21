@@ -8,21 +8,24 @@ use Constellation\Database\Schema;
 return new class extends Migration {
     public function up()
     {
-        return Schema::create("playlists", function (Blueprint $table) {
+        return Schema::create("track_likes", function (Blueprint $table) {
             $table->id();
-            $table->uuid("uuid");
-            $table->varchar("name");
             $table->unsignedBigInteger("customer_id");
-            $table->timestamps();
+            $table->unsignedBigInteger("track_id");
             $table->primaryKey("id");
             $table->foreignKey("customer_id")
               ->references("customers", "id")
               ->onDelete("CASCADE");
+            $table->foreignKey("track_id")
+              ->references("tracks", "id")
+              ->onDelete("CASCADE");
+            $table->unique("customer_id,track_id");
         });
     }
 
     public function down()
     {
-        return Schema::drop("playlists");
+        return Schema::drop("track_likes");
     }
 };
+
