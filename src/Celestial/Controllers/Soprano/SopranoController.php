@@ -23,7 +23,6 @@ class SopranoController extends BaseController
             $customer = Customer::findByAttribute("email", $data->email);
             if ($customer) {
                 if (password_verify($data->password, $customer->password)) {
-                    // YAAAAAAA BUDDy, LIGHT WEIGHT BABY!
                     return [
                         "payload" => $customer->getAttributes()
                     ];
@@ -33,6 +32,26 @@ class SopranoController extends BaseController
         return [
             "success" => false,
             "message" => "Error: bad email and/or password",
+        ];
+    }
+
+    #[Post(API_PREFIX . "/customer/load", "soprano.customer-load", ["api"])]
+    public function customer_load()
+    {
+        $data = $this->validateRequest([
+            "uuid" => ["required"],
+        ]);
+        if ($data) {
+            $customer = Customer::findByAttribute("uuid", $data->uuid);
+            if ($customer) {
+                return [
+                    "payload" => $customer->getAttributes()
+                ];
+            }
+        }
+        return [
+            "success" => false,
+            "message" => "Error: bad uuid",
         ];
     }
 
