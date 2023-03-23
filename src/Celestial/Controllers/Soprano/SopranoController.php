@@ -55,6 +55,7 @@ class SopranoController extends BaseController
         ];
     }
 
+    // Toggle a track 'like' or 'un-like'
     #[Post(API_PREFIX . "/like/{md5}", "soprano.like", ["api"])]
     public function like($md5)
     {
@@ -73,12 +74,31 @@ class SopranoController extends BaseController
             ]
         ]);
         if ($request) {
-            // Technically, anyone could like a song if they know your uuid
-            // This should be improved
-            // Decide if this is a 'like' or 'unlike'
-            //
-            // Testing composite keys
-            $like = new TrackLikes([$request->uuid, $track->md5]);
+            $customer = Customer::findByAttribute("uuid", $request->uuid);
+            if (!$customer) {
+                return [
+                    "success" => false,
+                    "message" => "Error: customer doesn't exist",
+                ];
+            }
+
+            $like = new TrackLikes([$customer->id, $track->id]);
+            if ($like->isLoaded()) {
+                // We should 'un-like'
+                $like->delete();
+                return [
+                    "payload" => ['like' => false],
+                ];
+            } else {
+                // 'like' the track
+                $like->create(['customer_id' => $customer->id, 'track_id' => $track->id]);
+                return [
+                    "payload" => ['like' => true],
+                ];
+            }
+            return [
+                "payload" => $like->getAttributes()
+            ];
             // Do something?
         }
         return [
@@ -86,6 +106,54 @@ class SopranoController extends BaseController
             "message" => "Error: user doesn't exist",
         ];
     }
+
+    // Is a track liked?
+    // #[Post(API_PREFIX . "/liked/{md5}", "soprano.liked", ["api"])]
+    // public function liked($md5)
+    // {
+    //     // Make sure track exists
+    //     $track = Track::findByAttribute("md5", $md5);
+    //     if (!$track) {
+    //         return [
+    //             "success" => false,
+    //             "message" => "Error: track doesn't exist",
+    //         ];
+    //     }
+    //     // User uuid valdiation
+    //     $request = $this->validateRequest([
+    //         "uuid" => [
+    //             "required",
+    //         ]
+    //     ]);
+    //     if ($request) {
+    //         $customer = Customer::findByAttribute("uuid", $request->uuid);
+    //         if (!$customer) {
+    //             return [
+    //                 "success" => false,
+    //                 "message" => "Error: customer doesn't exist",
+    //             ];
+    //         }
+
+    //         $like = new TrackLikes([$customer->id, $track->id]);
+    //         if ($like->isLoaded()) {
+    //             return [
+    //                 "payload" => ['like' => true],
+    //             ];
+    //         } else {
+    //             return [
+    //                 "payload" => ['like' => false],
+    //             ];
+    //         }
+    //         return [
+    //             "payload" => $like->getAttributes()
+    //         ];
+    //         // Do something?
+    //     }
+    //     return [
+    //         "success" => false,
+    //         "message" => "Error: user doesn't exist",
+    //     ];
+    // }
 
     #[Get(API_PREFIX . "/music/play/{md5}", "soprano.music-play", ["api"])]
     public function play($md5)
@@ -100,17 +168,28 @@ class SopranoController extends BaseController
         ];
     }
 
-    #[Get(API_PREFIX . "/music/search", "soprano.music-search", ["api"])]
+    #[Post(API_PREFIX . "/music/search", "soprano.music-search", ["api"])]
     public function music_search()
     {
         $request = $this->validateRequest([
             "term" => [
                 "required",
-            ]
+            ],
         ]);
         if ($request) {
+            $customer_id = 99999;
+            if ($request->uuid != 'null') {
+                $customer = Customer::findByAttribute("uuid", $request->uuid);
+                if (!$customer) {
+                    return [
+                        "success" => false,
+                        "message" => "Error: customer doesn't exist",
+                    ];
+                }
+                $customer_id = $customer->id;
+            }
             $tracks = $this->db
-                ->selectMany("SELECT id,
+                ->selectMany("SELECT tracks.id,
                         md5,
                         filesize,
                         filenamepath,
@@ -126,8 +205,9 @@ class SopranoController extends BaseController
                         genre,
                         year,
                         CONCAT('".$_ENV['SERVER_URL']."', cover) as cover,
-                        CONCAT('".$_ENV['SERVER_URL']."/api/v1/music/play/', md5) as src
-                    FROM tracks
+                        CONCAT('".$_ENV['SERVER_URL']."/api/v1/music/play/', md5) as src,
+                        IF(track_likes.id > 0, 1, 0) as liked
+                    FROM tracks LEFT JOIN track_likes ON track_id = tracks.id AND customer_id = {$customer_id}
                     WHERE artist LIKE ? OR
                     album LIKE ? OR
                     title LIKE ? OR
