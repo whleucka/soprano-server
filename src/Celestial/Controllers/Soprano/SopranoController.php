@@ -6,6 +6,7 @@ use Celestial\Config\Application;
 use Celestial\Models\{Customer,Radio,Track,TrackLikes};
 use Constellation\Controller\Controller as BaseController;
 use Constellation\Routing\{Post, Get};
+use Exception;
 
 define("API_PREFIX", "/api/v1");
 
@@ -52,6 +53,86 @@ class SopranoController extends BaseController
         return [
             "success" => false,
             "message" => "Error: bad uuid",
+        ];
+    }
+
+    #[Post(API_PREFIX . "/liked/count", "soprano.liked-count", ["api"])]
+    public function liked_count()
+    {
+        // User uuid valdiation
+        $request = $this->validateRequest([
+            "uuid" => [
+                "required",
+            ]
+        ]);
+        if ($request) {
+            $customer = Customer::findByAttribute("uuid", $request->uuid);
+            if (!$customer) {
+                return [
+                    "success" => false,
+                    "message" => "Error: customer doesn't exist",
+                ];
+            }
+            $count = $this->db->selectVar("SELECT ifnull(count(*), 0)
+                FROM tracks
+                INNER JOIN track_likes ON track_id = tracks.id
+                WHERE customer_id = ?", $customer->id);
+            return [
+                "payload" => $count
+            ];
+        }
+        return [
+            "success" => false,
+            "message" => "Error: user is required",
+        ];
+    }
+
+    #[Post(API_PREFIX . "/liked/playlist", "soprano.liked-playlist", ["api"])]
+    public function liked_playlist()
+    {
+        // User uuid valdiation
+        $request = $this->validateRequest([
+            "uuid" => [
+                "required",
+            ]
+        ]);
+        if ($request) {
+            $customer = Customer::findByAttribute("uuid", $request->uuid);
+            if (!$customer) {
+                return [
+                    "success" => false,
+                    "message" => "Error: customer doesn't exist",
+                ];
+            }
+            $tracks = $this->db->selectMany("SELECT tracks.id,
+                md5,
+                filesize,
+                filenamepath,
+                file_format,
+                mime_type,
+                bitrate,
+                playtime_seconds,
+                playtime_string,
+                track_number,
+                artist,
+                title,
+                album,
+                genre,
+                year,
+                CONCAT('".$_ENV['SERVER_URL']."', cover) as cover,
+                CONCAT('".$_ENV['SERVER_URL']."/api/v1/music/play/', md5) as src,
+                1 as liked
+                FROM tracks
+                INNER JOIN track_likes ON track_id = tracks.id
+                WHERE customer_id = ?
+                ORDER BY artist, album, track_number", $customer->id);
+            return [
+                "payload" => $tracks
+            ];
+        }
+        return [
+            "success" => false,
+            "message" => "Error: user is required",
         ];
     }
 
@@ -103,57 +184,9 @@ class SopranoController extends BaseController
         }
         return [
             "success" => false,
-            "message" => "Error: user doesn't exist",
+            "message" => "Error: user is required",
         ];
     }
-
-    // Is a track liked?
-    // #[Post(API_PREFIX . "/liked/{md5}", "soprano.liked", ["api"])]
-    // public function liked($md5)
-    // {
-    //     // Make sure track exists
-    //     $track = Track::findByAttribute("md5", $md5);
-    //     if (!$track) {
-    //         return [
-    //             "success" => false,
-    //             "message" => "Error: track doesn't exist",
-    //         ];
-    //     }
-    //     // User uuid valdiation
-    //     $request = $this->validateRequest([
-    //         "uuid" => [
-    //             "required",
-    //         ]
-    //     ]);
-    //     if ($request) {
-    //         $customer = Customer::findByAttribute("uuid", $request->uuid);
-    //         if (!$customer) {
-    //             return [
-    //                 "success" => false,
-    //                 "message" => "Error: customer doesn't exist",
-    //             ];
-    //         }
-
-    //         $like = new TrackLikes([$customer->id, $track->id]);
-    //         if ($like->isLoaded()) {
-    //             return [
-    //                 "payload" => ['like' => true],
-    //             ];
-    //         } else {
-    //             return [
-    //                 "payload" => ['like' => false],
-    //             ];
-    //         }
-    //         return [
-    //             "payload" => $like->getAttributes()
-    //         ];
-    //         // Do something?
-    //     }
-    //     return [
-    //         "success" => false,
-    //         "message" => "Error: user doesn't exist",
-    //     ];
-    // }
 
     #[Get(API_PREFIX . "/music/play/{md5}", "soprano.music-play", ["api"])]
     public function play($md5)
@@ -175,6 +208,9 @@ class SopranoController extends BaseController
             "term" => [
                 "required",
             ],
+            "type" => [
+                "required",
+            ],
         ]);
         if ($request) {
             $customer_id = 99999;
@@ -188,38 +224,8 @@ class SopranoController extends BaseController
                 }
                 $customer_id = $customer->id;
             }
-            $tracks = $this->db
-                ->selectMany("SELECT tracks.id,
-                        md5,
-                        filesize,
-                        filenamepath,
-                        file_format,
-                        mime_type,
-                        bitrate,
-                        playtime_seconds,
-                        playtime_string,
-                        track_number,
-                        artist,
-                        title,
-                        album,
-                        genre,
-                        year,
-                        CONCAT('".$_ENV['SERVER_URL']."', cover) as cover,
-                        CONCAT('".$_ENV['SERVER_URL']."/api/v1/music/play/', md5) as src,
-                        IF(track_likes.id > 0, 1, 0) as liked
-                    FROM tracks LEFT JOIN track_likes ON track_id = tracks.id AND customer_id = {$customer_id}
-                    WHERE artist LIKE ? OR
-                    album LIKE ? OR
-                    title LIKE ? OR
-                    genre LIKE ? OR
-                    year LIKE ? OR
-                    CONCAT(artist, ' ', album) LIKE ? OR
-                    CONCAT(album, ' ', title) LIKE ? OR
-                    filenamepath LIKE ?
-                    ORDER BY artist, album, track_number",
-                    ...array_fill(0, 8, "%{$request->term}%"));
             return [
-                "payload" => $tracks,
+                "payload" => Track::fuzzy($request->type, $request->term, $customer_id),
             ];
         }
         return [
@@ -277,17 +283,21 @@ class SopranoController extends BaseController
         $width = intval($width);
         $height = intval($height);
         if ($track) {
-            $storage_path = Application::$environment['environment_path'];
-            $imagick = new \imagick($storage_path . $track->cover);
-            //crop and resize the image
-            $imagick->cropThumbnailImage($width, $height);
-            //remove the canvas
-            $imagick->setImagePage(0, 0, 0, 0);
-            $imagick->setImageFormat("png");
+            try {
+                $storage_path = Application::$environment['environment_path'];
+                $imagick = new \imagick($storage_path . $track->cover);
+                //crop and resize the image
+                $imagick->cropThumbnailImage($width, $height);
+                //remove the canvas
+                $imagick->setImagePage(0, 0, 0, 0);
+                $imagick->setImageFormat("png");
 
-            header("Content-Type: image/png");
-            echo $imagick->getImageBlob();
-            exit;
+                header("Content-Type: image/png");
+                echo $imagick->getImageBlob();
+                exit;
+            } catch (Exception $ex) {
+                // No errors in log
+            }
         }
         return [
             "success" => false,
