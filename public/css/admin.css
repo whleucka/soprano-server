@@ -235,7 +235,6 @@ ul.breadcrumb li a:hover {
 }
 
 .alerts strong {
-  font-size: 1.2rem;
   margin-right: 10px;
 }
 
@@ -259,6 +258,13 @@ ul.breadcrumb li a:hover {
 }
 .alerts .warning strong {
   color: #ffb53d;
+}
+.alerts .database {
+  border-left-color: rebeccapurple !important;
+  background-color: #fff2fa;
+}
+.alerts .database strong {
+  color: rebeccapurple;
 }
 .alerts .info {
   border-left-color: royalblue !important;
