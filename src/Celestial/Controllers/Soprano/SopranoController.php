@@ -5,7 +5,7 @@ namespace Celestial\Controllers\Soprano;
 use Celestial\Config\Application;
 use Celestial\Models\{Customer,Radio,Track,TrackLikes};
 use Constellation\Controller\Controller as BaseController;
-use Constellation\Routing\{Post, Get};
+use Constellation\Routing\{Post, Get, Options};
 use Exception;
 
 define("API_PREFIX", "/api/v1");
@@ -32,10 +32,11 @@ class SopranoController extends BaseController
         }
         return [
             "success" => false,
-            "message" => "Error: bad email and/or password",
+            "message" => "bad email and/or password",
         ];
     }
 
+    #[Options(API_PREFIX . "/customer/load", "soprano.customer-load", ["api"])]
     #[Post(API_PREFIX . "/customer/load", "soprano.customer-load", ["api"])]
     public function customer_load()
     {
@@ -52,7 +53,7 @@ class SopranoController extends BaseController
         }
         return [
             "success" => false,
-            "message" => "Error: bad uuid",
+            "message" => "unknown user",
         ];
     }
 
@@ -70,7 +71,7 @@ class SopranoController extends BaseController
             if (!$customer) {
                 return [
                     "success" => false,
-                    "message" => "Error: customer doesn't exist",
+                    "message" => "customer doesn't exist",
                 ];
             }
             $count = $this->db->selectVar("SELECT ifnull(count(*), 0)
@@ -83,7 +84,7 @@ class SopranoController extends BaseController
         }
         return [
             "success" => false,
-            "message" => "Error: user is required",
+            "message" => "unknown user",
         ];
     }
 
@@ -101,7 +102,7 @@ class SopranoController extends BaseController
             if (!$customer) {
                 return [
                     "success" => false,
-                    "message" => "Error: customer doesn't exist",
+                    "message" => "customer doesn't exist",
                 ];
             }
             $tracks = $this->db->selectMany("SELECT tracks.id,
@@ -132,7 +133,7 @@ class SopranoController extends BaseController
         }
         return [
             "success" => false,
-            "message" => "Error: user is required",
+            "message" => "unknown user",
         ];
     }
 
@@ -145,7 +146,7 @@ class SopranoController extends BaseController
         if (!$track) {
             return [
                 "success" => false,
-                "message" => "Error: track doesn't exist",
+                "message" => "track doesn't exist",
             ];
         }
         // User uuid valdiation
@@ -159,7 +160,7 @@ class SopranoController extends BaseController
             if (!$customer) {
                 return [
                     "success" => false,
-                    "message" => "Error: customer doesn't exist",
+                    "message" => "customer doesn't exist",
                 ];
             }
 
@@ -180,11 +181,10 @@ class SopranoController extends BaseController
             return [
                 "payload" => $like->getAttributes()
             ];
-            // Do something?
         }
         return [
             "success" => false,
-            "message" => "Error: user is required",
+            "message" => "unknown user",
         ];
     }
 
@@ -197,10 +197,11 @@ class SopranoController extends BaseController
         }
         return [
             "success" => false,
-            "message" => "Error: track doesn't exist",
+            "message" => "track doesn't exist",
         ];
     }
 
+    #[Options(API_PREFIX . "/music/search", "soprano.music-search", ["api"])]
     #[Post(API_PREFIX . "/music/search", "soprano.music-search", ["api"])]
     public function music_search()
     {
@@ -219,21 +220,22 @@ class SopranoController extends BaseController
                 if (!$customer) {
                     return [
                         "success" => false,
-                        "message" => "Error: customer doesn't exist",
+                        "message" => "customer doesn't exist",
                     ];
                 }
                 $customer_id = $customer->id;
             }
             return [
-                "payload" => Track::fuzzy($request->type, $request->term, $customer_id),
+                "payload" => Track::search($request->type, $request->term, $customer_id),
             ];
         }
         return [
             "success" => false,
-            "message" => "Error: term is required",
+            "message" => "term is required",
         ];
     }
 
+    #[Options(API_PREFIX . "/radio/stations", "soprano.radio-stations", ["api"])]
     #[Get(API_PREFIX . "/radio/stations", "soprano.radio-stations", ["api"])]
     public function radio_stations()
     {
@@ -271,11 +273,12 @@ class SopranoController extends BaseController
         }
         return [
             "success" => false,
-            "message" => "Error: url is required",
+            "message" => "url is required",
         ];
     }
 
 
+    #[Options(API_PREFIX . "/cover/{md5}/{width}/{height}", "soprano.radio-parse", ["api"])]
     #[Get(API_PREFIX . "/cover/{md5}/{width}/{height}", "soprano.radio-parse", ["api"])]
     public function thumbnail($md5, $width, $height)
     {
@@ -292,7 +295,9 @@ class SopranoController extends BaseController
                 $imagick->setImagePage(0, 0, 0, 0);
                 $imagick->setImageFormat("png");
 
+                header("Access-Control-Allow-Origin: *");
                 header("Content-Type: image/png");
+                header("Expires: 0");
                 echo $imagick->getImageBlob();
                 exit;
             } catch (Exception $ex) {
@@ -301,7 +306,7 @@ class SopranoController extends BaseController
         }
         return [
             "success" => false,
-            "message" => "Error: track doesn't exist",
+            "message" => "track doesn't exist",
         ];
     }
 }

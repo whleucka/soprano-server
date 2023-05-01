@@ -15,7 +15,7 @@ class Track extends Model
         parent::__construct("tracks", ["id"], $id);
     }
 
-    public static function fuzzy(string $type, string $term, int $customer_id)
+    public static function search(string $type, string $term, int $customer_id)
     {
         $db = DB::getInstance();
         return $db->selectMany("SELECT tracks.id,
@@ -36,9 +36,9 @@ class Track extends Model
                 CONCAT('".$_ENV['SERVER_URL']."', cover) as cover,
                 CONCAT('".$_ENV['SERVER_URL']."/api/v1/music/play/', md5) as src,
                 IF(track_likes.id > 0, 1, 0) as liked
-            FROM tracks LEFT JOIN track_likes ON track_id = tracks.id AND customer_id = {$customer_id}
+            FROM tracks LEFT JOIN track_likes ON track_id = tracks.id AND customer_id = ?
             WHERE {$type} LIKE ?
-            ORDER BY artist, album, track_number", "%{$term}%");
+            ORDER BY artist, album, track_number", $customer_id, "%{$term}%");
     }
 
     public function play()
