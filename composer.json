@@ -1,24 +1,24 @@
 {
-    "name": "libra-php/celestial",
-    "description": "A PHP framework",
-    "type": "project",
-    "license": "MIT",
-    "autoload": {
-        "psr-4": {
-            "Celestial\\": "src/Celestial",
-            "Celestial\\Migrations\\": "migrations"
-        }
-    },
-    "authors": [
-        {
-            "name": "William Hleucka",
-            "email": "william.hleucka@gmail.com"
-        }
-    ],
-    "require": {
-        "libra-php/constellation": "v0.0.3.x-dev",
-        "james-heinrich/getid3": "^1.9",
-        "php-ffmpeg/php-ffmpeg": "^0.19.0",
-        "php-ffmpeg/extras": "^0.3.1"
+  "name": "libra-php/celestial",
+  "description": "A PHP framework",
+  "type": "project",
+  "license": "MIT",
+  "autoload": {
+    "psr-4": {
+      "Celestial\\": "src/Celestial",
+      "Celestial\\Migrations\\": "migrations"
     }
+  },
+  "authors": [
+    {
+      "name": "William Hleucka",
+      "email": "william.hleucka@gmail.com"
+    }
+  ],
+  "require": {
+    "libra-php/constellation": "v0.0.4.x-dev",
+    "james-heinrich/getid3": "^1.9",
+    "php-ffmpeg/php-ffmpeg": "^0.19.0",
+    "php-ffmpeg/extras": "^0.3.1"
+  }
 }

@@ -9,3 +9,4 @@ composer-prod.json
 composer-dev.json
 storage/
 public/rss/
+docker/mysql/*

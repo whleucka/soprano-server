@@ -1,4 +1,4 @@
-version: '3'
+version: "3"
 
 networks:
   celestial:
@@ -29,7 +29,13 @@ services:
     volumes:
       - ./:/var/www/html
       - ./docker/mysql:/var/lib/mysql
-    command: ['mysqld', '--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci', '--sql-mode=STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION']
+    command:
+      [
+        "mysqld",
+        "--character-set-server=utf8mb4",
+        "--collation-server=utf8mb4_unicode_ci",
+        "--sql-mode=STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION",
+      ]
     environment:
       MYSQL_ROOT_PASSWORD: ${DB_PASSWORD:?err}
       SERVICE_TAGS: dev
@@ -45,6 +51,7 @@ services:
     restart: unless-stopped
     volumes:
       - ./:/var/www/html
+      - ${MUSIC_DIRECTORY:?err}:/music
     ports:
       - "9000:9000"
     networks:

@@ -7,7 +7,7 @@ define("ROOT", __DIR__ . "/../../../");
 class Application
 {
     public static $soprano = [
-        "music_path" => "/mnt/data/Music",
+        "music_path" => "/music",
     ];
     public static $allowed_origins = [
         "domains" => [
