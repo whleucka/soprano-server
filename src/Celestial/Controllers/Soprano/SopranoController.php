@@ -244,8 +244,9 @@ class SopranoController extends BaseController
         foreach ($radio_stations as $station) {
             $stations[] = $station->getAttributes();
         }
+        uasort($stations, fn ($a, $b) => $a['location'] <=> $b['location']);
         return [
-            "payload" => $stations
+            "payload" => array_values($stations)
         ];
     }
 
