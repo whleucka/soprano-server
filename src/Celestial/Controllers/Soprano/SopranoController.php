@@ -3,7 +3,7 @@
 namespace Celestial\Controllers\Soprano;
 
 use Celestial\Config\Application;
-use Celestial\Models\{Customer,Radio,Track,TrackLikes};
+use Celestial\Models\{Customer, Radio, Track, TrackLikes};
 use Constellation\Controller\Controller as BaseController;
 use Constellation\Routing\{Post, Get, Options};
 use Exception;
@@ -120,8 +120,8 @@ class SopranoController extends BaseController
                 album,
                 genre,
                 year,
-                CONCAT('".$_ENV['SERVER_URL']."', cover) as cover,
-                CONCAT('".$_ENV['SERVER_URL']."/api/v1/music/play/', md5) as src,
+                CONCAT('" . $_ENV['SERVER_URL'] . "', cover) as cover,
+                CONCAT('" . $_ENV['SERVER_URL'] . "/api/v1/music/play/', md5) as src,
                 1 as liked
                 FROM tracks
                 INNER JOIN track_likes ON track_id = tracks.id
@@ -302,6 +302,8 @@ class SopranoController extends BaseController
                 exit;
             } catch (Exception $ex) {
                 // No errors in log
+                print("imagick error: check logs " . $ex->getMessage());
+                exit;
             }
         }
         return [
