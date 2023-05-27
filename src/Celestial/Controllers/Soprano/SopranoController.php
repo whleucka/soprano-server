@@ -215,7 +215,7 @@ class SopranoController extends BaseController
         ]);
         if ($request) {
             $customer_id = 99999;
-            if ($request->uuid != 'null') {
+            if ($request->uuid !== 'null' && $request->uuid) {
                 $customer = Customer::findByAttribute("uuid", $request->uuid);
                 if (!$customer) {
                     return [

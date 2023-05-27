@@ -14,7 +14,6 @@ class Radio extends Module
         $this->name_col = "id";
         $this->table = "radio";
         $this->table_columns = [
-            "id" => "ID",
             "station_name" => "Station Name",
             "location" => "Location",
             "created_at" => "Created",
@@ -42,4 +41,3 @@ class Radio extends Module
         parent::__construct("radio");
     }
 }
-
