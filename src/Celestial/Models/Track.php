@@ -91,11 +91,11 @@ class Track extends Model
                 ->setAudioKiloBitrate($bitrate);
             try {
                 $audio->save($format, $md5_file);
+                error_log("Transcode file: {$md5_file}");
             } catch (Exception $e) {
                 error_log('Transcode error: ' . $e->getMessage());
             }
         }
-        error_log("Transcode file: {$md5_file}");
         return $md5_file;
     }
 }
