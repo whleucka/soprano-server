@@ -1,5 +1,4 @@
 # Soprano Server
-[![PHP Composer](https://github.com/libra-php/constellation/actions/workflows/php.yml/badge.svg?branch=main)](https://github.com/libra-php/constellation/actions/workflows/php.yml)
 
 ![image](https://user-images.githubusercontent.com/71740767/235468526-9a0eb8bb-886b-49d2-8b6f-85d8e5e8d53a.png)
 
