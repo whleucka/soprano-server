@@ -1,0 +1,33 @@
+{
+    "name": "libra-php/constellation",
+    "description": "Celestial PHP framework library",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Constellation\\": "src/Constellation"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Constellation\\Tests\\": "tests/"
+        }
+    },
+    "authors": [
+        {
+            "name": "William Hleucka",
+            "email": "william.hleucka@gmail.com"
+        }
+    ],
+    "require": {
+        "php-di/php-di": "^6.4",
+        "composer/composer": "^2.3",
+        "twig/twig": "^3.0",
+        "vlucas/phpdotenv": "^5.4",
+        "ramsey/uuid": "^4.3",
+        "nesbot/carbon": "^2.62"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9"
+    }
+}

@@ -1,5 +1,4 @@
 vendor/
-constellation/
 .env
 node_modules/
 public/assets/

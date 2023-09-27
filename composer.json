@@ -16,9 +16,15 @@
     }
   ],
   "require": {
-    "libra-php/constellation": "v0.0.4.x-dev",
+    "libra-php/constellation": "dev-main",
     "james-heinrich/getid3": "^1.9",
     "php-ffmpeg/php-ffmpeg": "^0.19.0",
     "php-ffmpeg/extras": "^0.3.1"
-  }
+  },
+  "repositories": [
+    {
+        "type": "path",
+        "url": "./constellation"
+    }
+  ]
 }
