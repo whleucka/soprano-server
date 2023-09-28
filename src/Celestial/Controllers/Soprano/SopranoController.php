@@ -279,6 +279,26 @@ class SopranoController extends BaseController
     }
 
 
+    #[Options(API_PREFIX . "/image", "soprano.image", ["api"])]
+    #[Get(API_PREFIX . "/image", "soprano.image", ["api"])]
+    public function image()
+    {
+
+        $request = $this->validateRequest([
+            "url" => [
+                "required",
+            ]
+        ]);
+        if ($request) {
+            $image_url = $request->url;
+            $content = file_get_contents($image_url);
+            if ($content !== false) {
+                header("Access-Control-Allow-Origin: *");
+                echo $content;
+            }
+        }
+    }
+
     #[Options(API_PREFIX . "/cover/{md5}/{width}/{height}", "soprano.radio-parse", ["api"])]
     #[Get(API_PREFIX . "/cover/{md5}/{width}/{height}", "soprano.radio-parse", ["api"])]
     public function thumbnail($md5, $width, $height)
@@ -292,6 +312,8 @@ class SopranoController extends BaseController
                 $expires = 60 * 60 * 24 * 30; // about a month
                 header("Cache-Control: public, max-age={$expires}");
                 header("Expires: " . gmdate('D, d M Y H:i:s', time() + $expires) . ' GMT');
+                header("Access-Control-Allow-Origin: *");
+                header("Content-Type: image/png");
 
                 $storage_path = Application::$environment['environment_path'];
                 $cache_directory = "/tmp/";
@@ -303,8 +325,6 @@ class SopranoController extends BaseController
                 // Check if the cached image exists.
                 if (file_exists($cache_filepath)) {
                     // Serve the cached image.
-                    header("Access-Control-Allow-Origin: *");
-                    header("Content-Type: image/png");
                     readfile($cache_filepath);
                     exit;
                 }
@@ -319,8 +339,6 @@ class SopranoController extends BaseController
 
                 // Save the resized image to the cache directory.
                 $imagick->writeImage($cache_filepath);
-                header("Access-Control-Allow-Origin: *");
-                header("Content-Type: image/png");
                 echo $imagick->getImageBlob();
                 exit;
             } catch (Exception $ex) {
