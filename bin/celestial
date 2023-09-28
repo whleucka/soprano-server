@@ -373,6 +373,8 @@ function storageLink()
         } else {
             cprint(Console::red("Error: couldn't create storage dir: {$storage_dir}"));
         }
+    } elseif (file_exists($storage_dir) && file_exists($public_storage)) {
+        cprint(Console::green("Storage dir and symlink exists."));
     }
 }
 
