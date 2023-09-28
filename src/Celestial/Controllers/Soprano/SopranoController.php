@@ -288,7 +288,27 @@ class SopranoController extends BaseController
         $height = intval($height);
         if ($track) {
             try {
+                // Set headers
+                $expires = 60 * 60 * 24 * 30; // about a month
+                header("Cache-Control: public, max-age={$expires}");
+                header("Expires: " . gmdate('D, d M Y H:i:s', time() + $expires) . ' GMT');
+
                 $storage_path = Application::$environment['environment_path'];
+                $cache_directory = "/tmp/";
+
+                // Generate a unique cache filename based on the parameters.
+                $cache_filename = md5($md5 . $width . $height) . '.png';
+                $cache_filepath = $cache_directory . $cache_filename;
+
+                // Check if the cached image exists.
+                if (file_exists($cache_filepath)) {
+                    // Serve the cached image.
+                    header("Access-Control-Allow-Origin: *");
+                    header("Content-Type: image/png");
+                    readfile($cache_filepath);
+                    exit;
+                }
+
                 $imagick = new \imagick($storage_path . $track->cover);
                 //crop and resize the image
                 $imagick->cropThumbnailImage($width, $height);
@@ -296,9 +316,11 @@ class SopranoController extends BaseController
                 $imagick->setImagePage(0, 0, 0, 0);
                 $imagick->setImageFormat("png");
 
+
+                // Save the resized image to the cache directory.
+                $imagick->writeImage($cache_filepath);
                 header("Access-Control-Allow-Origin: *");
                 header("Content-Type: image/png");
-                header("Expires: 0");
                 echo $imagick->getImageBlob();
                 exit;
             } catch (Exception $ex) {
