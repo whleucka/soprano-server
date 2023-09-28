@@ -18,27 +18,49 @@ class Track extends Model
     public static function search(string $type, string $term, int $customer_id)
     {
         $db = DB::getInstance();
-        return $db->selectMany("SELECT tracks.id,
-                md5,
-                filesize,
-                filenamepath,
-                file_format,
-                mime_type,
-                bitrate,
-                playtime_seconds,
-                playtime_string,
-                track_number,
-                artist,
-                title,
-                album,
-                genre,
-                year,
-                CONCAT('".$_ENV['SERVER_URL']."', cover) as cover,
-                CONCAT('".$_ENV['SERVER_URL']."/api/v1/music/play/', md5) as src,
-                IF(track_likes.id > 0, 1, 0) as liked
-            FROM tracks LEFT JOIN track_likes ON track_id = tracks.id AND customer_id = ?
-            WHERE {$type} LIKE ?
-            ORDER BY artist, album, track_number", $customer_id, "%{$term}%");
+        return $type === "all"
+            ? $db->selectMany("SELECT tracks.id,
+                    md5,
+                    filesize,
+                    filenamepath,
+                    file_format,
+                    mime_type,
+                    bitrate,
+                    playtime_seconds,
+                    playtime_string,
+                    track_number,
+                    artist,
+                    title,
+                    album,
+                    genre,
+                    year,
+                    CONCAT('" . $_ENV['SERVER_URL'] . "', cover) as cover,
+                    CONCAT('" . $_ENV['SERVER_URL'] . "/api/v1/music/play/', md5) as src,
+                    IF(track_likes.id > 0, 1, 0) as liked
+                FROM tracks LEFT JOIN track_likes ON track_id = tracks.id AND customer_id = ?
+                WHERE (title LIKE ?) OR (artist LIKE ?) OR (album LIKE ?) OR (genre LIKE ?)
+                ORDER BY artist, album, track_number", $customer_id, "%{$term}%", "%{$term}%", "%{$term}%", "%{$term}%")
+            : $db->selectMany("SELECT tracks.id,
+                    md5,
+                    filesize,
+                    filenamepath,
+                    file_format,
+                    mime_type,
+                    bitrate,
+                    playtime_seconds,
+                    playtime_string,
+                    track_number,
+                    artist,
+                    title,
+                    album,
+                    genre,
+                    year,
+                    CONCAT('" . $_ENV['SERVER_URL'] . "', cover) as cover,
+                    CONCAT('" . $_ENV['SERVER_URL'] . "/api/v1/music/play/', md5) as src,
+                    IF(track_likes.id > 0, 1, 0) as liked
+                FROM tracks LEFT JOIN track_likes ON track_id = tracks.id AND customer_id = ?
+                WHERE {$type} LIKE ?
+                ORDER BY artist, album, track_number", $customer_id, "%{$term}%");
     }
 
     public function play()
