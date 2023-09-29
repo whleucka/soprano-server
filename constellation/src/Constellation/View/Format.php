@@ -67,7 +67,9 @@ class Format
         if (is_null($value)) return;
         if (strlen($value) > 25) {
             $part = substr($value, 0, 25);
-            return "<div class='flex align-items-center'><span class='show-more mr-5'>{$part}...</span><button onClick='this.parentElement.innerHTML = \"{$value}\";'>More</button></div><span class='value'></span>";
+            return "<div class='flex align-items-center'>
+                <span class='show-more mr-5 w-100'>{$part}...</span> <button class='float-right' onClick='this.parentElement.innerHTML = \"{$value}\";'>More</button>
+            </div>";
         }
     }
 }

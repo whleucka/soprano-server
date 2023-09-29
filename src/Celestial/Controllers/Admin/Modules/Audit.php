@@ -5,6 +5,7 @@ namespace Celestial\Controllers\Admin\Modules;
 use Constellation\Alerts\Flash;
 use Constellation\Authentication\Auth;
 use Constellation\Module\Module;
+use Celestial\Models\Audit as AuditModel;
 
 class Audit extends Module
 {
@@ -68,5 +69,11 @@ class Audit extends Module
                 Flash::addFlash("info", "Undo action can only be triggered on records where message = UPDATE or UNDO");
             }
         }
+    }
+
+    protected function hasActionPermission($id): bool
+    {
+        $record = AuditModel::find([$id]);
+        return in_array($record->message, ["UNDO", "UPDATE"]);
     }
 }
