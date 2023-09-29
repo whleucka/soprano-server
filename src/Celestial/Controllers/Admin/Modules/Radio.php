@@ -37,7 +37,7 @@ class Radio extends Module
         $this->validate = [
             "location" => fn($col_name, $value) => strpos($value, ',') !== false,
             "station_name" => ["required"],
-            "src_url" => ["required", "reg_ex=\.m3u8"],
+            "src_url" => ["required"],
         ];
         Validate::$messages["reg_ex"] = "Source URL must be .m3u8";
         Validate::$messages["location"] = "Location must be formatted with commas. Eg) City, Province, Country";

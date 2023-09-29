@@ -18,6 +18,8 @@ use PDOException;
 
 class Module
 {
+    // The user
+    protected $user;
     // The database wrapper
     protected DB $db;
     // Show table new button
@@ -649,6 +651,7 @@ class Module
                     "image" => Format::image($column, $value),
                     "datetime" => Format::dateTime($column, $value),
                     "datetime-local" => Format::dateTimeLocal($column, $value),
+                    "show-more" => Format::showMore($column, $value),
                     default => Format::default($column, $value),
                 };
             }
