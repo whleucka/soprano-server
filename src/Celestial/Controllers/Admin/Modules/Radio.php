@@ -2,14 +2,13 @@
 
 namespace Celestial\Controllers\Admin\Modules;
 
-use Constellation\Authentication\Auth;
 use Constellation\Module\Module;
+use Constellation\Validation\Validate;
 
 class Radio extends Module
 {
     public function __construct()
     {
-        $this->user = Auth::user();
         $this->title = "Radio";
         $this->name_col = "id";
         $this->table = "radio";
@@ -34,10 +33,14 @@ class Radio extends Module
             "src_url" => "input",
             "cover_url" => "input",
         ];
+        // testing location custom validate
         $this->validate = [
+            "location" => fn($col_name, $value) => strpos($value, ',') !== false,
             "station_name" => ["required"],
-            "src_url" => ["required"],
+            "src_url" => ["required", "reg_ex=\.m3u8"],
         ];
+        Validate::$messages["reg_ex"] = "Source URL must be .m3u8";
+        Validate::$messages["location"] = "Location must be formatted with commas. Eg) City, Province, Country";
         parent::__construct("radio");
     }
 }

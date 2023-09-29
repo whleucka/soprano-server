@@ -48,6 +48,22 @@ class Validate
     {
         foreach ($request_rules as $request_item => $ruleset) {
             $value = $data[$request_item] ?? null;
+            if (is_callable($ruleset)) {
+                // Custom validation rule
+                $result = $ruleset($request_item, $value);
+                if (!$result) {
+                    if (!isset(self::$messages[$request_item])) {
+                        self::$messages[$request_item] = "%field is invalid";
+                    }
+                    self::addError($request_item, [
+                        "%rule" => $request_item,
+                        "%rule_extra" => "",
+                        "%field" => $request_item,
+                        "%value" => $value,
+                    ]);
+                }
+                continue;
+            }
             foreach ($ruleset as $rule_raw) {
                 $rule_split = explode("=", $rule_raw);
                 $rule = $rule_split[0];
@@ -63,6 +79,7 @@ class Validate
                     "lowercase" => self::isLowercase($value, $extra),
                     "symbol" => self::isSymbol($value, $extra),
                     "reg_ex" => self::regEx($value, $extra),
+                    default => throw new \Exception("Unknown validation rule: {$rule}")
                 };
                 if (!$result) {
                     self::addError($rule, [
