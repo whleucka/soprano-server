@@ -193,6 +193,7 @@ class SopranoController extends BaseController
     {
         $track = Track::findByAttribute("md5", $md5);
         if ($track) {
+            header("Access-Control-Allow-Origin: *");
             $track->play();
         }
         return [
@@ -239,14 +240,12 @@ class SopranoController extends BaseController
     #[Get(API_PREFIX . "/radio/stations", "soprano.radio-stations", ["api"])]
     public function radio_stations()
     {
-        $radio_stations = Radio::findAll();
-        $stations = [];
-        foreach ($radio_stations as $station) {
-            $stations[] = $station->getAttributes();
-        }
-        uasort($stations, fn ($a, $b) => $a['location'] <=> $b['location']);
+        $stations = $this->db
+        ->selectMany("SELECT * 
+            FROM radio 
+            ORDER BY location, station_name");
         return [
-            "payload" => array_values($stations)
+            "payload" => $stations
         ];
     }
 
