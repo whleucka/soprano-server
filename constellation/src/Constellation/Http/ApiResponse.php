@@ -23,6 +23,8 @@ class ApiResponse implements IResponse
             } else {
                 header("Access-Control-Allow-Origin: *");
             }
+        } else {
+            die("giving up");
         }
     }
 

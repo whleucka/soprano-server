@@ -3,7 +3,7 @@
 namespace Celestial\Controllers\Soprano;
 
 use Celestial\Config\Application;
-use Celestial\Models\{Customer, Radio, Track, TrackLikes};
+use Celestial\Models\{Customer, Playlist, Radio, Track, TrackLikes};
 use Constellation\Controller\Controller as BaseController;
 use Constellation\Routing\{Post, Get, Options};
 use Exception;
@@ -50,6 +50,55 @@ class SopranoController extends BaseController
                     "payload" => $customer->getAttributes()
                 ];
             }
+        }
+        return [
+            "success" => false,
+            "message" => "unknown user",
+        ];
+    }
+
+    #[Get(API_PREFIX . "/music/playlists", "soprano-playlist-get", ["api"])]
+    public function playlists(): array
+    {
+        $request = $this->validateRequest([
+            "uuid" => [
+                "required",
+            ]
+        ]);
+        if ($request) {
+            $customer = Customer::findByAttribute("uuid", $request->uuid);
+            $playlists = $this->db
+                ->selectMany("SELECT *
+                    FROM playlists
+                    WHERE customer_id = ?
+                    ORDER BY name", $customer->id);
+            return [
+                "payload" => $playlists
+            ];
+        }
+        return [
+            "success" => false,
+            "message" => "unknown user",
+        ];
+    }
+
+    #[Get(API_PREFIX . "/music/playlist/{playlist_id}", "soprano-playlist-get", ["api"])]
+    public function playlist($playlist_id): array
+    {
+        $request = $this->validateRequest([
+            "uuid" => [
+                "required",
+            ]
+        ]);
+        if ($request) {
+            $tracks = $this->db
+                ->selectMany("SELECT *
+                    FROM playlist_tracks
+                    LEFT JOIN tracks ON tracks.id = track_id
+                    WHERE playlist_id = ?", $playlist_id);
+            return [
+                "payload" => $tracks
+            ];
         }
         return [
             "success" => false,
@@ -141,14 +190,6 @@ class SopranoController extends BaseController
     #[Post(API_PREFIX . "/like/{md5}", "soprano.like", ["api"])]
     public function like($md5)
     {
-        // Make sure track exists
-        $track = Track::findByAttribute("md5", $md5);
-        if (!$track) {
-            return [
-                "success" => false,
-                "message" => "track doesn't exist",
-            ];
-        }
         // User uuid valdiation
         $request = $this->validateRequest([
             "uuid" => [
@@ -156,6 +197,14 @@ class SopranoController extends BaseController
             ]
         ]);
         if ($request) {
+            // Make sure track exists
+            $track = Track::findByAttribute("md5", $md5);
+            if (!$track) {
+                return [
+                    "success" => false,
+                    "message" => "track doesn't exist",
+                ];
+            }
             $customer = Customer::findByAttribute("uuid", $request->uuid);
             if (!$customer) {
                 return [
@@ -241,8 +290,8 @@ class SopranoController extends BaseController
     public function radio_stations()
     {
         $stations = $this->db
-        ->selectMany("SELECT * 
-            FROM radio 
+        ->selectMany("SELECT *
+            FROM radio
             ORDER BY location, station_name");
         return [
             "payload" => $stations
@@ -328,18 +377,24 @@ class SopranoController extends BaseController
                     exit;
                 }
 
-                $imagick = new \imagick($storage_path . $track->cover);
-                //crop and resize the image
-                $imagick->cropThumbnailImage($width, $height);
-                //remove the canvas
-                $imagick->setImagePage(0, 0, 0, 0);
-                $imagick->setImageFormat("png");
-
-
-                // Save the resized image to the cache directory.
-                $imagick->writeImage($cache_filepath);
-                echo $imagick->getImageBlob();
-                exit;
+                $filepath = $storage_path . $track->cover;
+                if (file_exists($filepath)) {
+                    $imagick = new \imagick($storage_path . $track->cover);
+                    //crop and resize the image
+                    $imagick->cropThumbnailImage($width, $height);
+                    //remove the canvas
+                    $imagick->setImagePage(0, 0, 0, 0);
+                    $imagick->setImageFormat("png");
+                    // Save the resized image to the cache directory.
+                    $imagick->writeImage($cache_filepath);
+                    echo $imagick->getImageBlob();
+                    exit;
+                } else {
+                    // Serve the
+                    $no_album = $storage_path . "/public/img/no-album.png";
+                    readfile($no_album);
+                    exit;
+                }
             } catch (Exception $ex) {
                 // No errors in log
                 print("imagick error: check logs " . $ex->getMessage());
