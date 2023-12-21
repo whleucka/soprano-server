@@ -326,6 +326,48 @@ class SopranoController extends BaseController
         ];
     }
 
+    #[Options(API_PREFIX . "/music/albums", "soprano.music-albums", ["api"])]
+    #[Get(API_PREFIX . "/music/albums", "soprano.music-albums", ["api"])]
+    public function music_albums()
+    {
+        $albums = $this->db
+        ->selectMany("SELECT distinct(album)
+            FROM tracks
+            ORDER BY album
+            LIMIT 500");
+        return [
+            "payload" => $albums
+        ];
+    }
+
+    #[Options(API_PREFIX . "/music/artists", "soprano.music-artists", ["api"])]
+    #[Get(API_PREFIX . "/music/artists", "soprano.music-artists", ["api"])]
+    public function music_artists()
+    {
+        $artists = $this->db
+        ->selectMany("SELECT distinct(artist)
+            FROM tracks
+            ORDER BY artist
+            LIMIT 500");
+        return [
+            "payload" => $artists
+        ];
+    }
+
+    #[Options(API_PREFIX . "/music/genres", "soprano.music-genres", ["api"])]
+    #[Get(API_PREFIX . "/music/genres", "soprano.music-genres", ["api"])]
+    public function music_genres()
+    {
+        $genres = $this->db
+        ->selectMany("SELECT distinct(genre)
+            FROM tracks
+            ORDER BY genre
+            LIMIT 500");
+        return [
+            "payload" => $genres
+        ];
+    }
+
 
     #[Options(API_PREFIX . "/image", "soprano.image", ["api"])]
     #[Get(API_PREFIX . "/image", "soprano.image", ["api"])]

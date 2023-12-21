@@ -94,7 +94,10 @@ class Scan
         );
         foreach ($music_files as $music_file) {
             list($filenamepath) = $music_file;
-            $files[] = $filenamepath;
+            $track = $this->db->selectOne("SELECT * FROM tracks WHERE filenamepath = ?", $filenamepath);
+            if (!$track) {
+                $files[] = $filenamepath;
+            }
         }
         sort($files);
         return $files;
